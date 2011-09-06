@@ -1,0 +1,111 @@
+#labels Phase-Requirements
+==Histórias==
+*[US01]*<br>
+*Como*: Desenvolvedor
+<br>
+*Desejo*: Gerar Descrição do sistema
+<br>
+*Para com isso*: Gerar os diagramas.
+<br>
+*Critérios de Aceitação*: Texto descritivo da visão geral do sistema no wiki.
+
+*[US02]*<br>
+*Como*:Desenvolvedor
+<br>
+*Desejo*: Gerar os casos de uso.
+<br>
+*Para com isso*: Gerar documentação necessária para a implementação.
+<br>
+*Critérios de Aceitação*: Casos de uso revisados pela professora.
+
+*[US03]*<br>
+*Como*: Desenvolvedor
+<br>
+*Desejo*: Gerar diagrama de atividades.
+<br>
+*Para com isso*: Gerar documentação necessária para a implementação.
+<br>
+*Critérios de Aceitação*: Diagrama de atividades revisados pela professora.
+
+*[US04]*<br>
+*Como*: Desenvolvedor
+<br>
+*Desejo*: Gerar modelo do banco de dados.
+<br>
+*Para com isso*: Gerar documentação necessária para contrução do banco.
+<br>
+*Critérios de Aceitação*: Modelo ER revisado.
+
+
+*[US05]*<br>
+*Como*: Administrador do sistema.
+<br>
+*Desejo*: Que cada funcionário tenha acesso ao seu escopo do pedido.
+<br>
+*Para com isso*:  Facilitar a usabilidade e permitir controle ao acesso de dados.
+<br>
+*Critérios de Aceitação*: Sistema de autenticação completo.
+
+*[US06]*<br>
+*Como*: Cliente ou Funcionário.
+<br>
+*Desejo*: Verificar o status do pedido.
+<br>
+*Para com isso*: Verificar um possível atraso.
+<br>
+*Critérios de Aceitação*: Interface de estado do pedido funcional.
+
+*[US07]*<br>
+*Como*: Cliente.
+<br>
+*Desejo*: Cadastrar dados pessoais.
+<br>
+*Para com isso*: Realizar pedido online.
+<br>
+*Critérios de Aceitação*: Interface de acesso do sistema funcional.
+
+*[US08]*<br>
+*Como*: Cliente.
+<br>
+*Desejo*: Inserir no sistema dados do pedido.
+<br>
+*Para com isso*:  Realizar Pedido.
+<br>
+*Critérios de Aceitação*: Sistema de pedidos funcional.
+
+*[US09]*<br>	
+*Como*: Cliente.
+<br>
+*Desejo*: Realizar pagamento.
+<br>
+*Para com isso*:  Finalizar a compra.
+<br>
+*Critérios de Aceitação*: Sistema de pagamento funcional.(Não há certeza de que será 100% implementado).
+
+*[US10]*<br>
+*Como*: Funcionário.
+<br>
+*Desejo*: Gerar relatório de vendas do mês/dia.
+<br>
+*Para com isso*: Visualizar os dados.
+<br>
+*Critérios de Aceitação*: Tabela de dados gerada na tela.
+
+*[US11]*<br>
+*Como*: Funcionário.
+<br>
+*Desejo*: Alterar estado do pedido.
+<br>
+*Para com isso*: Entregar tarefa pronta.
+<br>
+*Critérios de Aceitação*: Acesso ao sistema por funcionários funcional.
+
+*[US]*<br>
+*Como*:
+<br>
+*Desejo*:
+<br>
+*Para com isso*:
+<br>
+*Critérios de Aceitação*:
+
