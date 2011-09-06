@@ -47,7 +47,7 @@
 *Critérios de Aceitação*: Sistema de autenticação completo.
 
 *[US06]*<br>
-*Como*: Cliente ou Funcionário.
+*Como*: Cliente ou Funcionário autorizado.
 <br>
 *Desejo*: Verificar o status do pedido.
 <br>
@@ -62,7 +62,7 @@
 <br>
 *Para com isso*: Realizar pedido online.
 <br>
-*Critérios de Aceitação*: Interface de acesso do sistema funcional.
+*Critérios de Aceitação*: Interface de cadastro do sistema funcional.
 
 *[US08]*<br>
 *Como*: Cliente.
@@ -71,7 +71,7 @@
 <br>
 *Para com isso*:  Realizar Pedido.
 <br>
-*Critérios de Aceitação*: Sistema de pedidos funcional.
+*Critérios de Aceitação*:Interface de pedidos funcional.
 
 *[US09]*<br>	
 *Como*: Cliente.
@@ -80,10 +80,10 @@
 <br>
 *Para com isso*:  Finalizar a compra.
 <br>
-*Critérios de Aceitação*: Sistema de pagamento funcional.(Não há certeza de que será 100% implementado).
+*Critérios de Aceitação*: Interface e Sistema de pagamento funcional.(Não há certeza de que será 100% implementado).
 
 *[US10]*<br>
-*Como*: Funcionário.
+*Como*: Funcionário autorizado(gerente).
 <br>
 *Desejo*: Gerar relatório de vendas do mês/dia.
 <br>
@@ -96,9 +96,9 @@
 <br>
 *Desejo*: Alterar estado do pedido.
 <br>
-*Para com isso*: Entregar tarefa pronta.
+*Para com isso*: Passar o pedido à proxima etapa.
 <br>
-*Critérios de Aceitação*: Acesso ao sistema por funcionários funcional.
+*Critérios de Aceitação*: Interfaces dos diferentes tipos de funcionarios funcional.
 
 *[US]*<br>
 *Como*:
@@ -108,4 +108,3 @@
 *Para com isso*:
 <br>
 *Critérios de Aceitação*:
-
