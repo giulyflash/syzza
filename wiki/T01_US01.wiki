@@ -1,0 +1,13 @@
+#labels Phase-Requirements
+==Tarefa 01 ==
+
+==Gerar descrição geral do sistema==
+
+*Responsável:* Gabriel/Jonathan
+<br>
+*Complexidade:* 2
+<br>
+*Prioridade:* 1
+<br>
+*Iniciada:* 29/09/11
+*Finalizada:*
