@@ -1,0 +1,12 @@
+==Tarefa 12 ==
+
+==Montar Diagrama de Classes do sistema==
+
+*Responsável:* Gabriel/Jonathan
+<br>
+*Complexidade:* 6
+<br>
+*Prioridade:* 1
+<br>
+*Iniciada:* 05/09/11
+*Finalizada:*
