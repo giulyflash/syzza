@@ -1,12 +1,12 @@
 ==Tarefa 02 ==
 
-==Nome da Tarefa  ==
+==Montar Diagrama de Casos de Uso==
 
-*Responsável:*
+*Responsável:*Jonathan
 <br>
-*Complexidade:* 
+*Complexidade:* 3
 <br>
-*Prioridade:*
+*Prioridade:*1
 <br>
-*Iniciada:*
+*Iniciada:*29/09/11
 *Finalizada:*
