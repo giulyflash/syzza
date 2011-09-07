@@ -1,12 +1,12 @@
 ==Tarefa 06 ==
 
-==Nome da Tarefa  ==
+==Criar interface de listagem de pedidos e respectivos estados(status)==
 
-*Responsável:*
+*Responsável:*Gabriel/Jonathan
 <br>
-*Complexidade:* 
+*Complexidade:* 3
 <br>
-*Prioridade:*
+*Prioridade:* 3
 <br>
 *Iniciada:*
 *Finalizada:*
