@@ -1,12 +1,12 @@
 ==Tarefa 03 ==
 
-==Nome da Tarefa  ==
+==Montar Diagrade de Atividade  ==
 
-*Responsável:*
+*Responsável:* Gabriel/Jonathan
 <br>
-*Complexidade:* 
+*Complexidade:* 4
 <br>
-*Prioridade:*
+*Prioridade:* 1 
 <br>
-*Iniciada:*
+*Iniciada:* 29/09/11
 *Finalizada:*
