@@ -36,6 +36,14 @@
 <br>
 *Critérios de Aceitação*: Modelo ER revisado.
 
+*[US12]*<br>
+*Como*: Desenvolvedor
+<br>
+*Desejo*: Gerar Diagrama de Classes
+<br>
+*Para com isso*: Possuir uma visão geral do código do sistema.
+<br>
+*Critérios de Aceitação*: Diagrama de Classes revisado pela professora.
 
 *[US05]*<br>
 *Como*: Administrador do sistema.
