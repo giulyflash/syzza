@@ -1,12 +1,12 @@
 ==Tarefa 08 ==
 
-==Nome da Tarefa  ==
+==Criar interface de cadastro de novos pedidos==
 
-*Responsável:*
+*Responsável:* Gabriel/Jonathan
 <br>
-*Complexidade:* 
+*Complexidade:* 4
 <br>
-*Prioridade:*
+*Prioridade:* 3
 <br>
 *Iniciada:*
 *Finalizada:*
