@@ -1,12 +1,38 @@
 ==Tarefa 09 ==
 
-==Nome da Tarefa  ==
+==Criar interface de pagamento de pedido==
 
 *Responsável:*
 <br>
 *Complexidade:* 
 <br>
 *Prioridade:*
+<br>
+*Iniciada:*
+*Finalizada:*
+
+==Tarefa 09/2 ==
+
+==Estudar sistemas de compras online(web services)==
+
+*Responsável:* Gabriel/Jonathan
+<br>
+*Complexidade:* 5
+<br>
+*Prioridade:* 5
+<br>
+*Iniciada:*
+*Finalizada:*
+
+==Tarefa 09/3 ==
+
+==Disponibilizar interface funcional de compras==
+
+*Responsável:* Gabriel/Jonathan
+<br>
+*Complexidade:* 7
+<br>
+*Prioridade:* 6
 <br>
 *Iniciada:*
 *Finalizada:*
