@@ -2,11 +2,11 @@
 
 ==Montar Diagrama de Casos de Uso==
 
-*Responsável:*Jonathan
+*Responsável:* Jonathan
 <br>
 *Complexidade:* 3
 <br>
-*Prioridade:*1
+*Prioridade:* 1
 <br>
-*Iniciada:*29/09/11
+*Iniciada:* 29/08/11
 *Finalizada:*
