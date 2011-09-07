@@ -1,6 +1,6 @@
 ==Tarefa 11==
 
-==Montar interfaces especifica para funcionários alterarem os estados dos pedidos==
+==Montar interfaces específica para funcionários alterarem os estados dos pedidos==
 
 *Responsável:* Gabriel/Jonathan
 <br>
