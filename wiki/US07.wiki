@@ -1,12 +1,12 @@
 ==Tarefa 07 ==
 
-==Nome da Tarefa  ==
+==Criar interface de cadastro para novos clientes==
 
-*Responsável:*
+*Responsável:* Gabriel/Jonathan
 <br>
-*Complexidade:* 
+*Complexidade:* 2
 <br>
-*Prioridade:*
+*Prioridade:* 4
 <br>
 *Iniciada:*
 *Finalizada:*
