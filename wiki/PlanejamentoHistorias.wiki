@@ -99,12 +99,3 @@
 *Para com isso*: Passar o pedido à proxima etapa.
 <br>
 *Critérios de Aceitação*: Interfaces dos diferentes tipos de funcionarios funcional.
-
-*[US]*<br>
-*Como*:
-<br>
-*Desejo*:
-<br>
-*Para com isso*:
-<br>
-*Critérios de Aceitação*:
