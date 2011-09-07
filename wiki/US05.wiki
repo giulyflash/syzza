@@ -1,12 +1,12 @@
 ==Tarefa 05 ==
 
-==Nome da Tarefa  ==
+==Criar interface de login no sistema ==
 
-*Responsável:*
+*Responsável:* Gabriel/Jonatan
 <br>
-*Complexidade:* 
+*Complexidade:* 2
 <br>
-*Prioridade:*
+*Prioridade:* 3
 <br>
 *Iniciada:*
 *Finalizada:*
