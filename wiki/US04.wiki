@@ -1,12 +1,12 @@
 ==Tarefa 04 ==
 
-==Nome da Tarefa  ==
+==Montar modelo ER do banco de dados==
 
-*Responsável:*
+*Responsável:* Gabriel/Jonathan
 <br>
-*Complexidade:* 
+*Complexidade:* 2
 <br>
-*Prioridade:*
+*Prioridade:* 2
 <br>
-*Iniciada:*
+*Iniciada:* 01/09/11
 *Finalizada:*
