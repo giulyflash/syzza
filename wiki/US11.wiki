@@ -1,12 +1,12 @@
 ==Tarefa 11==
 
-==Nome da Tarefa  ==
+==Montar interfaces especifica para funcionários alterarem os estados dos pedidos==
 
-*Responsável:*
+*Responsável:* Gabriel/Jonathan
 <br>
-*Complexidade:* 
+*Complexidade:* 4
 <br>
-*Prioridade:*
+*Prioridade:* 2
 <br>
 *Iniciada:*
 *Finalizada:*
