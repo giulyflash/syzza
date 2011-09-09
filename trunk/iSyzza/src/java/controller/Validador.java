@@ -77,6 +77,7 @@ public class Validador extends HttpServlet {
         int ok = val.validar();
         RequestDispatcher view;
         if (ok == 1) {
+            request.setAttribute("login", login);
             request.setAttribute("senha", senha);
             view = request.getRequestDispatcher("home.jsp");
         }
