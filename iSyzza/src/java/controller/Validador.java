@@ -4,7 +4,6 @@
  */
 package controller;
 
-import Model.Validacao;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
@@ -70,25 +69,8 @@ public class Validador extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        String login = request.getParameter("login");
-        String senha = request.getParameter("senha");
-        Validacao val = new Validacao(login, senha);
-        int ok = val.validar();
-        RequestDispatcher view;
-        if (ok == 1) {
-            request.setAttribute("login", login);
-            request.setAttribute("senha", senha);
-            view = request.getRequestDispatcher("home.jsp");
-        }
-        else {
-            request.setAttribute("status", 0);
-            view = request.getRequestDispatcher("index.jsp"); 
-        }
-        
-        view.forward(request, response);
     }
-
+        
     /** 
      * Returns a short description of the servlet.
      * @return a String containing servlet description
