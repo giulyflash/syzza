@@ -32,7 +32,7 @@
                     <p>
                         <label for="login">
                             <span>Login: </span>
-                            <input type="email" id="login" value="" name="login" required>
+                            <input type="text" id="login" value="" name="login" required>
                         </label>
                     </p>
                     <p>
@@ -41,6 +41,7 @@
                             <input type="password" id="senha" value="" name="senha" required>
                         </label>
                     </p>
+                    <p>Para se cadastrar <a href="cadastro.jsp">Clique aqui.</a></p>
                     <p>
                         <input type="submit">
                         <input type="reset">
