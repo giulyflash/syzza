@@ -12,6 +12,11 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>iSyzza</title>
+        <style type="text/css">
+            #erro {
+                color: red;
+            }
+        </style>
     </head>
     <body>
         <header><h1>Login</h1></header>
@@ -20,13 +25,12 @@
                 Integer status = (Integer)request.getAttribute("status");
                 
                 if (status != null) {
-                    out.println(status + 1);
                     out.println("<div id=\"erro\">");
                     out.print("<span>Login ou senha errados!</span>");
                     out.println("</div>");
                 }
             %>
-            <form id="form-login" name="form-login" method="post" action="vl.do">
+            <form id="form-login" name="form-login" method="post" action="login.do">
                 <fieldset>
                     <legend>Faça seu Login</legend>
                     <p>

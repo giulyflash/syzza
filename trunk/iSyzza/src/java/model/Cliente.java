@@ -14,31 +14,35 @@ public class Cliente {
     
     private int id;
     private String nome;
-    private String login;
+    private String email;
     private String senha;
+    private String telefone;
     private String endereco;
     private Date data;
 
     public static final int ID = 1;
     public static final int NOME = 2;
-    public static final int LOGIN = 3;
+    public static final int EMAIL = 3;
     public static final int SENHA = 4;
-    public static final int ENDERECO = 5;
-    public static final int DATA = 6;
+    public static final int TELEFONE = 5;
+    public static final int ENDERECO = 6;
+    public static final int DATA = 7;
     
-    public Cliente(int id, String nome, String login, String senha, String endereco, Date data) {
+    public Cliente(int id, String nome, String email, String senha, String telefone, String endereco, Date data) {
         this.id = id;
         this.nome = nome;
-        this.login = login;
+        this.email = email;
         this.senha = senha;
+        this.telefone = telefone;
         this.endereco = endereco;
         this.data = data;
     }
 
-    public Cliente(String nome, String login, String senha, String endereco, Date data) {
+    public Cliente(String nome, String email, String senha, String telefone, String endereco, Date data) {
         this.nome = nome;
-        this.login = login;
+        this.email = email;
         this.senha = senha;
+        this.telefone = telefone;
         this.endereco = endereco;
         this.data = data;
     }
@@ -54,6 +58,14 @@ public class Cliente {
         this.data = data;
     }
 
+    public String getTelefone() {
+        return telefone;
+    }
+    
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
+    
     public String getEndereco() {
         return endereco;
     }
@@ -70,12 +82,12 @@ public class Cliente {
         this.id = id;
     }
 
-    public String getLogin() {
-        return login;
+    public String getEmail() {
+        return email;
     }
 
-    public void setLogin(String login) {
-        this.login = login;
+    public void setLogin(String email) {
+        this.email = email;
     }
 
     public String getNome() {
@@ -109,10 +121,13 @@ public class Cliente {
         if ((this.nome == null) ? (other.nome != null) : !this.nome.equals(other.nome)) {
             return false;
         }
-        if ((this.login == null) ? (other.login != null) : !this.login.equals(other.login)) {
+        if ((this.email == null) ? (other.email != null) : !this.email.equals(other.email)) {
             return false;
         }
         if ((this.senha == null) ? (other.senha != null) : !this.senha.equals(other.senha)) {
+            return false;
+        }
+        if ((this.telefone == null) ? (other.telefone != null) : !this.telefone.equals(other.telefone)) {
             return false;
         }
         if ((this.endereco == null) ? (other.endereco != null) : !this.endereco.equals(other.endereco)) {
@@ -129,8 +144,9 @@ public class Cliente {
         int hash = 5;
         hash = 79 * hash + this.id;
         hash = 79 * hash + (this.nome != null ? this.nome.hashCode() : 0);
-        hash = 79 * hash + (this.login != null ? this.login.hashCode() : 0);
+        hash = 79 * hash + (this.email != null ? this.email.hashCode() : 0);
         hash = 79 * hash + (this.senha != null ? this.senha.hashCode() : 0);
+        hash = 79 * hash + (this.telefone != null ? this.telefone.hashCode() : 0);
         hash = 79 * hash + (this.endereco != null ? this.endereco.hashCode() : 0);
         hash = 79 * hash + (this.data != null ? this.data.hashCode() : 0);
         return hash;
@@ -138,7 +154,7 @@ public class Cliente {
 
     @Override
     public String toString() {
-        return "Cliente{" + "id=" + id + ", nome=" + nome + ", login=" + login + ", senha=" + senha + ", endereco=" + endereco + ", data=" + data + '}';
+        return "Cliente{" + "id=" + id + ", nome=" + nome + ", login=" + email + ", senha=" + senha + ", telefone=" + telefone + ", endereco=" + endereco + ", data=" + data + '}';
     }
     
 }
