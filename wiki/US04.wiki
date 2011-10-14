@@ -9,4 +9,6 @@
 *Prioridade:* 2
 <br>
 *Iniciada:* 01/09/11
-*Finalizada:*
+*Finalizada:* 30/09/2011
+*Observações:* Modelo ER disponivel para download.
+<a href="http://code.google.com/p/syzza/downloads/detail?name=modeloer2.pdf&can=2&q=#makechanges">Aqui</a>
