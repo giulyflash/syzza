@@ -25,10 +25,11 @@ public class ClienteDAO {
     
     public static final int ID = 1;
     public static final int NOME = 2;
-    public static final int LOGIN = 3;
+    public static final int EMAIL = 3;
     public static final int SENHA = 4;
     public static final int ENDERECO = 5;
-    public static final int DATA = 6;
+    public static final int TELEFONE = 6;
+    public static final int DATA = 7;
     
     private static HashMap dados;
     
@@ -46,10 +47,11 @@ public class ClienteDAO {
             String sql = loadSQL("Insert.Cliente");
             PreparedStatement pstmt = conexao.prepareStatement(sql);
             pstmt.setString(1, cliente.getNome());
-            pstmt.setString(2, cliente.getLogin());
+            pstmt.setString(2, cliente.getEmail());
             pstmt.setString(3, cliente.getSenha());
-            pstmt.setString(4, cliente.getEndereco());
-            pstmt.setDate(5, new java.sql.Date(cliente.getData().getTime()));
+            pstmt.setString(4, cliente.getTelefone());
+            pstmt.setString(5, cliente.getEndereco());
+            pstmt.setDate(6, new java.sql.Date(cliente.getData().getTime()));
             pstmt.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -71,11 +73,12 @@ public class ClienteDAO {
             rs.next();
             int id = rs.getInt("idcliente");
             String nome = rs.getString("nome");
-            String login = rs.getString("login");
+            String email = rs.getString("email");
             String senha = rs.getString("senha");
+            String telefone = rs.getString("telefone");
             String endereco = rs.getString("endereco");
             Date data = rs.getDate("dataCadastro");
-            cliente = new Cliente(id, nome, login, senha, endereco, data);
+            cliente = new Cliente(id, nome, email, senha, telefone, endereco, data);
         } catch (SQLException ex) {
             Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
@@ -86,22 +89,23 @@ public class ClienteDAO {
         return cliente;
     }
     
-    public static Cliente pesquisarCliente(String alogin) {
+    public static Cliente pesquisarCliente(String aemail) {
         Cliente cliente = null;
         try {
             Connection conexao = DBConnection.getInstance();
-            String sql = loadSQL("SelectByLogin.Cliente");
+            String sql = loadSQL("SelectByEmail.Cliente");
             PreparedStatement pstmt = conexao.prepareStatement(sql);
-            pstmt.setString(1, alogin);
+            pstmt.setString(1, aemail);
             ResultSet rs = pstmt.executeQuery();
             rs.next();
             int id = rs.getInt("idcliente");
             String nome = rs.getString("nome");
-            String login = rs.getString("login");
+            String email = rs.getString("email");
             String senha = rs.getString("senha");
+            String telefone = rs.getString("telefone");
             String endereco = rs.getString("endereco");
             Date data = rs.getDate("dataCadastro");
-            cliente = new Cliente(id, nome, login, senha, endereco, data);
+            cliente = new Cliente(id, nome, email, senha, telefone, endereco, data);
         } catch (SQLException ex) {
             Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
@@ -112,23 +116,24 @@ public class ClienteDAO {
         return cliente;
     }
     
-    public static Cliente pesquisarCliente(String alogin, String asenha) {
+    public static Cliente pesquisarCliente(String aemail, String asenha) {
         Cliente cliente = null;
         try {
             Connection conexao = DBConnection.getInstance();
-            String sql = loadSQL("SelectByLoginSenha.Cliente");
+            String sql = loadSQL("SelectByEmailSenha.Cliente");
             PreparedStatement pstmt = conexao.prepareStatement(sql);
-            pstmt.setString(1, alogin);
+            pstmt.setString(1, aemail);
             pstmt.setString(2, asenha);
             ResultSet rs = pstmt.executeQuery();
             rs.next();
-            int id = rs.getInt("idcliente");
-            String nome = rs.getString("nome");
-            String login = rs.getString("login");
-            String senha = rs.getString("senha");
-            String endereco = rs.getString("endereco");
-            Date data = rs.getDate("dataCadastro");
-            cliente = new Cliente(id, nome, login, senha, endereco, data);
+                int id = rs.getInt("idcliente");
+                String nome = rs.getString("nome");
+                String email = rs.getString("login");
+                String senha = rs.getString("senha");
+                String telefone = rs.getString("telefone");
+                String endereco = rs.getString("endereco");
+                Date data = rs.getDate("dataCadastro");
+                cliente = new Cliente(id, nome, email, senha, telefone, endereco, data);        
         } catch (SQLException ex) {
             Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
@@ -150,11 +155,12 @@ public class ClienteDAO {
             while(rs.next()) {
                 int id = rs.getInt("idcliente");
                 String nome = rs.getString("nome");
-                String login = rs.getString("login");
+                String email = rs.getString("email");
                 String senha = rs.getString("senha");
+                String telefone = rs.getString("telefone");
                 String endereco = rs.getString("endereco");
                 Date data = rs.getDate("dataCadastro");
-                cliente = new Cliente(id, nome, login, senha, endereco, data);
+                cliente = new Cliente(id, nome, email, senha, telefone, endereco, data);
                 lista.add(cliente);
          }
         } catch (SQLException ex) {

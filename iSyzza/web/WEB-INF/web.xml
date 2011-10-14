@@ -4,9 +4,17 @@
         <servlet-name>Validacao</servlet-name>
         <servlet-class>controller.LoginProcessor</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CadastroProcessor</servlet-name>
+        <servlet-class>controller.CadastroProcessor</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Validacao</servlet-name>
-        <url-pattern>/vl.do</url-pattern>
+        <url-pattern>/login.do</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CadastroProcessor</servlet-name>
+        <url-pattern>/cadcli.do</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
