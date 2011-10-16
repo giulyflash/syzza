@@ -35,8 +35,8 @@
                     <legend>Faça seu Login</legend>
                     <p>
                         <label for="login">
-                            <span>Login: </span>
-                            <input type="text" id="login" value="" name="login" required>
+                            <span>Email: </span>
+                            <input type="text" id="email" value="" name="email" required>
                         </label>
                     </p>
                     <p>

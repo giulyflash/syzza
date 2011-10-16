@@ -23,9 +23,9 @@ public class LoginProcessor extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String login = request.getParameter("login");
+        String email = request.getParameter("email");
         String senha = request.getParameter("senha");
-        Cliente cliente = ClienteDAO.pesquisarCliente(login, senha);
+        Cliente cliente = ClienteDAO.pesquisarCliente(email);
         RequestDispatcher view;
         if (cliente == null) {
             request.setAttribute("status", 1);
