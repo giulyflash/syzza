@@ -25,6 +25,7 @@ public class CadastroProcessor extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
+        //Recuperando dados do formulário
         String nome = request.getParameter("nome");
         String email = request.getParameter("email");
         String repemail = request.getParameter("repemail");
@@ -33,7 +34,10 @@ public class CadastroProcessor extends HttpServlet {
         String telefone = request.getParameter("telefone");
         String endereco = request.getParameter("endereco");
         Date data = new Date(System.currentTimeMillis());
+        
+        //ArrayList q conterá os possíveis erros
         ArrayList erros = new ArrayList();
+        
         //Validações do campo nome
         if (nome == null || nome.equals("")) {
             erros.add(1);
@@ -77,6 +81,8 @@ public class CadastroProcessor extends HttpServlet {
         else {
             Cliente cliente = new Cliente(nome, email, senha, telefone, endereco, data);
             ClienteDAO.inserirCliente(cliente);
+            System.out.println(cliente.toString());
+            response.sendRedirect("cadsuc.jsp");
         }
     }
 

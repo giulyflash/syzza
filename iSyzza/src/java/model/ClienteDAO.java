@@ -116,34 +116,6 @@ public class ClienteDAO {
         return cliente;
     }
     
-    public static Cliente pesquisarCliente(String aemail, String asenha) {
-        Cliente cliente = null;
-        try {
-            Connection conexao = DBConnection.getInstance();
-            String sql = loadSQL("SelectByEmailSenha.Cliente");
-            PreparedStatement pstmt = conexao.prepareStatement(sql);
-            pstmt.setString(1, aemail);
-            pstmt.setString(2, asenha);
-            ResultSet rs = pstmt.executeQuery();
-            rs.next();
-                int id = rs.getInt("idcliente");
-                String nome = rs.getString("nome");
-                String email = rs.getString("login");
-                String senha = rs.getString("senha");
-                String telefone = rs.getString("telefone");
-                String endereco = rs.getString("endereco");
-                Date data = rs.getDate("dataCadastro");
-                cliente = new Cliente(id, nome, email, senha, telefone, endereco, data);        
-        } catch (SQLException ex) {
-            Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return cliente;
-    }
-    
     public static ArrayList<Cliente> pesquisarCliente() {
         ArrayList<Cliente> lista = new ArrayList<Cliente>();
         Cliente cliente;
@@ -180,17 +152,18 @@ public class ClienteDAO {
     }
     
     public static void main(String[] args) {
-        Cliente cliente1 = pesquisarCliente(1);
+        Cliente cliente3 = new Cliente("Cesar Perdomo", "cesar@email.com", "12345", "65556789", "Centro", new Date(System.currentTimeMillis()));
+        System.out.println(cliente3.toString());
+        inserirCliente(cliente3);
+        /*Cliente cliente1 = pesquisarCliente(1);
         System.out.println(cliente1.toString());
         Cliente cliente2 = pesquisarCliente("ilusion__");
         System.out.println(cliente2.toString());
-        Cliente cliente3 = pesquisarCliente("jonnyav", "12345");
-        System.out.println(cliente3.toString());
         System.out.println("\n\n");
         ArrayList<Cliente> lista = pesquisarCliente();
         for (Cliente cliente : lista) {
             System.out.println(cliente.toString());
-        }
+        }*/
         try {
             DBConnection.closeConnection();
         } catch (SQLException ex) {
