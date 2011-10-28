@@ -16,10 +16,29 @@
             #erro {
                 color: red;
             }
+            header {
+                width: 1024px;
+                margin: 0 auto;
+                border-color: black;
+                border-style: solid;
+            }
+            nav #menu ul {
+                float: right;
+            }
         </style>
+        
     </head>
     <body>
-        <header><h1>Login</h1></header>
+        <header>
+            <h1>Login</h1>
+            <nav id="menu">
+                <ul>
+                    <li>Home</li>
+                    <li>Pedido</li>
+                    <li>Conta</li>
+                </ul>
+            </nav>
+        </header>
         <section>
             <% 
                 Integer status = (Integer)request.getAttribute("status");
