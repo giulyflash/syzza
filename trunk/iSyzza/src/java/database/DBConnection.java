@@ -1,9 +1,7 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package database;
 
+import util.PropertiesManager;
 import java.io.*;
 import java.sql.*; // para manipulação do JDBC
 import java.util.HashMap;
