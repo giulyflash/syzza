@@ -1,14 +1,14 @@
+
 package dao;
 
 import database.DBConnection;
-import database.PropertiesManager;
+import util.PropertiesManager;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -103,15 +103,19 @@ public class ClienteDAO {
             PreparedStatement pstmt = conexao.prepareStatement(sql);
             pstmt.setString(1, aemail);
             ResultSet rs = pstmt.executeQuery();
-            rs.next();
-            int id = rs.getInt("idcliente");
-            String nome = rs.getString("nome");
-            String email = rs.getString("email");
-            String senha = rs.getString("senha");
-            String telefone = rs.getString("telefone");
-            String endereco = rs.getString("endereco");
-            Date data = rs.getDate("dataCadastro");
-            cliente = new Cliente(id, nome, email, senha, telefone, endereco, data);
+            if (rs.next()) {
+                cliente = new Cliente();
+                cliente.setId(rs.getInt("id_cliente"));
+                cliente.setNome(rs.getString("nome"));
+                cliente.setEmail(rs.getString("email"));
+                cliente.setSenha(rs.getString("senha"));
+                cliente.setSalt(rs.getInt("salt"));
+                cliente.setQtd_pedidos(rs.getInt("qtd_pedidos"));
+                cliente.setTelefone(rs.getString("telefone"));
+                cliente.setEndereco(rs.getString("endereco"));
+                cliente.setCpf(rs.getString("cpf"));
+                cliente.setData_cadastro(rs.getDate("data_cadastro"));
+            }
         } catch (SQLException ex) {
             Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
@@ -131,14 +135,17 @@ public class ClienteDAO {
             PreparedStatement pstmt = conexao.prepareStatement(sql);
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
-                int id = rs.getInt("idcliente");
-                String nome = rs.getString("nome");
-                String email = rs.getString("email");
-                String senha = rs.getString("senha");
-                String telefone = rs.getString("telefone");
-                String endereco = rs.getString("endereco");
-                Date data = rs.getDate("dataCadastro");
-                cliente = new Cliente(id, nome, email, senha, telefone, endereco, data);
+                cliente = new Cliente();
+                cliente.setId(rs.getInt("id_cliente"));
+                cliente.setNome(rs.getString("nome"));
+                cliente.setEmail(rs.getString("email"));
+                cliente.setSenha(rs.getString("senha"));
+                cliente.setSalt(rs.getInt("salt"));
+                cliente.setQtd_pedidos(rs.getInt("qtd_pedidos"));
+                cliente.setTelefone(rs.getString("telefone"));
+                cliente.setEndereco(rs.getString("endereco"));
+                cliente.setCpf(rs.getString("cpf"));
+                cliente.setData_cadastro(rs.getDate("data_cadastro"));
                 lista.add(cliente);
             }
         } catch (SQLException ex) {
@@ -183,7 +190,7 @@ public class ClienteDAO {
         /*
          *TESTANDO INSERCAO DE CLIENTES 
          */
-        Cliente cliente = new Cliente();
+        /*Cliente cliente = new Cliente();
         cliente.setNome("Jonathan");
         cliente.setEmail("jonathan.videira@gmail.com");
         cliente.setSenha("senha");
@@ -193,14 +200,26 @@ public class ClienteDAO {
         cliente.setEndereco("Rua Moysés Antunes da Cunha 55/814");
         cliente.setCpf("02834560005");
         cliente.setData_cadastro(new Date(System.currentTimeMillis()));
-        inserirCliente(cliente);
+        inserirCliente(cliente);*/
         
         /*
          * TESTANDO PESQUISAR CLIENTE POR ID
          */
-        Cliente cliente2 = new Cliente();
-        cliente2 = pesquisarCliente(1);
+        Cliente cliente2 = pesquisarCliente(1);
         System.out.println(cliente2.toString());
         
+        /*
+         * TESTANDO PESQUISAR CLIENTE POR EMAIL
+         */
+        Cliente cliente3 = pesquisarCliente("jonathan.videira@gmail.com");
+        System.out.println(cliente2.toString());
+        
+        /*
+         * TESTANDO PESQUISAR TODOS OS CLIENTES
+         */
+        ArrayList<Cliente> clientes = pesquisarCliente();
+        for (Cliente cliente4 : clientes) {
+            System.out.println(cliente4.toString());
+        }
     }
 }
