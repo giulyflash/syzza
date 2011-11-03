@@ -8,6 +8,10 @@
         <servlet-name>CadastroProcessor</servlet-name>
         <servlet-class>controller.CadastroProcessor</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>MainControl</servlet-name>
+        <servlet-class>control.MainControl</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Validacao</servlet-name>
         <url-pattern>/login.do</url-pattern>
@@ -15,6 +19,10 @@
     <servlet-mapping>
         <servlet-name>CadastroProcessor</servlet-name>
         <url-pattern>/cadcli.do</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MainControl</servlet-name>
+        <url-pattern>/main.dol</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

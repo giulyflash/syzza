@@ -1,7 +1,4 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package control;
 
 import java.io.IOException;
@@ -33,6 +30,7 @@ public class CadastroProcessor extends HttpServlet {
         String repsenha = request.getParameter("repsenha");
         String telefone = request.getParameter("telefone");
         String endereco = request.getParameter("endereco");
+        String cpf = request.getParameter("cpf");
         Date data = new Date(System.currentTimeMillis());
         
         //ArrayList q conterá os possíveis erros
