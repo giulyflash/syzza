@@ -1,4 +1,3 @@
-
 package dao;
 
 import database.DBConnection;
@@ -13,6 +12,7 @@ import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import entity.Cliente;
+import java.util.Date;
 
 /**
  *
@@ -25,7 +25,7 @@ public class ClienteDAO {
     public static final int EMAIL = 3;
     public static final int SENHA = 4;
     public static final int SALT = 5;
-    public static final int QTD_PEDIDOS = 6;
+    public static final int QTD_PIZZAS = 6;
     public static final int TELEFONE = 7;
     public static final int ENDERECO = 8;
     public static final int CPF = 9;
@@ -45,15 +45,15 @@ public class ClienteDAO {
             Connection conexao = DBConnection.getInstance();
             String sql = loadSQL("Insert.Cliente");
             PreparedStatement pstmt = conexao.prepareStatement(sql);
-            pstmt.setString(NOME-1, cliente.getNome());
-            pstmt.setString(EMAIL-1, cliente.getEmail());
-            pstmt.setString(SENHA-1, cliente.getSenha());
-            pstmt.setInt(SALT-1, cliente.getSalt());
-            pstmt.setInt(QTD_PEDIDOS-1, cliente.getQtd_pedidos());
-            pstmt.setString(TELEFONE-1, cliente.getTelefone());
-            pstmt.setString(ENDERECO-1, cliente.getEndereco());
-            pstmt.setString(CPF-1, cliente.getCpf());
-            pstmt.setDate(DATA_CADASTRO-1, new java.sql.Date(cliente.getData_cadastro().getTime()));
+            pstmt.setString(NOME - 1, cliente.getNome());
+            pstmt.setString(EMAIL - 1, cliente.getEmail());
+            pstmt.setString(SENHA - 1, cliente.getSenha());
+            pstmt.setInt(SALT - 1, cliente.getSalt());
+            pstmt.setInt(QTD_PIZZAS - 1, cliente.getQtd_pizzas());
+            pstmt.setString(TELEFONE - 1, cliente.getTelefone());
+            pstmt.setString(ENDERECO - 1, cliente.getEndereco());
+            pstmt.setString(CPF - 1, cliente.getCpf());
+            pstmt.setDate(DATA_CADASTRO - 1, new java.sql.Date(cliente.getData_cadastro().getTime()));
             pstmt.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -79,7 +79,7 @@ public class ClienteDAO {
                 cliente.setEmail(rs.getString("email"));
                 cliente.setSenha(rs.getString("senha"));
                 cliente.setSalt(rs.getInt("salt"));
-                cliente.setQtd_pedidos(rs.getInt("qtd_pedidos"));
+                cliente.setQtd_pizzas(rs.getInt("qtd_pizzas"));
                 cliente.setTelefone(rs.getString("telefone"));
                 cliente.setEndereco(rs.getString("endereco"));
                 cliente.setCpf(rs.getString("cpf"));
@@ -110,7 +110,7 @@ public class ClienteDAO {
                 cliente.setEmail(rs.getString("email"));
                 cliente.setSenha(rs.getString("senha"));
                 cliente.setSalt(rs.getInt("salt"));
-                cliente.setQtd_pedidos(rs.getInt("qtd_pedidos"));
+                cliente.setQtd_pizzas(rs.getInt("qtd_pizzas"));
                 cliente.setTelefone(rs.getString("telefone"));
                 cliente.setEndereco(rs.getString("endereco"));
                 cliente.setCpf(rs.getString("cpf"));
@@ -141,7 +141,7 @@ public class ClienteDAO {
                 cliente.setEmail(rs.getString("email"));
                 cliente.setSenha(rs.getString("senha"));
                 cliente.setSalt(rs.getInt("salt"));
-                cliente.setQtd_pedidos(rs.getInt("qtd_pedidos"));
+                cliente.setQtd_pizzas(rs.getInt("qtd_pizzas"));
                 cliente.setTelefone(rs.getString("telefone"));
                 cliente.setEndereco(rs.getString("endereco"));
                 cliente.setCpf(rs.getString("cpf"));
@@ -165,61 +165,50 @@ public class ClienteDAO {
     }
 
     public static void main(String[] args) {
-        /*Cliente cliente3 = new Cliente("Cesar Perdomo", "cesar@email.com", "12345", "65556789", "Centro", new Date(System.currentTimeMillis()));
-        System.out.println(cliente3.toString());
-        inserirCliente(cliente3);
-        /*Cliente cliente1 = pesquisarCliente(1);
-        System.out.println(cliente1.toString());
-        Cliente cliente2 = pesquisarCliente("ilusion__");
-        System.out.println(cliente2.toString());
-        System.out.println("\n\n");
-        ArrayList<Cliente> lista = pesquisarCliente();
-        for (Cliente cliente : lista) {
-        System.out.println(cliente.toString());
-        }*/
-        /*try {
-        DBConnection.closeConnection();
-        } catch (SQLException ex) {
-        Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
+
         /*for (int i = 0; i < 100; i++) {
-            int salt = (int) (Math.random() * 2147483647);
-            System.out.println(salt);
+        int salt = (int) (Math.random() * 2147483647);
+        System.out.println(salt);
         }*/
-        
+
         /*
          *TESTANDO INSERCAO DE CLIENTES 
          */
-        /*Cliente cliente = new Cliente();
+        Cliente cliente = new Cliente();
         cliente.setNome("Jonathan");
         cliente.setEmail("jonathan.videira@gmail.com");
         cliente.setSenha("senha");
         cliente.setSalt(1);
-        cliente.setQtd_pedidos(0);
+        cliente.setQtd_pizzas(0);
         cliente.setTelefone("30243795");
         cliente.setEndereco("Rua Moysés Antunes da Cunha 55/814");
         cliente.setCpf("02834560005");
         cliente.setData_cadastro(new Date(System.currentTimeMillis()));
-        inserirCliente(cliente);*/
-        
+        inserirCliente(cliente);
+
         /*
          * TESTANDO PESQUISAR CLIENTE POR ID
          */
         Cliente cliente2 = pesquisarCliente(1);
         System.out.println(cliente2.toString());
-        
+
         /*
          * TESTANDO PESQUISAR CLIENTE POR EMAIL
          */
         Cliente cliente3 = pesquisarCliente("jonathan.videira@gmail.com");
         System.out.println(cliente2.toString());
-        
+
         /*
          * TESTANDO PESQUISAR TODOS OS CLIENTES
          */
         ArrayList<Cliente> clientes = pesquisarCliente();
         for (Cliente cliente4 : clientes) {
             System.out.println(cliente4.toString());
+        }
+        try {
+            DBConnection.closeConnection();
+        } catch (SQLException ex) {
+            Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

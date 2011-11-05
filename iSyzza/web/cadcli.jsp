@@ -3,6 +3,7 @@
     Created on : 20/09/2011, 13:36:46
     Author     : Jonathan
 --%>
+
 <%@page import="java.util.ArrayList"%>
 <%
     ArrayList erros = (ArrayList)request.getAttribute("erros");
@@ -104,6 +105,17 @@
                     <%
                         if (erros.contains(8)) {
                             out.println("<span class=\"erro\">Campo endereco em branco.</span>");
+                        }
+                    %>
+                </p>
+                <p>
+                    <label for="cpf">
+                        <span>CPF: </span>
+                        <input type="text" id="cpf" name="cpf">
+                    </label>
+                    <%
+                        if (erros.contains(9)) {
+                            out.println("<span class=\"erro\">Campo cpf em branco.</span>");
                         }
                     %>
                 </p>

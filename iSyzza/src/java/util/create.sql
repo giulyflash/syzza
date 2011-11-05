@@ -4,11 +4,13 @@ create table cliente(
 	id_cliente number(4),
 	nome varchar2(30),
 	email varchar2(50),
-	senha varchar2(10),
-	qtd_pedidos number(4),
+	senha varchar2(32),
+	salt number(12),
+	qtd_pizzas number(4),
 	telefone varchar2(20),
-	endereco varchar2(50),
-	dataCadastro date,
+	endereco varchar2(100),
+	cpf varchar2(11),
+	data_cadastro date,
 	constraint pk_cliente primary key(id_cliente)
 );
 
@@ -41,15 +43,15 @@ create table pedido_adicional(
 	constraint pk_pedido_adicional primary key(id_adicional, id_pedido)
 );
 
--- TABELA PEDIDO_PIZZA
+-- TABELA PIZZA
 
-create table pedido_pizza(
-	id_pedido_pizza number(4),
+create table pizza(
+	id_pizza number(4),
 	qtd number(4),
 	id_tamanho number(4),
 	id_borda number(4),
 	id_pedido number(4),
-	constraint pk_pedido_pizza primary key(id_pedido_pizza)
+	constraint pk_pizza primary key(id_pizza)
 );
 
 -- TABELA TAMANHO
@@ -82,9 +84,9 @@ create table sabor(
 -- TABELA PIZZA_SABOR
 
 create table pizza_sabor(
-	id_pedido_pizza number(4),
+	id_pizza number(4),
 	id_sabor number(4),
-	constraint pk_pizza_sabor primary key(id_pedido_pizza, id_sabor)
+	constraint pk_pizza_sabor primary key(id_pizza, id_sabor)
 );
 	
 -- ADICIONANDO FOREIGN KEYS
@@ -96,13 +98,13 @@ alter table pedido_adicional add(
 	constraint fk_pedido_adicional foreign key(id_pedido) references pedido(id_pedido),
 	constraint fk_adicional foreign key(id_adicional) references adicional(id_adicional)
 );
-alter table pedido_pizza add(
+alter table pizza add(
 	constraint fk_pedido_pizza foreign key(id_pedido) references pedido(id_pedido),
 	constraint fk_tamanho foreign key(id_tamanho) references tamanho(id_tamanho),
 	constraint fk_borda foreign key(id_borda) references borda(id_borda)
 );
 alter table pizza_sabor add(
-	constraint fk_pizza_sabor foreign key(id_pedido_pizza) references pedido_pizza(id_pedido_pizza),
+	constraint fk_pizza_sabor foreign key(id_pizza) references pizza(id_pizza),
 	constraint fk_sabor foreign key(id_sabor) references sabor(id_sabor)
 );
 
@@ -111,7 +113,7 @@ alter table pizza_sabor add(
 create sequence s_cliente increment by 1 start with 1 nocache;
 create sequence s_pedido increment by 1 start with 1 nocache;
 create sequence s_adicional increment by 1 start with 1 nocache;
-create sequence s_pedido_pizza increment by 1 start with 1 nocache;
+create sequence s_pizza increment by 1 start with 1 nocache;
 create sequence s_sabor increment by 1 start with 1 nocache;
 create sequence s_tamanho increment by 1 start with 1 nocache;
 create sequence s_borda increment by 1 start with 1 nocache;
