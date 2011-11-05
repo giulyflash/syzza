@@ -5,12 +5,12 @@
 --%>
 
 <%@page import="java.util.List"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page contentType="text/html" pageEncoding="iso-8859-1"%>
 
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
         <title>iSyzza</title>
         <style type="text/css">
             #erro {
@@ -51,7 +51,7 @@
             %>
             <form id="form-login" name="form-login" method="post" action="login.do">
                 <fieldset>
-                    <legend>FaÃ§a seu Login</legend>
+                    <legend>Faça seu Login</legend>
                     <p>
                         <label for="login">
                             <span>Email: </span>
@@ -64,7 +64,7 @@
                             <input type="password" id="senha" value="" name="senha" required>
                         </label>
                     </p>
-                    <p>Para se cadastrar <a href="cadastro.jsp">Clique aqui.</a></p>
+                    <p>Para se cadastrar <a href="cadcli.jsp">Clique aqui.</a></p>
                     <p>
                         <input type="submit">
                         <input type="reset">

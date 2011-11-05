@@ -15,7 +15,7 @@ public class Cliente implements Serializable{
     private String email;
     private String senha;
     private int salt;
-    private int qtd_pedidos;
+    private int qtd_pizzas;
     private String telefone;
     private String endereco;
     private String cpf;
@@ -26,7 +26,7 @@ public class Cliente implements Serializable{
     public static final int EMAIL = 3;
     public static final int SENHA = 4;
     public static final int SALT = 5;
-    public static final int QTD_PEDIDOS = 6;
+    public static final int QTD_PIZZAS = 6;
     public static final int TELEFONE = 7;
     public static final int ENDERECO = 8;
     public static final int CPF = 9;
@@ -83,12 +83,12 @@ public class Cliente implements Serializable{
         this.nome = nome;
     }
 
-    public int getQtd_pedidos() {
-        return qtd_pedidos;
+    public int getQtd_pizzas() {
+        return qtd_pizzas;
     }
 
-    public void setQtd_pedidos(int qtd_pedidos) {
-        this.qtd_pedidos = qtd_pedidos;
+    public void setQtd_pizzas(int qtd_pizzas) {
+        this.qtd_pizzas = qtd_pizzas;
     }
 
     public int getSalt() {
@@ -136,7 +136,7 @@ public class Cliente implements Serializable{
         if (this.salt != other.salt) {
             return false;
         }
-        if (this.qtd_pedidos != other.qtd_pedidos) {
+        if (this.qtd_pizzas != other.qtd_pizzas) {
             return false;
         }
         if ((this.telefone == null) ? (other.telefone != null) : !this.telefone.equals(other.telefone)) {
@@ -162,7 +162,7 @@ public class Cliente implements Serializable{
         hash = 13 * hash + (this.email != null ? this.email.hashCode() : 0);
         hash = 13 * hash + (this.senha != null ? this.senha.hashCode() : 0);
         hash = 13 * hash + this.salt;
-        hash = 13 * hash + this.qtd_pedidos;
+        hash = 13 * hash + this.qtd_pizzas;
         hash = 13 * hash + (this.telefone != null ? this.telefone.hashCode() : 0);
         hash = 13 * hash + (this.endereco != null ? this.endereco.hashCode() : 0);
         hash = 13 * hash + (this.cpf != null ? this.cpf.hashCode() : 0);
@@ -172,7 +172,7 @@ public class Cliente implements Serializable{
 
     @Override
     public String toString() {
-        return "Cliente{" + "id=" + id + ", nome=" + nome + ", email=" + email + ", senha=" + senha + ", salt=" + salt + ", qtd_pedidos=" + qtd_pedidos + ", telefone=" + telefone + ", endereco=" + endereco + ", cpf=" + cpf + ", data_cadastro=" + data_cadastro + '}';
+        return "Cliente{" + "id=" + id + ", nome=" + nome + ", email=" + email + ", senha=" + senha + ", salt=" + salt + ", qtd_pedidos=" + qtd_pizzas + ", telefone=" + telefone + ", endereco=" + endereco + ", cpf=" + cpf + ", data_cadastro=" + data_cadastro + '}';
     }
     
 }
