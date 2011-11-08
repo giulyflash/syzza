@@ -3,23 +3,43 @@ package entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  *
  * @author Jonathan
  */
+@Entity
+@Table
 public class Cliente implements Serializable{
-    
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column
     private int id;
+    @Column
     private String nome;
+    @Column
     private String email;
+    @Column
     private String senha;
+    @Column
     private int salt;
+    @Column
     private int qtd_pizzas;
+    @Column
     private String telefone;
+    @Column
     private String endereco;
+    @Column
     private String cpf;
+    @Column
     private Date data_cadastro;
+    @Column
 
     public static final int ID = 1;
     public static final int NOME = 2;
