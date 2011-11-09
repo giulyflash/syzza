@@ -8,18 +8,22 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
 
 /**
  *
  * @author Jonathan
  */
+
 @Entity
 @Table
+@SequenceGenerator(name = "s_cliente", sequenceName = "s_cliente", allocationSize=1)
 public class Cliente implements Serializable{
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column
+    @Id 
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="s_cliente")
+    @Column(name="id_cliente")
     private int id;
     @Column
     private String nome;
@@ -38,8 +42,8 @@ public class Cliente implements Serializable{
     @Column
     private String cpf;
     @Column
+    @Temporal(javax.persistence.TemporalType.DATE)
     private Date data_cadastro;
-    @Column
 
     public static final int ID = 1;
     public static final int NOME = 2;
