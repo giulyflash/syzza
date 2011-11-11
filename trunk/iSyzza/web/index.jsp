@@ -12,6 +12,22 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
         <title>iSyzza</title>
+        <script src="http://www.google.com/jsapi"></script>
+        <script type="text/javascript">
+            google.setOnLoadCallback(function() {
+ 
+                $(function(){
+                    alert('Olá');
+                });
+ 
+            });
+            $
+        </script>
+        <script type="text/javascript">
+            $(document).ready(function(){
+                alert('sdjsaidjias');
+            })
+        </script>
         <style type="text/css">
             #erro {
                 color: red;
@@ -26,7 +42,7 @@
                 float: right;
             }
         </style>
-        
+
     </head>
     <body>
         <header>
@@ -40,9 +56,9 @@
             </nav>
         </header>
         <section>
-            <% 
-                Integer status = (Integer)request.getAttribute("status");
-                
+            <%
+                Integer status = (Integer) request.getAttribute("status");
+
                 if (status != null) {
                     out.println("<div id=\"erro\">");
                     out.print("<span>Login ou senha errados!</span>");
