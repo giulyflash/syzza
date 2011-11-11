@@ -4,6 +4,8 @@
  */
 package control;
 
+import dao.Cliente2DAO;
+import dao.ClienteDAO;
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,10 +13,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import entity.Cliente;
-import dao.ClienteDAO;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -31,6 +33,14 @@ public class LoginProcessor extends HttpServlet {
         String email = request.getParameter("email");
         String senha = request.getParameter("senha");
         Cliente cliente = ClienteDAO.pesquisarCliente(email);
+        ArrayList<Cliente> clientes = new Cliente2DAO().pesquisar();
+        /*Cliente cliente = null;
+        for (Cliente cli : clientes) {
+            if (cli.getSenha().equals(md5((senha + cli.getSalt()) + cli.getSalt()))) {
+                cliente = cli;
+                break;
+            }
+        }*/
         RequestDispatcher view;
         if (cliente != null) {
             if (cliente.getSenha().equals(md5((senha + cliente.getSalt()) + cliente.getSalt()))) {

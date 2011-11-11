@@ -1,5 +1,6 @@
 package control;
 
+import dao.Cliente2DAO;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -103,6 +104,8 @@ public class CadastroProcessor extends HttpServlet {
             cliente.setCpf(cpf);
             cliente.setData_cadastro(data);
             System.out.println(cliente.toString());
+            //Cliente2DAO c2 = new Cliente2DAO();
+            //c2.inserir(cliente);
             ClienteDAO.inserirCliente(cliente);
             response.sendRedirect("cadsuc.jsp");
         }

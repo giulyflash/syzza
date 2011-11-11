@@ -2,9 +2,11 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package entity;
+package database;
 
+import database.Hibernate;
 import dao.Cliente2DAO;
+import entity.Cliente;
 import java.util.Date;
 
 /**

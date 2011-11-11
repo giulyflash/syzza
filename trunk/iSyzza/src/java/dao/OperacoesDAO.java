@@ -4,7 +4,7 @@
  */
 package dao;
 
-import entity.Hibernate;
+import database.Hibernate;
 import java.util.ArrayList;
 
 /**
