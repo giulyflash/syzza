@@ -4,7 +4,7 @@
  * 
  */
 
-package entity;
+package database;
 
 import java.util.List;
 import org.hibernate.Criteria;

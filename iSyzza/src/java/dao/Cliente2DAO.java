@@ -30,7 +30,15 @@ public class Cliente2DAO implements OperacoesDAO {
 
     @Override
     public ArrayList pesquisar() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        ArrayList<Cliente> clientes = new ArrayList<Cliente>();
+        h.beginTransaction();
+        try {
+            clientes = (ArrayList<Cliente>) h.list(Cliente.class);
+        } catch (HibernateException e) {
+            System.out.println("chegou aki");
+        }
+        h.endTransaction();
+        return clientes;
     }
 
     @Override
