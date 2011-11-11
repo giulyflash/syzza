@@ -24,16 +24,17 @@ import java.util.logging.Logger;
  *
  * @author Jonathan
  */
-public class LoginProcessor extends HttpServlet {
+public class LoginClienteProcessor extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        System.out.println("Pagina q fez a requisição: "+request.getRequestURI());
         request.setCharacterEncoding("UTF-8");
         String email = request.getParameter("email");
         String senha = request.getParameter("senha");
         Cliente cliente = ClienteDAO.pesquisarCliente(email);
-        ArrayList<Cliente> clientes = new Cliente2DAO().pesquisar();
+        //ArrayList<Cliente> clientes = new Cliente2DAO().pesquisar();
         /*Cliente cliente = null;
         for (Cliente cli : clientes) {
             if (cli.getSenha().equals(md5((senha + cli.getSalt()) + cli.getSalt()))) {
@@ -54,6 +55,11 @@ public class LoginProcessor extends HttpServlet {
         view.forward(request, response);
     }
 
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+            
+    }
+    
     //Função para criar hash da senha informada  
     public static String md5(String senha) {
         String sen = "";
@@ -68,6 +74,8 @@ public class LoginProcessor extends HttpServlet {
         return sen;
     }
 
+    
+    
     /** 
      * Returns a short description of the servlet.
      * @return a String containing servlet description

@@ -49,7 +49,7 @@
                     out.println("</div>");
                 }
             %>
-            <form id="form-login" name="form-login" method="post" action="login.do">
+            <form id="form-login" name="form-login" method="post" action="logincli.do">
                 <fieldset>
                     <legend>Faça seu Login</legend>
                     <p>
