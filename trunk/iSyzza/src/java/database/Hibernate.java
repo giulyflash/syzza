@@ -5,7 +5,7 @@
  */
 
 package database;
-
+/*
 import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.FlushMode;
@@ -20,7 +20,7 @@ import org.hibernate.cfg.AnnotationConfiguration;
  * 
  */
 public class Hibernate {
-    private Session session;
+  /*  private Session session;
     private AnnotationConfiguration ac = new AnnotationConfiguration();
 
     private final SessionFactory sf = ac.configure().buildSessionFactory();
@@ -33,7 +33,7 @@ public class Hibernate {
     /*
      * Abre a sessÃ£o do Hibernate para fazer as transaÃ§Ãµes.
      */
-    public void beginTransaction()
+    /*public void beginTransaction()
     {
         session = sf.getCurrentSession();
         session.beginTransaction();
@@ -43,7 +43,7 @@ public class Hibernate {
     /*
      * Encerra a sessÃ£o ao fim das transaÃ§Ãµes.
      */
-    public void endTransaction()
+    /*public void endTransaction()
     {
         Transaction transaction = session.getTransaction();
         transaction.commit();
@@ -52,7 +52,7 @@ public class Hibernate {
     /*
      * Insere o objeto no banco de dados.
      */
-    public void saveOnly(Object o)
+    /*public void saveOnly(Object o)
     {
         session.save(o);
     }
@@ -67,7 +67,7 @@ public class Hibernate {
      *retorna o objeto do banco de dados, o load puxa do banco tendo como parametro o id da linha
      *obrigatorio usar antes de updateOnly ou delete
      */
-    public Object getObject(Class classObj, int id)
+    /*public Object getObject(Class classObj, int id)
     {
         Object obj = session.load(classObj, id);
         return obj;
@@ -80,7 +80,7 @@ public class Hibernate {
 //    {
 //        session.update(o);
 //    }
-    
+    /*
     public void merge(Object o)
     {
         session.merge(o);        
@@ -92,5 +92,5 @@ public class Hibernate {
         List<Object> l = cri.list();
         return l;
     }
-
+*/
 }

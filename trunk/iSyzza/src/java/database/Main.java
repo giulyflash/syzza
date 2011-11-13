@@ -14,7 +14,7 @@ import java.util.Date;
  * @author 0669105
  */
 public class Main {
-     public static void main(String[] args) {
+     /*public static void main(String[] args) {
          Hibernate h = new Hibernate();
          
         Cliente cliente = new Cliente();
@@ -31,5 +31,5 @@ public class Main {
         h.beginTransaction();
         c2.inserir(cliente);
         h.endTransaction();
-    }
+    }*/
 }

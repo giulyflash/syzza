@@ -7,14 +7,14 @@ package dao;
 import entity.Cliente;
 import java.util.ArrayList;
 import java.util.Date;
-import org.hibernate.HibernateException;
+//import org.hibernate.HibernateException;
 
 /**
  *
  * @author 0669105
  */
-public class Cliente2DAO implements OperacoesDAO {
-
+public class Cliente2DAO/* implements OperacoesDAO */{
+/*
     @Override
     public boolean inserir(Object obj) {
         Cliente cliente = (Cliente) obj;
@@ -51,5 +51,5 @@ public class Cliente2DAO implements OperacoesDAO {
         throw new UnsupportedOperationException("Not supported yet.");
     }
     
-   
+   */
 }
