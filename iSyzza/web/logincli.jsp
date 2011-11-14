@@ -16,12 +16,40 @@
         <script src="include/js/jquery-1.7.min.js"> </script>
         <script type="text/javascript">
             $(document).ready(function(){
-                alert("Wooow");
+                $('#enviar').attr('disabled', 'disabled');
+                $('#email').keyup(function(){
+                    if ($(this).val().length < 3) {
+                        $('#est-email').removeClass('acerto').addClass('erro').html('Email inv&aacute;lido');
+                    }
+                    else {
+                        $('#est-email').removeClass('erro').addClass('acerto').html('Email v&aacute;lido');
+                        ativaEnviar();
+                    }
+                });
+                $('#senha').keyup(function(){
+                    if ($(this).val().length < 5) {
+                        $('#est-senha').removeClass('acerto').addClass('erro').html('A senha deve ter pelo menos 5 caracteres!');
+                    }
+                    else {
+                        $('#est-senha').removeClass('erro').addClass('acerto').html('Senha v&aacute;lida');
+                        ativaEnviar();
+                    }
+                });
+                
+                
             });
+            function ativaEnviar() {
+                if ($('#est-email').hasClass('acerto') && $('#est-senha').hasClass('acerto')) {
+                    $('#enviar').removeAttr('disabled');
+                }
+            }
         </script>
         <style type="text/css">
-            #erro {
+            .erro {
                 color: red;
+            }
+            .acerto {
+                color: green;
             }
             header {
                 width: 1024px;
@@ -41,7 +69,7 @@
                 Integer status = (Integer) request.getAttribute("status");
 
                 if (status != null) {
-                    out.println("<div id=\"erro\">");
+                    out.println("<div class=\"erro\">");
                     out.print("<span>Login ou senha errados!</span>");
                     out.println("</div>");
                 }
@@ -50,22 +78,24 @@
                 <fieldset>
                     <legend>Faça seu Login</legend>
                     <p>
-                        <label for="login">
+                        <label for="email">
                             <span>Email: </span>
                         </label>
                         <input type="text" id="email" value="" name="email" />
+                        <span id="est-email"></span>
                     </p>
                     <p>
                         <label for="senha">
                             <span>Senha: </span>
                         </label>
                         <input type="password" id="senha" value="" name="senha" />
+                        <span id="est-senha"></span>
                     </p>
                     <p>Para se cadastrar <a href="cadcli.jsp">Clique aqui.</a></p>
                     <p>
                         <input type="hidden" name="action" value="logincli" id="action" />
-                        <input type="submit">
-                        <input type="reset">
+                        <input type="submit" id="enviar" name="enviar" value="Enviar" />
+                        <input type="reset" id="limpar" name="limpar" value="Limpar" />
                     </p>
                 </fieldset>
             </form>
