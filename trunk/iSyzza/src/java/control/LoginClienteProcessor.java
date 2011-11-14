@@ -4,7 +4,6 @@
  */
 package control;
 
-import dao.Cliente2DAO;
 import dao.ClienteDAO;
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
@@ -16,48 +15,36 @@ import entity.Cliente;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author Jonathan
  */
-public class LoginClienteProcessor extends HttpServlet {
-
+public class LoginClienteProcessor extends Processor {
+    
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        System.out.println("Pagina q fez a requisição: "+request.getRequestURI());
-        request.setCharacterEncoding("UTF-8");
-        String email = request.getParameter("email");
-        String senha = request.getParameter("senha");
+    public void execute() throws ServletException, IOException {
+        System.out.println("Pagina q fez a requisição: "+getRequest().getRequestURI());
+        System.out.println(getRequest().getParameter("action"));
+        getRequest().setCharacterEncoding("UTF-8");
+        String email = getRequest().getParameter("email");
+        String senha = getRequest().getParameter("senha");
         Cliente cliente = ClienteDAO.pesquisarCliente(email);
-        //ArrayList<Cliente> clientes = new Cliente2DAO().pesquisar();
-        /*Cliente cliente = null;
-        for (Cliente cli : clientes) {
-            if (cli.getSenha().equals(md5((senha + cli.getSalt()) + cli.getSalt()))) {
-                cliente = cli;
-                break;
-            }
-        }*/
-        RequestDispatcher view;
+        
         if (cliente != null) {
-            if (cliente.getSenha().equals(md5((senha + cliente.getSalt()) + cliente.getSalt()))) {
-                request.setAttribute("cliente", cliente);
-                view = request.getRequestDispatcher("home.jsp");
-                view.forward(request, response);
+            if (cliente.getSenha().equals(md5((senha + cliente.getSalt()) + cliente.getSalt()))) {      
+                HttpSession session = getRequest().getSession(true);
+                session.setAttribute("cliente", cliente);
+                getResponse().sendRedirect("home.jsp");
             }
         }
-        request.setAttribute("status", 1);
-        view = request.getRequestDispatcher("index.jsp");
-        view.forward(request, response);
-    }
-
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-            
+        RequestDispatcher view;
+        getRequest().setAttribute("status", 1);
+        view = getRequest().getRequestDispatcher("logincli.jsp");
+        view.forward(getRequest(), getResponse());
     }
     
     //Função para criar hash da senha informada  
@@ -69,19 +56,9 @@ public class LoginClienteProcessor extends HttpServlet {
             BigInteger hash = new BigInteger(1, md.digest(senha.getBytes()));
             sen = hash.toString(16);
         } catch (NoSuchAlgorithmException ex) {
-            Logger.getLogger(CadastroProcessor.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CadastroClienteProcessor.class.getName()).log(Level.SEVERE, null, ex);
         }
         return sen;
     }
 
-    
-    
-    /** 
-     * Returns a short description of the servlet.
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
 }
