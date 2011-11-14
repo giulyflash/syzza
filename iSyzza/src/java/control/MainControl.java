@@ -4,77 +4,74 @@
  */
 package control;
 
+import database.DBConnection;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.HashMap;
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import util.PropertiesManager;
 
 /**
  *
  * @author Jonathan
  */
 public class MainControl extends HttpServlet {
-
-    /** 
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
+    private HashMap actions;
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        actions = new HashMap();
         try {
-            /* TODO output your page here
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet MainControl</title>");  
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet MainControl at " + request.getContextPath () + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-             */
-        } finally {            
-            out.close();
+            actions = new PropertiesManager("actions.properties").readPropertiesFile();
+        } catch (IOException ioe) {
+            System.out.println(ioe);
         }
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /** 
-     * Handles the HTTP <code>GET</code> method.
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("UTF-8");
+        String cmd = request.getParameter("action");
+        String actionClass = (String)actions.get(cmd);
+        try {
+            //Cria a instância da classe utilizando introspecção
+            Processor action = (Processor) Class.forName(actionClass).newInstance();
+            action.setRequest(request);
+            action.setResponse(response);
+            action.setContext(getServletContext());
+            action.execute();
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+    }
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
 
-    /** 
-     * Handles the HTTP <code>POST</code> method.
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
 
-    /** 
-     * Returns a short description of the servlet.
-     * @return a String containing servlet description
-     */
+    @Override
+    public void destroy() {
+        super.destroy();
+        try {
+            DBConnection.closeConnection();
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+    }
+    
     @Override
     public String getServletInfo() {
         return "Short description";

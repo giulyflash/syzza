@@ -17,6 +17,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>iSyzza</title>
+        <link rel="shortcut icon" href="include/image/icon.ico" type="image/ico" />
         <style type="text/css">
             .erro {
                 color: red;
@@ -26,7 +27,7 @@
     </head>
     <body>
         <h2>Cadastro Cliente</h2>
-        <form action="cadcli.do" method="POST" id="formcad" name="formcad" >
+        <form action="main.do" method="POST" id="formcad" name="formcad" >
             <fieldset>
                 <p>
                     <label for="nome">
@@ -120,6 +121,7 @@
                     %>
                 </p>
                 <p>
+                    <input type="hidden" name="action" value="cadcli" id="action" />
                     <input type="submit" value="Enviar" id="enviar">
                     <input type="reset" value="Limpar" id="limpar"
                 </p>
