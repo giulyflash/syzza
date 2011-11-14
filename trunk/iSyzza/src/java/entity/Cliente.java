@@ -3,7 +3,7 @@ package entity;
 
 import java.io.Serializable;
 import java.util.Date;
-import javax.persistence.Column;
+/*import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -17,32 +17,32 @@ import javax.persistence.Temporal;
  * @author Jonathan
  */
 
-@Entity
+/*@Entity
 @Table
-@SequenceGenerator(name = "s_cliente", sequenceName = "s_cliente", allocationSize=1)
+@SequenceGenerator(name = "s_cliente", sequenceName = "s_cliente", allocationSize=1)*/
 public class Cliente implements Serializable{
-    @Id 
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="s_cliente")
-    @Column(name="id_cliente")
+    //@Id 
+    //@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="s_cliente")
+    //@Column(name="id_cliente")
     private int id;
-    @Column
+    //@Column
     private String nome;
-    @Column
+    //@Column
     private String email;
-    @Column
+    //@Column
     private String senha;
-    @Column
+    //@Column
     private int salt;
-    @Column
+    //@Column
     private int qtd_pizzas;
-    @Column
+    //@Column
     private String telefone;
-    @Column
+    //@Column
     private String endereco;
-    @Column
+    //@Column
     private String cpf;
-    @Column
-    @Temporal(javax.persistence.TemporalType.DATE)
+    //@Column
+    //@Temporal(javax.persistence.TemporalType.DATE)
     private Date data_cadastro;
 
     public static final int ID = 1;
