@@ -22,12 +22,15 @@
         <script type="text/javascript">
             $(document).ready(function(){
                 $('#email').blur(function() {
-                    $.post('main.do', {action: 'emailval'}, function(data) {
+                    $.post('main.do', {action: 'emailval', email: $('#email').val()}, function(data) {
                         if (data==1) {
-                            $('#est-senha').removeClass('erro').addClass('acerto').html('Email dispon&iacute.vel!');
+                            $('#est-email').removeClass('erro').addClass('acerto').html('Email dispon&iacute;vel!');
                         }
-                        else {
-                            $('#est-senha').removeClass('acerto').addClass('erro').html('Email j&aacute em uso!');
+                        else if(data==0) {
+                            $('#est-email').removeClass('acerto').removeClass('erro').addClass('erro').html('Email j&aacute; em uso!');
+                        }
+                        else if(data==2){
+                            $('#est-email').removeClass('acerto').addClass('erro').html('Email inv&aacute;lido!');
                         }
                     });
                 }); 
@@ -37,6 +40,9 @@
             .erro {
                 color: red;
                 display: inline;
+            }
+            .acerto {
+                color: green;
             }
         </style>
     </head>
@@ -49,33 +55,38 @@
                         <span>Nome: </span>
                     </label>
                     <input type="text" name="nome" id="nome" value />
-                    <span id="est-nome">
+                    <span id="est-nome"
                         <%
                             if (erros.contains(1)) {
-                                out.println("<span class=\"erro\">Campo nome em branco.</span>");
+                                out.println(" class=\"erro\">Campo nome em branco!");
                             } else if (erros.contains(2)) {
-                                out.println("<span class=\"erro\">Campo nome com menos de 8 caracteres.</span>");
+                                out.println(" class=\"erro\">Campo nome com menos de 8 caracteres!");
+                            } else {
+                                out.println(">");
                             }
                         %>
                     </span>
-
                 </p>
                 <p>
                     <label for="email">
                         <span>Email: </span>
                     </label>
-                    <input type="email" id="email" name="email" />
-                    <%
-                        if (erros.contains(3)) {
-                            out.println("<span class=\"erro\">Campo email em branco.</span>");
-                        }
-                    %>
+                    <input type="text" id="email" name="email" value="" />
+                    <span id="est-email"
+                          <%
+                              if (erros.contains(3)) {
+                                  out.print(" class=\"erro\">Campo email em branco.");
+                              } else {
+                                  out.print(">");
+                              }
+                          %>
+                    </span>
                 </p>
                 <p>
                     <label for="repemail">
                         <span>Repetir Email: </span>
                     </label>
-                    <input type="email" id="repemail" name="repemail" />
+                    <input type="text" id="repemail" name="repemail" value="" />
                     <%
                         if (erros.contains(4)) {
                             out.println("<span class=\"erro\">Emails diferentes.</span>");
@@ -144,6 +155,5 @@
                 </p>
             </fieldset>
         </form>
-
     </body>
 </html>
