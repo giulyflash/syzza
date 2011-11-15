@@ -37,6 +37,7 @@ public class MainControl extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
         String cmd = request.getParameter("action");
+        System.out.println("Action: " + cmd);
         String actionClass = (String)actions.get(cmd);
         try {
             //Cria a instância da classe utilizando introspecção

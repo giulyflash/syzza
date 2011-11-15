@@ -17,6 +17,8 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.servlet.http.HttpSession;
 
 /**
@@ -33,6 +35,18 @@ public class LoginClienteProcessor extends Processor {
         String email = getRequest().getParameter("email");
         String senha = getRequest().getParameter("senha");
         Cliente cliente = ClienteDAO.pesquisarCliente(email);
+        // "compila"a expressão que será usada  
+        Pattern p = Pattern.compile("/^[A-Za-z0-9_\\.-]{6,30}@[A-Za-z0-9]{2,30}(\\.[A-Za-z]{2,6})+$/");   
+        // "pega" informações da strring que vc quer testar  
+        Matcher m = p.matcher(email);
+  
+        // confere para ver se a senha passada bate exatamente com o padrão 
+        if ( m.matches() ) {  
+            System.out.println("Email ok");  
+        } else {  
+            System.out.println("Email não está ok");  
+        }  
+        
         
         if (cliente != null) {
             if (cliente.getSenha().equals(md5((senha + cliente.getSalt()) + cliente.getSalt()))) {      
