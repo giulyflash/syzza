@@ -4,9 +4,9 @@
 
 *Responsável:*Gabriel/Jonathan
 <br>
-*Complexidade:* 3
+*Complexidade:* 4
 <br>
-*Prioridade:* 2
+*Prioridade:* 6
 <br>
 *Iniciada:*
 *Finalizada:*
@@ -19,7 +19,7 @@
 <br>
 *Complexidade:* 3
 <br>
-*Prioridade:* 3
+*Prioridade:* 6
 <br>
 *Iniciada:*
 *Finalizada:*
