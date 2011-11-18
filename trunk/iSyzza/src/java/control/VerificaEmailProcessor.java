@@ -19,8 +19,6 @@ public class VerificaEmailProcessor extends Processor {
 
     @Override
     public void execute() throws UnsupportedEncodingException, IOException {
-        getResponse().setContentType("text/html;charset=UTF-8");
-        getRequest().setCharacterEncoding("UTF-8");
         String email = getRequest().getParameter("email");
         PrintWriter out = getResponse().getWriter();
         System.out.println("Email: " + email);
