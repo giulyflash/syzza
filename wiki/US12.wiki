@@ -9,6 +9,6 @@
 *Prioridade:* 1
 <br>
 *Iniciada:* 05/09/11 
-*Finalizada:*
+*Finalizada:* Final de outubro.
 
-*Obervações:* Primeira versão do diagrama <a href="http://code.google.com/p/syzza/downloads/detail?name=Diagrama0.jpg&can=2&q=#makechanges">aqui</a>.
+*Obervações:* Primeira versão do diagrama <a href="http://code.google.com/p/syzza/downloads/detail?name=DiagramaClasses.png&can=2&q=#makechanges">aqui</a>.
