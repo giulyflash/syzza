@@ -8,6 +8,7 @@ import database.DBConnection;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.HashMap;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -36,7 +37,7 @@ public class MainControl extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
-        String cmd = request.getParameter("action");
+        String cmd = request.getParameter("cmd");
         System.out.println("Action: " + cmd);
         String actionClass = (String)actions.get(cmd);
         try {
@@ -54,7 +55,14 @@ public class MainControl extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String action = request.getParameter("action");
+        String view  = (String)actions.get(action);
+        if (view == null || action == null) {
+            System.out.println("Fudeu");
+        } else {
+            RequestDispatcher rd = request.getRequestDispatcher(view);
+            rd.forward(request, response);
+        }
     }
 
     @Override

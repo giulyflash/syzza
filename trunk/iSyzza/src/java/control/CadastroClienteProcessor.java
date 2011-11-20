@@ -42,12 +42,13 @@ public class CadastroClienteProcessor extends Processor {
         ArrayList erros = new ArrayList();
 
         //Validações do campo nome
-        if (nome == null || nome.equals("")) {
+        if (nome == null || nome.equals("")) { //Campo nome em branco
             erros.add(1);
-        } else if (nome.length() < 8) {
+        } else if (nome.length() < 8) { //Campo nome com menos de 8 caracteres
             erros.add(2);
         }
-
+        
+        
         //Validação de email
         if (email == null || email.equals("")) {
             erros.add(3);
