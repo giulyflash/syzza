@@ -112,5 +112,14 @@ a img {border:none;}
     }
     .campos {
         margin-top: 5px;
-        
+        padding: 3px;
+    }
+    .atencao {
+        color: darkgreen;
+    }
+    .erro {
+        color: red;
+    }
+    .acerto {
+        color: green;
     }
