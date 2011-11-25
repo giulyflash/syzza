@@ -88,7 +88,7 @@
                 //Validando o nome
                 $('#nome').change(function(){
                     if ($(this).val().length < 8) {
-                        var mens = $('<span class="erro">Nome deve ter pelo menos 8 caracteres!</span>');
+                        var mens = $('<span class="erro">Campo nome deve ter pelo menos 8 caracteres!</span>');
                     } else {
                         var mens = $('<span class="acerto">Ok</span>');
                     }
@@ -282,9 +282,9 @@
                             <div id="est-nome" class="estados">
                                 <%
                                     if (erros.contains(1)) {
-                                        out.print("<span class=\"erro\">Campo nome em branco!</span>");
+                                        out.print("<span class=\"erro\">Campo em branco!</span>");
                                     } else if (erros.contains(2)) {
-                                        out.print("<span class=\"erro\">Campo nome com menos de 8 caracteres!</span>");
+                                        out.print("<span class=\"erro\">Campo nome deve ter pelo menos 8 caracteres!</span>");
                                     }
                                 %>
                             </div>
@@ -295,7 +295,7 @@
                             <div id="est-email" class="estados">
                                 <%
                                     if (erros.contains(3)) {
-                                        out.print("<span class=\"erro\">Campo email em branco.</span>");
+                                        out.print("<span class=\"erro\">Campo em branco!</span>");
                                     }
                                 %>
                             </div>
