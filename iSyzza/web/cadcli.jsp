@@ -36,8 +36,17 @@
                     $(this).css('backgroundColor', '#ffc0c9');
                 }).blur(function(){
                     $(this).css('backgroundColor', '#fff');
+                });              
+                //Validando o nome
+                $('#nome').change(function(){
+                    if ($(this).val().length < 8) {
+                        var mens = $('<span class="erro">Campo nome deve ter pelo menos 8 caracteres!</span>');
+                    } else {
+                        var mens = $('<span class="acerto">Ok</span>');
+                    }
+                    $('#est-nome').html(mens);
                 });
-                
+                //Validando o email
                 $('#email').change(function() {
                     var iconCarregando = $('<img src="include/image/ajax-loader.gif" class="icon" />');
                     $('#est-email').html(iconCarregando);
@@ -58,41 +67,6 @@
                         }
                         setTimeout(espera, 2000);
                     });                   
-                });
-                
-                $('#cep').change(function() {
-                    var er = new RegExp(/^[0-9]{5}-[0-9]{3}$/);
-                    if (!er.test($(this).val())) {
-                        var mens = $('<span class="erro">Cep inv&aacute;lido!</span>');
-                        $('#est-cep').html(mens);
-                    } else {
-                        var iconCarregando = $('<img src="include/image/ajax-loader.gif" class="icon" />');
-                        $('#est-cep, #est-log, #est-bairro, #est-cid').html(iconCarregando);
-                        $.getScript('http://cep.republicavirtual.com.br/web_cep.php?formato=javascript&cep="'+$("#cep").val(), function() {
-                            if (unescape(resultadoCEP['resultado']) == 1) {
-                                $('#log').val(unescape(resultadoCEP['tipo_logradouro']) + ' ' + unescape(resultadoCEP['logradouro']));
-                                $('#bairro').val(unescape(resultadoCEP['bairro']));
-                                $('#cid').val(unescape(resultadoCEP['cidade']));
-                                var mens = $('<span class="acerto">Ok</span>');
-                                $('#est-cep, #est-log, #est-bairro, #est-cid').html(mens);
-                            }
-                            else {
-                                var mens = $('<span class="erro">Cep n&atilde;o encontrado!</span>');
-                                $('#est-cep').html(mens);
-                                $('#est-log, #est-num, #est-bairro, #est-cid').children().remove();
-                                $('#log, #bairro, #cid').val('');
-                            }
-                        });
-                    }
-                });
-                //Validando o nome
-                $('#nome').change(function(){
-                    if ($(this).val().length < 8) {
-                        var mens = $('<span class="erro">Campo nome deve ter pelo menos 8 caracteres!</span>');
-                    } else {
-                        var mens = $('<span class="acerto">Ok</span>');
-                    }
-                    $('#est-nome').html(mens);
                 });
                 //Validando o repetir email
                 $('#repemail').change(function(){
@@ -181,6 +155,7 @@
                 //Validando cpf
                 $('#cpf').change(function(){
                     var er = new RegExp(/^[0-9]{3}.[0-9]{3}.[0-9]{3}-[0-9]{2}$/);
+                    
                     if (!er.test($(this).val())) {
                         var mens = $('<span class="erro">Cpf inv&aacute;lido!</span>');
                     } else {
@@ -202,6 +177,32 @@
                     }
                     $('#est-cpf').html(mens);
                 });
+                //Buscando e validando o cep
+                $('#cep').change(function() {
+                    var er = new RegExp(/^[0-9]{5}-[0-9]{3}$/);
+                    if (!er.test($(this).val())) {
+                        var mens = $('<span class="erro">Cep inv&aacute;lido!</span>');
+                        $('#est-cep').html(mens);
+                    } else {
+                        var iconCarregando = $('<img src="include/image/ajax-loader.gif" class="icon" />');
+                        $('#est-cep, #est-log, #est-bairro, #est-cid').html(iconCarregando);
+                        $.getScript('http://cep.republicavirtual.com.br/web_cep.php?formato=javascript&cep="'+$("#cep").val(), function() {
+                            if (unescape(resultadoCEP['resultado']) == 1) {
+                                $('#log').val(unescape(resultadoCEP['tipo_logradouro']) + ' ' + unescape(resultadoCEP['logradouro']));
+                                $('#bairro').val(unescape(resultadoCEP['bairro']));
+                                $('#cid').val(unescape(resultadoCEP['cidade']));
+                                var mens = $('<span class="acerto">Ok</span>');
+                                $('#est-cep, #est-log, #est-bairro, #est-cid').html(mens);
+                            }
+                            else {
+                                var mens = $('<span class="erro">Cep n&atilde;o encontrado!</span>');
+                                $('#est-cep').html(mens);
+                                $('#est-log, #est-num, #est-bairro, #est-cid').children().remove();
+                                $('#log, #bairro, #cid').val('');
+                            }
+                        });
+                    }
+                });
                 //Validando numero
                 $('#num').change(function(){
                     var er = new RegExp(/^[0-9]+$/);
@@ -221,6 +222,7 @@
                     }
                     $('#est-comp').html(mens);
                 });
+                //Validar ao enviar
                 $('#cad').submit(function() {
                     $("#erros").hide();
                     status1 = isEmpty('nome');
@@ -247,7 +249,6 @@
                 }); 
             });
             function isEmpty(campo) {
-                alert($('#'+campo).val())
                 if ($('#'+campo).val() == "") {
                     var mens = $('<span class="erro">Campo em branco!</span>');
                     $('#est-'+campo).html(mens);
@@ -257,14 +258,6 @@
             }
             // ]]>
         </script>
-        <style type="text/css">
-            .erro {
-                color: red;
-            }
-            .acerto {
-                color: green;
-            }
-        </style>
     </head>
     <body>
         <div id="tudo">
@@ -438,20 +431,31 @@
                             <label for="bairro">Bairro:<br /></label>
                             <input type="text" id="bairro" name="bairro" value="" size="20" />
                             <div id="est-bairro" class="estados">
-
+                                <%
+                                    if (erros.contains(26)) {
+                                        out.print("<span class=\"erro\">Campo em branco!</span>");
+                                    }
+                                %>
                             </div>
                         </div>
                         <div class="campos">
                             <label for="cid">Cidade:<br /></label>
                             <input type="text" id="cid" name="cid" value="" size="20" />
                             <div id="est-cid" class="estados">
-
+                                <%
+                                    if (erros.contains(27)) {
+                                        out.print("<span class=\"erro\">Campo em branco!</span>");
+                                    }
+                                %>
                             </div>
                         </div>
                         <div class="campos">
                             <input type="hidden" name="cmd" value="cadclip" id="action" />
                             <input type="submit" value="Enviar" id="enviar" />
                             <input type="reset" value="Limpar" id="limpar" />
+                        </div>
+                        <div class="campos">
+                            <span class="atencao">Todos os campos s&atilde;o obrigat&oacute;rios.</span>
                         </div>
                     </fieldset>
                 </form>
