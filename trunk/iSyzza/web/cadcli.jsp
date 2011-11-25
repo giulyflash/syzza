@@ -284,7 +284,7 @@
                                     if (erros.contains(1)) {
                                         out.print("<span class=\"erro\">Campo em branco!</span>");
                                     } else if (erros.contains(2)) {
-                                        out.print("<span class=\"erro\">Campo nome deve ter pelo menos 8 caracteres!</span>");
+                                        out.print("<span class=\"erro\">Nome deve ter pelo menos 8 caracteres!</span>");
                                     }
                                 %>
                             </div>
@@ -296,6 +296,10 @@
                                 <%
                                     if (erros.contains(3)) {
                                         out.print("<span class=\"erro\">Campo em branco!</span>");
+                                    } else if (erros.contains(4)) {
+                                        out.print("<span class=\"erro\">Email inv&aacute;!</span>");
+                                    } else if (erros.contains(5)) {
+                                        out.print("<span class=\"erro\">Email j&aacute; em uso!</span>");
                                     }
                                 %>
                             </div>
@@ -305,8 +309,10 @@
                             <input type="text" id="repemail" name="repemail" value="" size="25" />
                             <div id="est-repemail" class="estados">
                                 <%
-                                    if (erros.contains(4)) {
-                                        out.print("<span class=\"erro\">Emails diferentes.</span>");
+                                    if (erros.contains(6)) {
+                                        out.print("<span class=\"erro\">Campo em branco!</span>");
+                                    } else if (erros.contains(7)) {
+                                        out.print("<span class=\"erro\">Emails n&atilde; coincidem!</span>");
                                     }
                                 %>
                             </div>
@@ -316,8 +322,10 @@
                             <input type="password" id="senha" name="senha" size="15"/>
                             <div id="est-senha" class="estados">
                                 <%
-                                    if (erros.contains(5)) {
-                                        out.print("<span class=\"erro\">Campo senha em branco.</span>");
+                                    if (erros.contains(8)) {
+                                        out.print("<span class=\"erro\">Campo senha em branco!</span>");
+                                    } else if (erros.contains(9)) {
+                                        out.print("<span class=\"erro\">Senha deve ter entre 8 e 25 caracteres!</span>");
                                     }
                                 %>
                             </div>
@@ -327,8 +335,10 @@
                             <input type="password" id="repsenha" name="repsenha" size="15" />
                             <div id="est-repsenha" class="estados">
                                 <%
-                                    if (erros.contains(6)) {
-                                        out.print("<span class=\"erro\">Senhas diferentes.</span>");
+                                    if (erros.contains(10)) {
+                                        out.print("<span class=\"erro\">Campo em branco!</span>");
+                                    } else if (erros.contains(11)) {
+                                        out.print("<span class=\"erro\">Senhas n&atilde; coincidem!</span>");
                                     }
                                 %>
                             </div>
@@ -338,8 +348,10 @@
                             <input type="text" id="telefone" name="telefone" />
                             <div id="est-telefone" class="estados">
                                 <%
-                                    if (erros.contains(7)) {
-                                        out.print("<span class=\"erro\">Campo telefone em branco.</span>");
+                                    if (erros.contains(12)) {
+                                        out.print("<span class=\"erro\">Campo em branco!</span>");
+                                    } else if (erros.contains(13)) {
+                                        out.print("<span class=\"erro\">Telefone inv&aacute;lido!</span>");
                                     }
                                 %>
                             </div>
@@ -349,8 +361,12 @@
                             <input type="text" id="data" name="data" />
                             <div id="est-data" class="estados">
                                 <%
-                                    if (erros.contains(7)) {
-                                        out.print("<span class=\"erro\">Campo telefone em branco.</span>");
+                                    if (erros.contains(14)) {
+                                        out.print("<span class=\"erro\">Campo em branco!</span>");
+                                    } else if (erros.contains(15)) {
+                                        out.print("<span class=\"erro\">Data inv&aacute;lida!</span>");
+                                    } else if (erros.contains(16)) {
+                                        out.print("<span class=\"erro\">Proibido para menores de 16 anos!</span>");
                                     }
                                 %>
                             </div>
@@ -360,8 +376,12 @@
                             <input type="text" id="cpf" name="cpf" value="" size="15" />
                             <div id="est-cpf" class="estados">
                                 <%
-                                    if (erros.contains(9)) {
-                                        out.print("<span class=\"erro\">Campo cpf em branco.</span>");
+                                    if (erros.contains(17)) {
+                                        out.print("<span class=\"erro\">Campo em branco!</span>");
+                                    } else if (erros.contains(18)) {
+                                        out.print("<span class=\"erro\">Cpf inv&aacute;lido!</span>");
+                                    } else if(erros.contains(19)) {
+                                        out.print("<span class=\"erro\">Cpf j&aacute; em uso!</span>");
                                     }
                                 %>
                             </div>    
@@ -370,28 +390,48 @@
                             <label for="cep">Cep:<br /></label>
                             <input type="text" id="cep" name="cep" value="" size="15" />
                             <div id="est-cep" class="estados">
-
+                                <%
+                                    if (erros.contains(20)) {
+                                        out.print("<span class=\"erro\">Campo em branco!</span>");
+                                    } else if (erros.contains(21)) {
+                                        out.print("<span class=\"erro\">Cep inv&aacute;lido!</span>");
+                                    }
+                                %>
                             </div>
                         </div>
                         <div class="campos">
                             <label for="log">Logradouro<br /></label>
                             <input type="text" id="log" name="log" value="" size="30" />
                             <div id="est-log" class="estados">
-
+                                <%
+                                    if (erros.contains(22)) {
+                                        out.print("<span class=\"erro\">Campo em branco!</span>");
+                                    }
+                                %>
                             </div>
                         </div>
                         <div class="campos">
                             <label for="num">Nº:<br /></label>
                             <input type="text" id="num" name="num" value="" size="5" />
                             <div id="est-num" class="estados">
-
+                                <%
+                                    if (erros.contains(23)) {
+                                        out.print("<span class=\"erro\">Campo em branco!</span>");
+                                    } else if(erros.contains(24)) {
+                                        out.print("<span class=\"erro\">N&uacute;mero inv&aacute;lido!</span>");
+                                    }
+                                %>
                             </div>
                         </div>
                         <div class="campos">
                             <label for="comp">Complemento:<br /></label>
                             <input type="text" id="comp" name="comp" value="" size="5" />
                             <div id="est-comp" class="estados">
-
+                                <%
+                                    if (erros.contains(25)) {
+                                        out.print("<span class=\"erro\">Campo em branco!</span>");
+                                    }
+                                %>
                             </div>
                         </div>
                         <div class="campos">
