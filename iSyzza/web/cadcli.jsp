@@ -8,7 +8,7 @@
 <%
     ArrayList erros = (ArrayList) request.getAttribute("erros");
     if (erros == null) {
-        erros = new ArrayList();
+       erros = new ArrayList();
     }
 %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -19,6 +19,11 @@
         <title>iSyzza</title>
         <link rel="shortcut icon" href="include/image/icon.ico" type="image/ico" />
         <link rel="stylesheet" href="include/css/principal.css" type="text/css" />
+        <style type="text/css">
+            #back{
+                text-decoration: none;
+            }
+        </style>
         <script src="include/js/jquery-1.7.min.js" type="text/javascript"> </script>
         <script src="include/js/jquery.meio.mask.min.js" type="text/javascript"> </script>
         <script type="text/javascript">
@@ -54,16 +59,14 @@
                         var espera = function(){
                             if (data==1) {
                                 var mens = $('<span class="acerto">Ok</span>');
-                                $('#est-email').html(mens);
                             }
                             else if(data==0) {
                                 var mens = $('<span class="erro">Email j&aacute; em uso!</span>');
-                                $('#est-email').html(mens);
                             }
                             else if(data==2){
                                 var mens = $('<span class="erro">Email inv&aacute;lido!</span>');
-                                $('#est-email').html(mens);
                             }
+                            $('#est-email').html(mens);
                         }
                         setTimeout(espera, 2000);
                     });                   
@@ -71,7 +74,7 @@
                 //Validando o repetir email
                 $('#repemail').change(function(){
                     if ($(this).val() != $('#email').val()) {
-                        var mens = $('<span class="erro">Emails n&atilde; coincidem!</span>');
+                        var mens = $('<span class="erro">Emails n&atilde;o coincidem!</span>');
                     } else {
                         var mens = $('<span class="acerto">Ok</span>');
                     }
@@ -154,28 +157,23 @@
                 });
                 //Validando cpf
                 $('#cpf').change(function(){
-                    var er = new RegExp(/^[0-9]{3}.[0-9]{3}.[0-9]{3}-[0-9]{2}$/);
-                    
-                    if (!er.test($(this).val())) {
-                        var mens = $('<span class="erro">Cpf inv&aacute;lido!</span>');
-                    } else {
-                        var aux1 = $(this).val().split('.');
-                        var aux2 = aux1[2].split('-');
-                        var cpf = aux1[0] + aux1[1] + aux2[0] + aux2[1];
-                        for (var t = 9; t < 11; t++) {
-                            var sum, i;
-                            for (sum = 0, i = 0; i < t; i++) {
-                                sum += Number(cpf.substr(i,1)) * ((t + 1) - i);
+                    var iconCarregando = $('<img src="include/image/ajax-loader.gif" class="icon" />');
+                    $('#est-cpf').html(iconCarregando);
+                    $.post('main.do?action=cadcli', {cmd: 'cpfvalp', cpf: $('#cpf').val()}, function(data) {
+                        var espera = function(){
+                            if (data==1) {
+                                var men = $('<span class="acerto">Ok</span>');
                             }
-                            sum = ((10 * sum) % 11) % 10;
-                            if (Number(cpf.substr(t,1)) != sum) {
-                                var mens = $('<span class="erro">Cpf inv&aacute;lido!</span>');
-                            } else {
-                                var mens = $('<span class="acerto">Ok</span>');
+                            else if(data==0) {
+                                var men = $('<span class="erro">Cpf j&aacute; em uso!</span>');
                             }
+                            else if(data==2){
+                                var men = $('<span class="erro">Cpf inv&aacute;lido!</span>');
+                            }
+                            $('#est-cpf').html(men);
                         }
-                    }
-                    $('#est-cpf').html(mens);
+                        setTimeout(espera, 2000);
+                    });                   
                 });
                 //Buscando e validando o cep
                 $('#cep').change(function() {
@@ -213,18 +211,10 @@
                     }
                     $('#est-num').html(mens);
                 });
-                //Validando complemento
-                $('#comp').change(function(){
-                    if ($(this).val().length > 10) {
-                        var mens = $('<span class="erro">Camplemento inv&aacute;lido!</span>');
-                    } else {
-                        var mens = $('<span class="acerto">Ok</span>');
-                    }
-                    $('#est-comp').html(mens);
-                });
                 //Validar ao enviar
                 $('#cad').submit(function() {
                     $("#erros").hide();
+                    $('#log, #bairro, #cid').removeAttr('disabled', 'disabled');
                     status1 = isEmpty('nome');
                     status2 = isEmpty('email');
                     status3 = isEmpty('repemail');
@@ -236,7 +226,6 @@
                     status9 = isEmpty('cep');
                     status10 = isEmpty('log');
                     status11 = isEmpty('num');
-                    status12 = isEmpty('comp');
                     status13 = isEmpty('bairro');
                     status14 = isEmpty('cid');
                     if ($('input:text, input:password').children().hasClass('erro') || !status1 || !status2 ||
@@ -244,9 +233,13 @@
                         !status10 || !status11 || !status12 || !status13 || !status14) {
                         var erro = "Para submeter o cadastro, corrija os erros destacados em vermelho";
                         $('#erros').fadeIn(2000).html(erro);
+                        $('#log, #bairro, #cid').attr('disabled', 'disabled');
                         return false;
                     }
                 }); 
+                $('#voltar').click(function(){
+                   document.history.back();
+                })
             });
             function isEmpty(campo) {
                 if ($('#'+campo).val() == "") {
@@ -270,8 +263,8 @@
                         <legend>Cadastro</legend>
                         <div id="erros"></div>
                         <div class="campos">
-                            <label for="nome" class="labels">Nome Completo:<br /></label>
-                            <input type="text" name="nome" id="nome" value="" size="25" />
+                            <label for="nome" class="labels">Nome Completo: <span class="atencao">*</span><br /></label>
+                            <input type="text" id="nome" name="nome" value="" size="25" />
                             <div id="est-nome" class="estados">
                                 <%
                                     if (erros.contains(1)) {
@@ -283,7 +276,7 @@
                             </div>
                         </div>
                         <div class="campos">
-                            <label for="email">Email:<br /></label>
+                            <label for="email">Email: <span class="atencao">*</span><br /></label>
                             <input type="text" id="email" name="email" value="" size="25" />
                             <div id="est-email" class="estados">
                                 <%
@@ -298,7 +291,7 @@
                             </div>
                         </div>
                         <div class="campos">
-                            <label for="repemail">Repetir Email:<br /></label>
+                            <label for="repemail">Repetir Email: <span class="atencao">*</span><br /></label>
                             <input type="text" id="repemail" name="repemail" value="" size="25" />
                             <div id="est-repemail" class="estados">
                                 <%
@@ -311,12 +304,12 @@
                             </div>
                         </div>
                         <div class="campos">
-                            <label for="senha">Senha:<br /></label>
+                            <label for="senha">Senha: <span class="atencao">*</span><br /></label>
                             <input type="password" id="senha" name="senha" size="15"/>
                             <div id="est-senha" class="estados">
                                 <%
                                     if (erros.contains(8)) {
-                                        out.print("<span class=\"erro\">Campo senha em branco!</span>");
+                                        out.print("<span class=\"erro\">Campo em branco!</span>");
                                     } else if (erros.contains(9)) {
                                         out.print("<span class=\"erro\">Senha deve ter entre 8 e 25 caracteres!</span>");
                                     }
@@ -324,7 +317,7 @@
                             </div>
                         </div>
                         <div class="campos">
-                            <label for="repsenha">Repetir Senha:<br /></label>
+                            <label for="repsenha">Repetir Senha: <span class="atencao">*</span><br /></label>
                             <input type="password" id="repsenha" name="repsenha" size="15" />
                             <div id="est-repsenha" class="estados">
                                 <%
@@ -337,7 +330,7 @@
                             </div>
                         </div>
                         <div class="campos">
-                            <label for="telefone">Telefone:<br /></label>
+                            <label for="telefone">Telefone: <span class="atencao">*</span><br /></label>
                             <input type="text" id="telefone" name="telefone" />
                             <div id="est-telefone" class="estados">
                                 <%
@@ -350,8 +343,8 @@
                             </div>
                         </div>
                         <div class="campos">
-                            <label for="data">Data de Nascimento:<br /></label>
-                            <input type="text" id="data" name="data" />
+                            <label for="data">Data de Nascimento: <span class="atencao">*</span><br /></label>
+                            <input type="text" id="data" name="data" value="" size="10" />
                             <div id="est-data" class="estados">
                                 <%
                                     if (erros.contains(14)) {
@@ -365,7 +358,7 @@
                             </div>
                         </div>
                         <div class="campos">
-                            <label for="cpf">Cpf:<br /></label>
+                            <label for="cpf">Cpf: <span class="atencao">*</span><br /></label>
                             <input type="text" id="cpf" name="cpf" value="" size="15" />
                             <div id="est-cpf" class="estados">
                                 <%
@@ -380,7 +373,7 @@
                             </div>    
                         </div>
                         <div class="campos">
-                            <label for="cep">Cep:<br /></label>
+                            <label for="cep">Cep: <span class="atencao">*</span><br /></label>
                             <input type="text" id="cep" name="cep" value="" size="15" />
                             <div id="est-cep" class="estados">
                                 <%
@@ -393,7 +386,7 @@
                             </div>
                         </div>
                         <div class="campos">
-                            <label for="log">Logradouro<br /></label>
+                            <label for="log">Logradouro: <span class="atencao">*</span><br /></label>
                             <input type="text" id="log" name="log" value="" size="30" />
                             <div id="est-log" class="estados">
                                 <%
@@ -404,7 +397,7 @@
                             </div>
                         </div>
                         <div class="campos">
-                            <label for="num">Nº:<br /></label>
+                            <label for="num">Nº: <span class="atencao">*</span><br /></label>
                             <input type="text" id="num" name="num" value="" size="5" />
                             <div id="est-num" class="estados">
                                 <%
@@ -419,7 +412,12 @@
                         <div class="campos">
                             <label for="comp">Complemento:<br /></label>
                             <input type="text" id="comp" name="comp" value="" size="5" />
-                            <div id="est-comp" class="estados">
+                            <div id="est-comp" class="estados"></div>
+                        </div>
+                        <div class="campos">
+                            <label for="bairro">Bairro: <span class="atencao">*</span><br /></label>
+                            <input type="text" id="bairro" name="bairro" value="" size="20" />
+                            <div id="est-bairro" class="estados">
                                 <%
                                     if (erros.contains(25)) {
                                         out.print("<span class=\"erro\">Campo em branco!</span>");
@@ -428,22 +426,11 @@
                             </div>
                         </div>
                         <div class="campos">
-                            <label for="bairro">Bairro:<br /></label>
-                            <input type="text" id="bairro" name="bairro" value="" size="20" />
-                            <div id="est-bairro" class="estados">
-                                <%
-                                    if (erros.contains(26)) {
-                                        out.print("<span class=\"erro\">Campo em branco!</span>");
-                                    }
-                                %>
-                            </div>
-                        </div>
-                        <div class="campos">
-                            <label for="cid">Cidade:<br /></label>
+                            <label for="cid">Cidade: <span class="atencao">*</span><br /></label>
                             <input type="text" id="cid" name="cid" value="" size="20" />
                             <div id="est-cid" class="estados">
                                 <%
-                                    if (erros.contains(27)) {
+                                    if (erros.contains(26)) {
                                         out.print("<span class=\"erro\">Campo em branco!</span>");
                                     }
                                 %>
@@ -453,9 +440,10 @@
                             <input type="hidden" name="cmd" value="cadclip" id="action" />
                             <input type="submit" value="Enviar" id="enviar" />
                             <input type="reset" value="Limpar" id="limpar" />
+                            <a href="main.do?action=logincli" id="back"><input type="button" value="Voltar" id="voltar" /></a>
                         </div>
                         <div class="campos">
-                            <span class="atencao">Todos os campos s&atilde;o obrigat&oacute;rios.</span>
+                            <span class="atencao">* Campo obrigat&oacute;rio.</span>
                         </div>
                     </fieldset>
                 </form>

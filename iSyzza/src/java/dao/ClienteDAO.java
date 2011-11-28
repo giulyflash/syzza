@@ -12,7 +12,6 @@ import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import entity.Cliente;
-import java.util.Date;
 
 /**
  *
@@ -20,16 +19,6 @@ import java.util.Date;
  */
 public class ClienteDAO {
 
-    public static final int ID = 1;
-    public static final int NOME = 2;
-    public static final int EMAIL = 3;
-    public static final int SENHA = 4;
-    public static final int SALT = 5;
-    public static final int QTD_PIZZAS = 6;
-    public static final int TELEFONE = 7;
-    public static final int ENDERECO = 8;
-    public static final int CPF = 9;
-    public static final int DATA_CADASTRO = 10;
     private static HashMap dados;
 
     static {
@@ -40,124 +29,201 @@ public class ClienteDAO {
         }
     }
 
-    public static void inserirCliente(Cliente cliente) {
+    public static void addCliente(Cliente cliente) {
         try {
             Connection conexao = DBConnection.getInstance();
+            PreparedStatement st = conexao.prepareStatement("ALTER SESSION SET NLS_DATE_FORMAT = 'DD-MON-YYYY HH24:MI'");
             String sql = loadSQL("Insert.Cliente");
             PreparedStatement pstmt = conexao.prepareStatement(sql);
-            pstmt.setString(NOME - 1, cliente.getNome());
-            pstmt.setString(EMAIL - 1, cliente.getEmail());
-            pstmt.setString(SENHA - 1, cliente.getSenha());
-            pstmt.setInt(SALT - 1, cliente.getSalt());
-            pstmt.setInt(QTD_PIZZAS - 1, cliente.getQtd_pizzas());
-            pstmt.setString(TELEFONE - 1, cliente.getTelefone());
-            pstmt.setString(ENDERECO - 1, cliente.getEndereco());
-            pstmt.setString(CPF - 1, cliente.getCpf());
-            pstmt.setDate(DATA_CADASTRO - 1, new java.sql.Date(cliente.getData_cadastro().getTime()));
+            pstmt.setString(1, cliente.getNome());
+            pstmt.setString(2, cliente.getEmail());
+            pstmt.setString(3, cliente.getSenha());
+            pstmt.setInt(4, cliente.getSalt());
+            pstmt.setInt(5, cliente.getQtd_pizzas());
+            pstmt.setString(6, cliente.getTelefone());
+            pstmt.setDate(7, new java.sql.Date(cliente.getData_nasc().getTime()));
+            pstmt.setString(8, cliente.getCpf());
+            pstmt.setString(9, cliente.getEndereco());
+            pstmt.setTimestamp(10, new java.sql.Timestamp(cliente.getData_cadastro().getTime()));
             pstmt.executeUpdate();
         } catch (SQLException ex) {
-            Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Erro no SQL: "+ex.getMessage());
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Classe nao achada: "+ex.getMessage());
         } catch (IOException ex) {
-            Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Erro de IO: "+ex.getMessage());
         }
     }
 
-    public static Cliente pesquisarCliente(int id) {
+    public static void setClientePessoais(Cliente cliente) {
+       try {
+            Connection conexao = DBConnection.getInstance();
+            PreparedStatement st = conexao.prepareStatement("ALTER SESSION SET NLS_DATE_FORMAT = 'DD-MON-YYYY HH24:MI'");
+            String sql = loadSQL("UpdatePessoais.Cliente");
+            PreparedStatement pstmt = conexao.prepareStatement(sql);
+            pstmt.setString(1, cliente.getNome());
+            pstmt.setString(2, cliente.getEmail());
+            pstmt.setString(3, cliente.getSenha());
+            pstmt.setInt(4, cliente.getSalt());
+            pstmt.setString(5, cliente.getTelefone());
+            pstmt.setDate(6, new java.sql.Date(cliente.getData_nasc().getTime()));
+            pstmt.setString(7, cliente.getCpf());
+            pstmt.setString(8, cliente.getEndereco());
+            pstmt.setInt(9, cliente.getId());
+            pstmt.executeUpdate();
+        } catch (SQLException ex) {
+            System.out.println("Erro no SQL: "+ex.getMessage());
+        } catch (ClassNotFoundException ex) {
+            System.out.println("Classe nao achada: "+ex.getMessage());
+        } catch (IOException ex) {
+            System.out.println("Erro de IO: "+ex.getMessage());
+        }
+    }
+    
+    public static void setClienteQtdPizzas(Cliente cliente) {
+       try {
+            Connection conexao = DBConnection.getInstance();
+            PreparedStatement st = conexao.prepareStatement("ALTER SESSION SET NLS_DATE_FORMAT = 'DD-MON-YYYY HH24:MI'");
+            String sql = loadSQL("UpdateQtdPizzas.Cliente");
+            PreparedStatement pstmt = conexao.prepareStatement(sql);
+            pstmt.setInt(1, cliente.getQtd_pizzas());
+            pstmt.setInt(2, cliente.getId());
+            pstmt.executeUpdate();
+        } catch (SQLException ex) {
+            System.out.println("Erro no SQL: "+ex.getMessage());
+        } catch (ClassNotFoundException ex) {
+            System.out.println("Classe nao achada: "+ex.getMessage());
+        } catch (IOException ex) {
+            System.out.println("Erro de IO: "+ex.getMessage());
+        }
+    }
+    
+    public static void removeCliente(Cliente cliente) {
+        try {
+            Connection conexao = DBConnection.getInstance();
+            PreparedStatement st = conexao.prepareStatement("ALTER SESSION SET NLS_DATE_FORMAT = 'DD-MON-YYYY HH24:MI'");
+            String sql = loadSQL("Delete.Cliente");
+            PreparedStatement pstmt = conexao.prepareStatement(sql);
+            pstmt.setInt(1, cliente.getId());
+            pstmt.executeUpdate();
+        } catch (SQLException ex) {
+            System.out.println("Erro no SQL: "+ex.getMessage());
+        } catch (ClassNotFoundException ex) {
+            System.out.println("Classe nao achada: "+ex.getMessage());
+        } catch (IOException ex) {
+            System.out.println("Erro de IO: "+ex.getMessage());
+        }
+    
+    }
+    
+    public static Cliente getClienteById(int id) {
         Cliente cliente = null;
         try {
             Connection conexao = DBConnection.getInstance();
+            PreparedStatement st = conexao.prepareStatement("ALTER SESSION SET NLS_DATE_FORMAT = 'DD-MON-YYYY HH24:MI'");
             String sql = loadSQL("SelectById.Cliente");
             PreparedStatement pstmt = conexao.prepareStatement(sql);
             pstmt.setInt(1, id);
             ResultSet rs = pstmt.executeQuery();
             if (rs.next()) {
-                cliente = new Cliente();
-                cliente.setId(rs.getInt("id_cliente"));
-                cliente.setNome(rs.getString("nome"));
-                cliente.setEmail(rs.getString("email"));
-                cliente.setSenha(rs.getString("senha"));
-                cliente.setSalt(rs.getInt("salt"));
-                cliente.setQtd_pizzas(rs.getInt("qtd_pizzas"));
-                cliente.setTelefone(rs.getString("telefone"));
-                cliente.setEndereco(rs.getString("endereco"));
-                cliente.setCpf(rs.getString("cpf"));
-                cliente.setData_cadastro(rs.getDate("data_cadastro"));
+                cliente = recoverData(rs);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Erro no SQL: "+ex.getMessage());
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Classe nao achada: "+ex.getMessage());
         } catch (IOException ex) {
-            Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Erro de IO: "+ex.getMessage());
         }
         return cliente;
     }
 
-    public static Cliente pesquisarCliente(String aemail) {
+    public static Cliente getClienteByEmail(String email) {
+        Cliente cliente = null;
+        try {
+            
+            Connection conexao = DBConnection.getInstance();
+            PreparedStatement st = conexao.prepareStatement("ALTER SESSION SET NLS_DATE_FORMAT = 'DD-MON-YYYY HH24:MI'");
+            String sql = loadSQL("SelectByEmail.Cliente");
+            PreparedStatement pstmt = conexao.prepareStatement(sql);
+            pstmt.setString(1, email);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                cliente = recoverData(rs);
+            }
+        } catch (SQLException ex) {
+            System.out.println("Erro no SQL: "+ex.getMessage());
+        } catch (ClassNotFoundException ex) {
+            System.out.println("Classe nao achada: "+ex.getMessage());
+        } catch (IOException ex) {
+            System.out.println("Erro de IO: "+ex.getMessage());
+        }
+        return cliente;
+    }
+
+    public static Cliente getClienteByCpf(String cpf) {
         Cliente cliente = null;
         try {
             Connection conexao = DBConnection.getInstance();
-            String sql = loadSQL("SelectByEmail.Cliente");
+            PreparedStatement st = conexao.prepareStatement("ALTER SESSION SET NLS_DATE_FORMAT = 'DD-MON-YYYY HH24:MI'");
+            String sql = loadSQL("SelectByCpf.Cliente");
             PreparedStatement pstmt = conexao.prepareStatement(sql);
-            pstmt.setString(1, aemail);
+            pstmt.setString(1, cpf);
             ResultSet rs = pstmt.executeQuery();
             if (rs.next()) {
-                cliente = new Cliente();
-                cliente.setId(rs.getInt("id_cliente"));
-                cliente.setNome(rs.getString("nome"));
-                cliente.setEmail(rs.getString("email"));
-                cliente.setSenha(rs.getString("senha"));
-                cliente.setSalt(rs.getInt("salt"));
-                cliente.setQtd_pizzas(rs.getInt("qtd_pizzas"));
-                cliente.setTelefone(rs.getString("telefone"));
-                cliente.setEndereco(rs.getString("endereco"));
-                cliente.setCpf(rs.getString("cpf"));
-                cliente.setData_cadastro(rs.getDate("data_cadastro"));
+                cliente = recoverData(rs);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Erro no SQL: "+ex.getMessage());
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Classe nao achada: "+ex.getMessage());
         } catch (IOException ex) {
-            Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Erro de IO: "+ex.getMessage());
         }
         return cliente;
     }
-
-    public static ArrayList<Cliente> pesquisarCliente() {
+        
+    public static ArrayList<Cliente> getClientes() {
         ArrayList<Cliente> lista = new ArrayList<Cliente>();
         Cliente cliente;
         try {
             Connection conexao = DBConnection.getInstance();
+            PreparedStatement st = conexao.prepareStatement("ALTER SESSION SET NLS_DATE_FORMAT = 'DD-MON-YYYY HH24:MI'");
             String sql = loadSQL("SelectAll.Cliente");
             PreparedStatement pstmt = conexao.prepareStatement(sql);
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
-                cliente = new Cliente();
-                cliente.setId(rs.getInt("id_cliente"));
-                cliente.setNome(rs.getString("nome"));
-                cliente.setEmail(rs.getString("email"));
-                cliente.setSenha(rs.getString("senha"));
-                cliente.setSalt(rs.getInt("salt"));
-                cliente.setQtd_pizzas(rs.getInt("qtd_pizzas"));
-                cliente.setTelefone(rs.getString("telefone"));
-                cliente.setEndereco(rs.getString("endereco"));
-                cliente.setCpf(rs.getString("cpf"));
-                cliente.setData_cadastro(rs.getDate("data_cadastro"));
+                cliente = recoverData(rs);
                 lista.add(cliente);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Erro no SQL: "+ex.getMessage());
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Classe nao achada: "+ex.getMessage());
         } catch (IOException ex) {
-            Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Erro de IO: "+ex.getMessage());
         }
         return lista;
     }
 
+    private static Cliente recoverData(ResultSet rs) throws SQLException {
+        Cliente cliente = new Cliente();
+        cliente.setId(rs.getInt("id_cliente"));
+        cliente.setNome(rs.getString("nome"));
+        cliente.setEmail(rs.getString("email"));
+        cliente.setSenha(rs.getString("senha"));
+        cliente.setSalt(rs.getInt("salt"));
+        cliente.setQtd_pizzas(rs.getInt("qtd_pizzas"));
+        cliente.setTelefone(rs.getString("telefone"));
+        cliente.setData_nasc(rs.getDate("data_nascimento"));
+        cliente.setCpf(rs.getString("cpf"));
+        cliente.setEndereco(rs.getString("endereco"));
+        cliente.setData_cadastro(rs.getTimestamp("data_cadastro"));
+        System.out.println("Antes de recuperar: "+rs.getTimestamp("data_cadastro"));
+        System.out.println("Data recuperada: "+cliente.getData_cadastro());
+        return cliente;
+    }
+    
     public static String loadSQL(String key) {
         String sql = null;
         sql = (String) dados.get(key);
@@ -174,7 +240,7 @@ public class ClienteDAO {
         /*
          *TESTANDO INSERCAO DE CLIENTES 
          */
-        Cliente cliente = new Cliente();
+        /*Cliente cliente = new Cliente();
         cliente.setNome("Jonathan");
         cliente.setEmail("jonathan.videira@gmail.com");
         cliente.setSenha("senha");
@@ -184,24 +250,29 @@ public class ClienteDAO {
         cliente.setEndereco("Rua Moysés Antunes da Cunha 55/814");
         cliente.setCpf("02834560005");
         cliente.setData_cadastro(new Date(System.currentTimeMillis()));
-        inserirCliente(cliente);
+        addCliente(cliente);*/
 
         /*
          * TESTANDO PESQUISAR CLIENTE POR ID
          */
-        Cliente cliente2 = pesquisarCliente(1);
+        Cliente cliente2 = getClienteById(2);
+        cliente2.setCpf("99999999999");
+        cliente2.setEmail("leninja@email.com");
+        setClientePessoais(cliente2);
+        cliente2.setQtd_pizzas(35);
+        setClienteQtdPizzas(cliente2);
         System.out.println(cliente2.toString());
-
+        removeCliente(cliente2);
         /*
          * TESTANDO PESQUISAR CLIENTE POR EMAIL
          */
-        Cliente cliente3 = pesquisarCliente("jonathan.videira@gmail.com");
+        /*Cliente cliente3 = getClienteByEmail("jonathan.videira@gmail.com");
         System.out.println(cliente2.toString());
 
         /*
          * TESTANDO PESQUISAR TODOS OS CLIENTES
          */
-        ArrayList<Cliente> clientes = pesquisarCliente();
+        ArrayList<Cliente> clientes = getClientes();
         for (Cliente cliente4 : clientes) {
             System.out.println(cliente4.toString());
         }

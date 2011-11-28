@@ -12,10 +12,12 @@ public class Pedido implements Serializable{
     
     private int id;
     private Date data_pedido;
+    private Date data_pag;
     private Date data_pronta;
     private Date data_entrega;
     Cliente cliente;
-
+    private int pago;
+    
     public Pedido() {
     }
 
@@ -33,6 +35,14 @@ public class Pedido implements Serializable{
 
     public void setData_entrega(Date data_entrega) {
         this.data_entrega = data_entrega;
+    }
+
+    public Date getData_pag() {
+        return data_pag;
+    }
+
+    public void setData_pag(Date data_pag) {
+        this.data_pag = data_pag;
     }
 
     public Date getData_pedido() {
@@ -59,6 +69,14 @@ public class Pedido implements Serializable{
         this.id = id;
     }
 
+    public int getPago() {
+        return pago;
+    }
+
+    public void setPago(int pago) {
+        this.pago = pago;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {
@@ -74,6 +92,9 @@ public class Pedido implements Serializable{
         if (this.data_pedido != other.data_pedido && (this.data_pedido == null || !this.data_pedido.equals(other.data_pedido))) {
             return false;
         }
+        if (this.data_pag != other.data_pag && (this.data_pag == null || !this.data_pag.equals(other.data_pag))) {
+            return false;
+        }
         if (this.data_pronta != other.data_pronta && (this.data_pronta == null || !this.data_pronta.equals(other.data_pronta))) {
             return false;
         }
@@ -83,23 +104,23 @@ public class Pedido implements Serializable{
         if (this.cliente != other.cliente && (this.cliente == null || !this.cliente.equals(other.cliente))) {
             return false;
         }
+        if (this.pago != other.pago) {
+            return false;
+        }
         return true;
     }
 
     @Override
     public int hashCode() {
         int hash = 5;
-        hash = 83 * hash + this.id;
-        hash = 83 * hash + (this.data_pedido != null ? this.data_pedido.hashCode() : 0);
-        hash = 83 * hash + (this.data_pronta != null ? this.data_pronta.hashCode() : 0);
-        hash = 83 * hash + (this.data_entrega != null ? this.data_entrega.hashCode() : 0);
-        hash = 83 * hash + (this.cliente != null ? this.cliente.hashCode() : 0);
+        hash = 79 * hash + this.id;
+        hash = 79 * hash + (this.data_pedido != null ? this.data_pedido.hashCode() : 0);
+        hash = 79 * hash + (this.data_pag != null ? this.data_pag.hashCode() : 0);
+        hash = 79 * hash + (this.data_pronta != null ? this.data_pronta.hashCode() : 0);
+        hash = 79 * hash + (this.data_entrega != null ? this.data_entrega.hashCode() : 0);
+        hash = 79 * hash + (this.cliente != null ? this.cliente.hashCode() : 0);
+        hash = 79 * hash + this.pago;
         return hash;
-    }
-
-    @Override
-    public String toString() {
-        return "Pedido{" + "id=" + id + ", data_pedido=" + data_pedido + ", data_pronta=" + data_pronta + ", data_entrega=" + data_entrega + ", cliente=" + cliente + '}';
     }
     
 }
