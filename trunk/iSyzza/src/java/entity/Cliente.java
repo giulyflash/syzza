@@ -3,58 +3,25 @@ package entity;
 
 import java.io.Serializable;
 import java.util.Date;
-//import javax.persistence.Column;
-//import javax.persistence.Entity;
-//import javax.persistence.GeneratedValue;
-//import javax.persistence.GenerationType;
-//import javax.persistence.Id;
-//import javax.persistence.SequenceGenerator;
-//import javax.persistence.Table;
-//import javax.persistence.Temporal;
 
 /**
  *
  * @author Jonathan
  */
 
-//@Entity
-//@Table
-//@SequenceGenerator(name = "s_cliente", sequenceName = "s_cliente", allocationSize=1)
 public class Cliente implements Serializable{
-    //@Id 
-    //@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="s_cliente")
-    //@Column(name="id_cliente")
+    
     private int id;
-    //@Column
     private String nome;
-    //@Column
     private String email;
-    //@Column
     private String senha;
-    //@Column
     private int salt;
-    //@Column
     private int qtd_pizzas;
-    //@Column
     private String telefone;
-    //@Column
     private String endereco;
-    //@Column
     private String cpf;
-    //@Column
-    //@Temporal(javax.persistence.TemporalType.DATE)
     private Date data_cadastro;
-
-    public static final int ID = 1;
-    public static final int NOME = 2;
-    public static final int EMAIL = 3;
-    public static final int SENHA = 4;
-    public static final int SALT = 5;
-    public static final int QTD_PIZZAS = 6;
-    public static final int TELEFONE = 7;
-    public static final int ENDERECO = 8;
-    public static final int CPF = 9;
-    public static final int DATA_CADASTRO = 10;
+    private Date data_nasc;
     
     public Cliente() {
     }
@@ -73,6 +40,14 @@ public class Cliente implements Serializable{
 
     public void setData_cadastro(Date data_cadastro) {
         this.data_cadastro = data_cadastro;
+    }
+
+    public Date getData_nasc() {
+        return data_nasc;
+    }
+
+    public void setData_nasc(Date data_nasc) {
+        this.data_nasc = data_nasc;
     }
 
     public String getEmail() {
@@ -154,6 +129,9 @@ public class Cliente implements Serializable{
         if ((this.nome == null) ? (other.nome != null) : !this.nome.equals(other.nome)) {
             return false;
         }
+        if ((this.email == null) ? (other.email != null) : !this.email.equals(other.email)) {
+            return false;
+        }
         if ((this.senha == null) ? (other.senha != null) : !this.senha.equals(other.senha)) {
             return false;
         }
@@ -175,28 +153,32 @@ public class Cliente implements Serializable{
         if (this.data_cadastro != other.data_cadastro && (this.data_cadastro == null || !this.data_cadastro.equals(other.data_cadastro))) {
             return false;
         }
+        if (this.data_nasc != other.data_nasc && (this.data_nasc == null || !this.data_nasc.equals(other.data_nasc))) {
+            return false;
+        }
         return true;
     }
 
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 13 * hash + this.id;
-        hash = 13 * hash + (this.nome != null ? this.nome.hashCode() : 0);
-        hash = 13 * hash + (this.email != null ? this.email.hashCode() : 0);
-        hash = 13 * hash + (this.senha != null ? this.senha.hashCode() : 0);
-        hash = 13 * hash + this.salt;
-        hash = 13 * hash + this.qtd_pizzas;
-        hash = 13 * hash + (this.telefone != null ? this.telefone.hashCode() : 0);
-        hash = 13 * hash + (this.endereco != null ? this.endereco.hashCode() : 0);
-        hash = 13 * hash + (this.cpf != null ? this.cpf.hashCode() : 0);
-        hash = 13 * hash + (this.data_cadastro != null ? this.data_cadastro.hashCode() : 0);
+        int hash = 5;
+        hash = 97 * hash + this.id;
+        hash = 97 * hash + (this.nome != null ? this.nome.hashCode() : 0);
+        hash = 97 * hash + (this.email != null ? this.email.hashCode() : 0);
+        hash = 97 * hash + (this.senha != null ? this.senha.hashCode() : 0);
+        hash = 97 * hash + this.salt;
+        hash = 97 * hash + this.qtd_pizzas;
+        hash = 97 * hash + (this.telefone != null ? this.telefone.hashCode() : 0);
+        hash = 97 * hash + (this.endereco != null ? this.endereco.hashCode() : 0);
+        hash = 97 * hash + (this.cpf != null ? this.cpf.hashCode() : 0);
+        hash = 97 * hash + (this.data_cadastro != null ? this.data_cadastro.hashCode() : 0);
+        hash = 97 * hash + (this.data_nasc != null ? this.data_nasc.hashCode() : 0);
         return hash;
     }
 
     @Override
     public String toString() {
-        return "Cliente{" + "id=" + id + ", nome=" + nome + ", email=" + email + ", senha=" + senha + ", salt=" + salt + ", qtd_pedidos=" + qtd_pizzas + ", telefone=" + telefone + ", endereco=" + endereco + ", cpf=" + cpf + ", data_cadastro=" + data_cadastro + '}';
+        return "Cliente{" + "id=" + id + ", nome=" + nome + ", email=" + email + ", senha=" + senha + ", salt=" + salt + ", qtd_pizzas=" + qtd_pizzas + ", telefone=" + telefone + ", endereco=" + endereco + ", cpf=" + cpf + ", data_cadastro=" + data_cadastro + ", data_nasc=" + data_nasc + '}';
     }
     
 }

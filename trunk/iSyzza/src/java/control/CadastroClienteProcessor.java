@@ -1,6 +1,7 @@
 package control;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
@@ -11,6 +12,8 @@ import dao.ClienteDAO;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.text.DateFormat;
+import util.Validacao;
 
 /**
  *
@@ -30,13 +33,19 @@ public class CadastroClienteProcessor extends Processor {
         String senha = getRequest().getParameter("senha");
         String repsenha = getRequest().getParameter("repsenha");
         String telefone = getRequest().getParameter("telefone");
-        String endereco = getRequest().getParameter("endereco");
+        String dataNasc = getRequest().getParameter("data");
         String cpf = getRequest().getParameter("cpf");
+        String cep = getRequest().getParameter("cep");
+        String log = getRequest().getParameter("log");
+        String num = getRequest().getParameter("num");
+        String comp = getRequest().getParameter("comp");
+        String bairro = getRequest().getParameter("bairro");
+        String cid = getRequest().getParameter("cid");
 
         //Dados que não vieram do formulário mas farão parte da entidade
         Date data = new Date(System.currentTimeMillis());
         int salt = (int) (1 + Math.random() * Integer.MAX_VALUE);
-        int qtd_pedidos = 0;
+        int qtd_pizzas = 0;
 
         //ArrayList q conterá os possíveis erros
         ArrayList erros = new ArrayList();
@@ -48,38 +57,105 @@ public class CadastroClienteProcessor extends Processor {
             erros.add(2);
         }
         
-        
         //Validação de email
         if (email == null || email.equals("")) {
             erros.add(3);
-        }
-        if (!email.equals(repemail)) {
+        } else if (!Validacao.checkEmail(email)) {
             erros.add(4);
+        } else {
+            Cliente cliente = ClienteDAO.getClienteByEmail(email);
+            if (cliente != null) {
+                erros.add(5);
+            }
+        }
+        
+        //Validação de repetir email
+        if (repemail == null || repemail.equals("")) {
+            erros.add(6);
+        } else if (!email.equals(repemail)) {
+            erros.add(7);
         }
 
         //Validação de senha
         if (senha == null || senha.equals("")) {
-            erros.add(5);
+            erros.add(8);
+        } else if (senha.length() < 8 || senha.length() > 25) {
+            erros.add(9);
         }
-        if (!senha.equals(repsenha)) {
-            erros.add(6);
+        
+        //Validação de repetir senha
+        if (repsenha == null || repsenha.equals("")) {
+            erros.add(10);
+        } else if (!senha.equals(repsenha)) {
+            erros.add(11);
         }
 
         //Valicação de telefone
         if (telefone == null || telefone.equals("")) {
-            erros.add(7);
+            erros.add(12);
+        } else if (Validacao.checkPhone(telefone)) {
+            erros.add(13);
         }
 
-        //Validação de endereco
-        if (endereco == null || endereco.equals("")) {
-            erros.add(8);
+        //Validação de data
+        if (dataNasc == null || dataNasc.equals("")) {
+            erros.add(14);
+        } else if (!Validacao.checkDate(dataNasc)) {
+            erros.add(15);
+        } else {
+            DateFormat df = DateFormat.getDateInstance();
+            String atual = df.format(new Date(System.currentTimeMillis()));
+            if (Integer.parseInt(dataNasc.substring(6))>Integer.parseInt(atual.substring(6))-16) {
+                erros.add(16);
+            }
         }
-
+        
         //Validação de cpf
         if (cpf == null || cpf.equals("")) {
-            erros.add(9);
+            erros.add(17);
+        } else if (!Validacao.checkCpf(cpf)) {
+            erros.add(18);
+        } else {
+            cpf = cpf.substring(0, 3)+cpf.substring(4, 7)+cpf.substring(8, 11)+cpf.substring(12);
+            Cliente cliente = ClienteDAO.getClienteByCpf(cpf);
+            if (cliente != null) {
+                erros.add(19);
+            }
         }
-
+        
+        //Validação de cep
+        if (cep == null || cep.equals("")) {
+            erros.add(20);
+        } else if (!Validacao.checkCep(cep)) {
+            erros.add(21);
+        }
+        
+        //Validação de logradouro
+        if (log == null || log.equals("")) {
+            erros.add(22);
+        }
+        
+        //Validação de numero
+        if (num == null || num.equals("")) {
+            erros.add(23);
+        } else {
+            try {
+                int aux = Integer.parseInt(num);
+            } catch (NumberFormatException ex) {
+                erros.add(24);
+            }
+        }
+        
+        //Validação de bairro
+        if (bairro == null || bairro.equals("")) {
+            erros.add(25);
+        }
+        
+        //Validação de cidade
+        if (cid == null || cid.equals("")) {
+            erros.add(26);
+        }
+        
         if (!erros.isEmpty()) {
             //caso existam erros manda de volta pra página de cadastro
             getRequest().setAttribute("erros", erros);
@@ -91,14 +167,26 @@ public class CadastroClienteProcessor extends Processor {
             cliente.setEmail(email);
             cliente.setSenha(md5((senha + salt) + salt));
             cliente.setSalt(salt);
-            cliente.setQtd_pizzas(qtd_pedidos);
+            cliente.setQtd_pizzas(qtd_pizzas);
             cliente.setTelefone(telefone);
-            cliente.setEndereco(endereco);
+            DateFormat df1 = DateFormat.getDateInstance();
+            try {
+                cliente.setData_nasc(df1.parse(dataNasc));
+            } catch (ParseException ex) {
+                Logger.getLogger(CadastroClienteProcessor.class.getName()).log(Level.SEVERE, null, ex);
+            }
             cliente.setCpf(cpf);
+            String endereco="";
+            if (comp == null || comp.equals("")) {
+                endereco = log+"|"+num+"|"+bairro+"|"+cid+"|"+cep;
+            } else {
+                endereco = log+"|"+num+"|"+comp+"|"+bairro+"|"+cid+"|"+cep;
+            }
+            cliente.setEndereco(endereco);
             cliente.setData_cadastro(data);
             System.out.println(cliente.toString());
-            ClienteDAO.inserirCliente(cliente);
-            getResponse().sendRedirect("cadsuc.jsp");
+            ClienteDAO.addCliente(cliente);
+            getResponse().sendRedirect("main.do?action=cadsuc");
         }
     }
 
