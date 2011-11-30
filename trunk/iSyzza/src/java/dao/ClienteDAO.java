@@ -14,6 +14,7 @@ import java.util.logging.Logger;
 import entity.Cliente;
 import java.sql.CallableStatement;
 import java.sql.Types;
+import java.text.SimpleDateFormat;
 
 /**
  *
@@ -26,8 +27,16 @@ public class ClienteDAO {
     static {
         try {
             dados = new PropertiesManager("sql.properties").readPropertiesFile();
-        } catch (IOException ioe) {
-            System.out.println(ioe);
+            Connection conexao = DBConnection.getInstance();
+            //PreparedStatement pstmt = conexao.prepareStatement("ALTER SESSION SET NLS_DATE_FORMAT = 'dd/mm/yyyy hh24:mi'");
+            //pstmt.execute();    
+            //pstmt.close();
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        } catch (ClassNotFoundException ex) {
+            System.out.println(ex);
+        } catch (IOException ex) {
+            System.out.println(ex);
         }
     }
     
@@ -36,7 +45,6 @@ public class ClienteDAO {
     public static void addCliente(Cliente cliente) {
         try {
             Connection conexao = DBConnection.getInstance();
-            PreparedStatement st = conexao.prepareStatement("ALTER SESSION SET NLS_DATE_FORMAT = 'DD-MON-YYYY HH24:MI'");
             String sql = loadSQL("Insert.Cliente");
             PreparedStatement pstmt = conexao.prepareStatement(sql);
             pstmt.setString(1, cliente.getNome());
@@ -62,7 +70,6 @@ public class ClienteDAO {
     public static void setClientePessoais(Cliente cliente) {
        try {
             Connection conexao = DBConnection.getInstance();
-            PreparedStatement st = conexao.prepareStatement("ALTER SESSION SET NLS_DATE_FORMAT = 'DD-MON-YYYY HH24:MI'");
             String sql = loadSQL("UpdatePessoais.Cliente");
             PreparedStatement pstmt = conexao.prepareStatement(sql);
             pstmt.setString(1, cliente.getNome());
@@ -87,7 +94,6 @@ public class ClienteDAO {
     public static void setClienteQtdPizzas(Cliente cliente) {
        try {
             Connection conexao = DBConnection.getInstance();
-            PreparedStatement st = conexao.prepareStatement("ALTER SESSION SET NLS_DATE_FORMAT = 'DD-MON-YYYY HH24:MI'");
             String sql = loadSQL("UpdateQtdPizzas.Cliente");
             PreparedStatement pstmt = conexao.prepareStatement(sql);
             pstmt.setInt(1, cliente.getQtd_pizzas());
@@ -105,7 +111,6 @@ public class ClienteDAO {
     public static void removeCliente(Cliente cliente) {
         try {
             Connection conexao = DBConnection.getInstance();
-            PreparedStatement st = conexao.prepareStatement("ALTER SESSION SET NLS_DATE_FORMAT = 'DD-MON-YYYY HH24:MI'");
             String sql = loadSQL("Delete.Cliente");
             PreparedStatement pstmt = conexao.prepareStatement(sql);
             pstmt.setInt(1, cliente.getId());
@@ -124,7 +129,6 @@ public class ClienteDAO {
         Cliente cliente = null;
         try {
             Connection conexao = DBConnection.getInstance();
-            PreparedStatement st = conexao.prepareStatement("ALTER SESSION SET NLS_DATE_FORMAT = 'DD-MON-YYYY HH24:MI'");
             String sql = loadSQL("SelectById.Cliente");
             PreparedStatement pstmt = conexao.prepareStatement(sql);
             pstmt.setInt(1, id);
@@ -147,7 +151,6 @@ public class ClienteDAO {
         try {
             
             Connection conexao = DBConnection.getInstance();
-            PreparedStatement st = conexao.prepareStatement("ALTER SESSION SET NLS_DATE_FORMAT = 'DD-MON-YYYY HH24:MI'");
             String sql = loadSQL("SelectByEmail.Cliente");
             PreparedStatement pstmt = conexao.prepareStatement(sql);
             pstmt.setString(1, email);
@@ -169,7 +172,6 @@ public class ClienteDAO {
         Cliente cliente = null;
         try {
             Connection conexao = DBConnection.getInstance();
-            PreparedStatement st = conexao.prepareStatement("ALTER SESSION SET NLS_DATE_FORMAT = 'DD-MON-YYYY HH24:MI'");
             String sql = loadSQL("SelectByCpf.Cliente");
             PreparedStatement pstmt = conexao.prepareStatement(sql);
             pstmt.setString(1, cpf);
@@ -192,7 +194,6 @@ public class ClienteDAO {
         Cliente cliente;
         try {
             Connection conexao = DBConnection.getInstance();
-            PreparedStatement st = conexao.prepareStatement("ALTER SESSION SET NLS_DATE_FORMAT = 'DD-MON-YYYY HH24:MI'");
             String sql = loadSQL("SelectAll.Cliente");
             PreparedStatement pstmt = conexao.prepareStatement(sql);
             ResultSet rs = pstmt.executeQuery();
@@ -257,7 +258,11 @@ public class ClienteDAO {
     }
     
     public static void main(String[] args) throws SQLException, ClassNotFoundException, IOException {
-        ClienteDAO.f_pedido_adicional_qtd();
-        ClienteDAO.f_pedido_adicional_report();
+        //ClienteDAO.f_pedido_adicional_qtd();
+        //ClienteDAO.f_pedido_adicional_report();
+        Cliente cliente = getClienteById(2);
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+        String data = formato.format(cliente.getData_cadastro());
+        System.out.println(data);
     }
 }
