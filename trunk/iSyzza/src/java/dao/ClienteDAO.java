@@ -12,6 +12,8 @@ import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import entity.Cliente;
+import java.sql.CallableStatement;
+import java.sql.Types;
 
 /**
  *
@@ -28,7 +30,9 @@ public class ClienteDAO {
             System.out.println(ioe);
         }
     }
-
+    
+    
+    
     public static void addCliente(Cliente cliente) {
         try {
             Connection conexao = DBConnection.getInstance();
@@ -230,56 +234,30 @@ public class ClienteDAO {
         return sql;
     }
 
-    public static void main(String[] args) {
-
-        /*for (int i = 0; i < 100; i++) {
-        int salt = (int) (Math.random() * 2147483647);
-        System.out.println(salt);
-        }*/
-
-        /*
-         *TESTANDO INSERCAO DE CLIENTES 
-         */
-        /*Cliente cliente = new Cliente();
-        cliente.setNome("Jonathan");
-        cliente.setEmail("jonathan.videira@gmail.com");
-        cliente.setSenha("senha");
-        cliente.setSalt(1);
-        cliente.setQtd_pizzas(0);
-        cliente.setTelefone("30243795");
-        cliente.setEndereco("Rua Moysés Antunes da Cunha 55/814");
-        cliente.setCpf("02834560005");
-        cliente.setData_cadastro(new Date(System.currentTimeMillis()));
-        addCliente(cliente);*/
-
-        /*
-         * TESTANDO PESQUISAR CLIENTE POR ID
-         */
-        Cliente cliente2 = getClienteById(2);
-        cliente2.setCpf("99999999999");
-        cliente2.setEmail("leninja@email.com");
-        setClientePessoais(cliente2);
-        cliente2.setQtd_pizzas(35);
-        setClienteQtdPizzas(cliente2);
-        System.out.println(cliente2.toString());
-        removeCliente(cliente2);
-        /*
-         * TESTANDO PESQUISAR CLIENTE POR EMAIL
-         */
-        /*Cliente cliente3 = getClienteByEmail("jonathan.videira@gmail.com");
-        System.out.println(cliente2.toString());
-
-        /*
-         * TESTANDO PESQUISAR TODOS OS CLIENTES
-         */
-        ArrayList<Cliente> clientes = getClientes();
-        for (Cliente cliente4 : clientes) {
-            System.out.println(cliente4.toString());
-        }
-        try {
-            DBConnection.closeConnection();
-        } catch (SQLException ex) {
-            Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    public static int f_pedido_adicional_qtd() throws SQLException, ClassNotFoundException, IOException {
+        Connection conexao = DBConnection.getInstance();
+        CallableStatement clst = conexao.prepareCall("{? = call f_pedido_adicional_qtd(?)}");
+        clst.registerOutParameter(1, Types.INTEGER);
+        clst.setInt(2, 1);
+        clst.execute();
+        System.out.println("Qtd de adicionais no pedido: "+clst.getInt(1));
+        
+        return 0;
+    }
+    
+    public static int f_pedido_adicional_report() throws SQLException, ClassNotFoundException, IOException {
+        Connection conexao = DBConnection.getInstance();
+        CallableStatement clst = conexao.prepareCall("{? = call f_pedido_adicional_report(?)}");
+        clst.registerOutParameter(1, Types.INTEGER);
+        clst.setInt(2, 1);
+        clst.execute();
+        System.out.println("Qtd de pedidos q usam o adicional: "+clst.getInt(1));
+        
+        return 0;
+    }
+    
+    public static void main(String[] args) throws SQLException, ClassNotFoundException, IOException {
+        ClienteDAO.f_pedido_adicional_qtd();
+        ClienteDAO.f_pedido_adicional_report();
     }
 }
