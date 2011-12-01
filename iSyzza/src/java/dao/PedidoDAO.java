@@ -13,6 +13,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -47,7 +48,7 @@ public class PedidoDAO {
             Connection conexao = DBConnection.getInstance();
             String sql = loadSQL("Insert.Pedido");
             PreparedStatement pstmt = conexao.prepareStatement(sql);
-            pstmt.setDate(1, new Date(pedido.getData_pedido().getTime()));
+            pstmt.setTimestamp(1, new Timestamp(pedido.getData_pedido().getTime()));
             pstmt.setNull(2, java.sql.Types.DATE);
             pstmt.setNull(3, java.sql.Types.DATE);
             pstmt.setNull(4, java.sql.Types.DATE);
@@ -114,15 +115,14 @@ public class PedidoDAO {
     private static Pedido recoverData(ResultSet rs) throws SQLException {
         Pedido pedido = new Pedido();
         pedido.setId(rs.getInt("id_pedido"));
-        pedido.setData_pedido(rs.getDate("data_pedido"));
-        SimpleDateFormat formato = new SimpleDateFormat("MMM dd/MM/yyyy HH:mm");
-        String data = formato.format(rs.getDate("data_pedido"));
-        System.out.println(data);
-        pedido.setData_pedido(rs.getDate("data_pag"));
-        pedido.setData_pronta(rs.getDate("data_pronta"));
-        pedido.setData_entrega(rs.getDate("data_entrega"));
+        pedido.setData_pedido(rs.getTimestamp("data_pedido"));
+        pedido.setData_pag(rs.getTimestamp("data_pag"));
+        pedido.setData_pronta(rs.getTimestamp("data_pronta"));
+        pedido.setData_entrega(rs.getTimestamp("data_entrega"));
         pedido.setCliente(ClienteDAO.getClienteById(rs.getInt("id_cliente")));
         pedido.setPago(rs.getInt("pago"));
+        System.out.println(rs.getTimestamp("data_pedido"));
+        System.out.println(pedido.getData_pedido() + "funouuuu");
         return pedido;
     }
 
@@ -133,13 +133,19 @@ public class PedidoDAO {
     }
 
     public static void main(String[] args) {
-        Cliente cliente = ClienteDAO.getClienteById(2);
-        System.out.println(cliente.getId());
-        ArrayList<Pedido> pedidos = getPedidosById(cliente);
-        //PedidoDAO.addPedido(pedido);
+        Cliente cliente = ClienteDAO.getClienteById(3);
+        Pedido pedido = new Pedido();
+        pedido.setCliente(cliente);
+        pedido.setData_pedido(new Date(System.currentTimeMillis()));
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+        String data = formato.format(new Date(System.currentTimeMillis()));
+        System.out.println(data);
+        //System.out.println(cliente.getId());
+        //ArrayList<Pedido> pedidos = getPedidosById(cliente);
+        PedidoDAO.addPedido(pedido);
         //ArrayList<Pedido> pedidos = PedidoDAO.getPedidosById(cliente);
-         for (Pedido pedido2 : pedidos) {
-            System.out.println("Id do pedido: "+pedido2.getId()+"Data do pedido: "+pedido2.getData_pedido());
-        }
+         //for (Pedido pedido2 : pedidos) {
+           // System.out.println("Id do pedido: "+pedido2.getId()+"Data do pedido: "+pedido2.getData_pedido());
+        //}
     }
 }
