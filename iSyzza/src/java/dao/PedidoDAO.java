@@ -30,14 +30,6 @@ public class PedidoDAO {
     static {
         try {
             dados = new PropertiesManager("sql.properties").readPropertiesFile();
-            Connection conexao = DBConnection.getInstance();
-            PreparedStatement pstmt = conexao.prepareStatement("ALTER SESSION SET NLS_DATE_FORMAT = 'dd/mm/yyyy hh24:mi'");
-            pstmt.execute();    
-            pstmt.close();
-        } catch (SQLException ex) {
-            System.out.println(ex);
-        } catch (ClassNotFoundException ex) {
-            System.out.println(ex);
         } catch (IOException ex) {
             System.out.println(ex);
         }
@@ -49,9 +41,9 @@ public class PedidoDAO {
             String sql = loadSQL("Insert.Pedido");
             PreparedStatement pstmt = conexao.prepareStatement(sql);
             pstmt.setTimestamp(1, new Timestamp(pedido.getData_pedido().getTime()));
-            pstmt.setNull(2, java.sql.Types.DATE);
-            pstmt.setNull(3, java.sql.Types.DATE);
-            pstmt.setNull(4, java.sql.Types.DATE);
+            pstmt.setNull(2, java.sql.Types.TIMESTAMP);
+            pstmt.setNull(3, java.sql.Types.TIMESTAMP);
+            pstmt.setNull(4, java.sql.Types.TIMESTAMP);
             pstmt.setInt(5, pedido.getCliente().getId());
             pstmt.executeUpdate();
             pstmt.close();

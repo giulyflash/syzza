@@ -42,24 +42,29 @@ public class AcompanhaPedidosProcessor extends Processor {
         for (Pedido pedido : pedidos) {
             SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy HH:mm");
             String data;
+            System.out.println("Status do pago: "+pedido.getPago());
             out.print("<tr>");
             out.print("<td>"+pedido.getId()+"</td>");
             if (pedido.getPago() == 0) {
                 data = formato.format(pedido.getData_pedido());
                 out.print("<td>"+data+"</td>");
-                out.print("<td>"+"Fazer Pagamento"+"</td>");
+                out.print("<td>"+"<span class=\"atencao\">"
+                        + "<form method=\"post\" action=\"main.do?action=homec\">"
+                        + "<input type=\"hidden\" name=\"cmd\" value=\"pagp\" />"
+                        + "<input type=\"submit\" value=\"Fazer Pagamento\" />"
+                        + "</form></td>");
             } else if (pedido.getData_pronta() == null) {
                 data = formato.format(pedido.getData_pag());
                 out.print("<td>"+data+"</td>");
-                out.print("<td>"+"Na cozinha"+"</td>");
+                out.print("<td>"+"<span class=\"atencao\">Na cozinha"+"</td>");
             } else if (pedido.getData_entrega() == null) {
                 data = formato.format(pedido.getData_pronta());
                 out.print("<td>"+data+"</td>");
-                out.print("<td>"+"Ao destino"+"</td>");
+                out.print("<td>"+"<span class=\"atencao\">Ao destino"+"</td>");
             } else {
                 data = formato.format(pedido.getData_entrega());
                 out.print("<td>"+data+"</td>");
-                out.print("<td>"+"Pedido entregue"+"</td>");
+                out.print("<td>"+"<span class=\"atencao\">Pedido entregue</span>"+"</td>");
             }
             out.print("</tr>");
         }

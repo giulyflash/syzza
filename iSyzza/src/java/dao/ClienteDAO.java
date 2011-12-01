@@ -9,8 +9,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import entity.Cliente;
 import java.sql.CallableStatement;
 import java.sql.Types;
@@ -27,20 +25,10 @@ public class ClienteDAO {
     static {
         try {
             dados = new PropertiesManager("sql.properties").readPropertiesFile();
-            Connection conexao = DBConnection.getInstance();
-            //PreparedStatement pstmt = conexao.prepareStatement("ALTER SESSION SET NLS_DATE_FORMAT = 'dd/mm/yyyy hh24:mi'");
-            //pstmt.execute();    
-            //pstmt.close();
-        } catch (SQLException ex) {
-            System.out.println(ex);
-        } catch (ClassNotFoundException ex) {
-            System.out.println(ex);
         } catch (IOException ex) {
             System.out.println(ex);
         }
     }
-    
-    
     
     public static void addCliente(Cliente cliente) {
         try {
@@ -53,11 +41,12 @@ public class ClienteDAO {
             pstmt.setInt(4, cliente.getSalt());
             pstmt.setInt(5, cliente.getQtd_pizzas());
             pstmt.setString(6, cliente.getTelefone());
-            pstmt.setDate(7, new java.sql.Date(cliente.getData_nasc().getTime()));
+            pstmt.setTimestamp(7, new java.sql.Timestamp(cliente.getData_nasc().getTime()));
             pstmt.setString(8, cliente.getCpf());
             pstmt.setString(9, cliente.getEndereco());
             pstmt.setTimestamp(10, new java.sql.Timestamp(cliente.getData_cadastro().getTime()));
             pstmt.executeUpdate();
+            pstmt.close();
         } catch (SQLException ex) {
             System.out.println("Erro no SQL: "+ex.getMessage());
         } catch (ClassNotFoundException ex) {
@@ -82,6 +71,7 @@ public class ClienteDAO {
             pstmt.setString(8, cliente.getEndereco());
             pstmt.setInt(9, cliente.getId());
             pstmt.executeUpdate();
+            pstmt.close();
         } catch (SQLException ex) {
             System.out.println("Erro no SQL: "+ex.getMessage());
         } catch (ClassNotFoundException ex) {
@@ -99,6 +89,7 @@ public class ClienteDAO {
             pstmt.setInt(1, cliente.getQtd_pizzas());
             pstmt.setInt(2, cliente.getId());
             pstmt.executeUpdate();
+            pstmt.close();
         } catch (SQLException ex) {
             System.out.println("Erro no SQL: "+ex.getMessage());
         } catch (ClassNotFoundException ex) {
@@ -115,6 +106,7 @@ public class ClienteDAO {
             PreparedStatement pstmt = conexao.prepareStatement(sql);
             pstmt.setInt(1, cliente.getId());
             pstmt.executeUpdate();
+            pstmt.close();
         } catch (SQLException ex) {
             System.out.println("Erro no SQL: "+ex.getMessage());
         } catch (ClassNotFoundException ex) {
@@ -136,6 +128,7 @@ public class ClienteDAO {
             if (rs.next()) {
                 cliente = recoverData(rs);
             }
+            pstmt.close();
         } catch (SQLException ex) {
             System.out.println("Erro no SQL: "+ex.getMessage());
         } catch (ClassNotFoundException ex) {
@@ -158,6 +151,7 @@ public class ClienteDAO {
             if (rs.next()) {
                 cliente = recoverData(rs);
             }
+            pstmt.close();
         } catch (SQLException ex) {
             System.out.println("Erro no SQL: "+ex.getMessage());
         } catch (ClassNotFoundException ex) {
@@ -179,6 +173,7 @@ public class ClienteDAO {
             if (rs.next()) {
                 cliente = recoverData(rs);
             }
+            pstmt.close();
         } catch (SQLException ex) {
             System.out.println("Erro no SQL: "+ex.getMessage());
         } catch (ClassNotFoundException ex) {
@@ -201,6 +196,7 @@ public class ClienteDAO {
                 cliente = recoverData(rs);
                 lista.add(cliente);
             }
+            pstmt.close();
         } catch (SQLException ex) {
             System.out.println("Erro no SQL: "+ex.getMessage());
         } catch (ClassNotFoundException ex) {
@@ -234,35 +230,8 @@ public class ClienteDAO {
         sql = (String) dados.get(key);
         return sql;
     }
-
-    public static int f_pedido_adicional_qtd() throws SQLException, ClassNotFoundException, IOException {
-        Connection conexao = DBConnection.getInstance();
-        CallableStatement clst = conexao.prepareCall("{? = call f_pedido_adicional_qtd(?)}");
-        clst.registerOutParameter(1, Types.INTEGER);
-        clst.setInt(2, 1);
-        clst.execute();
-        System.out.println("Qtd de adicionais no pedido: "+clst.getInt(1));
-        
-        return 0;
-    }
-    
-    public static int f_pedido_adicional_report() throws SQLException, ClassNotFoundException, IOException {
-        Connection conexao = DBConnection.getInstance();
-        CallableStatement clst = conexao.prepareCall("{? = call f_pedido_adicional_report(?)}");
-        clst.registerOutParameter(1, Types.INTEGER);
-        clst.setInt(2, 1);
-        clst.execute();
-        System.out.println("Qtd de pedidos q usam o adicional: "+clst.getInt(1));
-        
-        return 0;
-    }
-    
+   
     public static void main(String[] args) throws SQLException, ClassNotFoundException, IOException {
-        //ClienteDAO.f_pedido_adicional_qtd();
-        //ClienteDAO.f_pedido_adicional_report();
-        Cliente cliente = getClienteById(2);
-        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-        String data = formato.format(cliente.getData_cadastro());
-        System.out.println(data);
+        
     }
 }
