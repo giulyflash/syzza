@@ -17,11 +17,10 @@
         <script src="include/js/jquery-1.7.min.js"> </script>
         <script type="text/javascript">
             $(document).ready(function(){
-                loadAcPedidos();
+                setInterval(loadAcPedidos, 5000);
             });
             function loadAcPedidos() {
                 $.post("main.do?action=homec", {cmd: 'pedidosac'}, function(data){
-                    alert('sidjsidjsai')
                     $('#pedidosac').html(data);
                 });
             }
