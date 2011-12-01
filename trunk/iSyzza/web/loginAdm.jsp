@@ -17,49 +17,24 @@
         <script src="include/js/jquery-1.7.min.js"> </script>
         <script type="text/javascript">
             $(document).ready(function(){
-                $('#formlogin').submit(function(){
-                    $('#erros').hide();
-                    var ok = true;
-                    if ($('#email').val() == "") {
-                        ok = false;
-                        var mens = $('<span class=\"erro\">Campo em branco!</span>');
-                        $('#est-email').html(mens);
-                    }
-                    if ($('#senha').val() == "") {
-                        ok = false;
-                        var mens = $('<span class=\"erro\">Campo em branco!</span>');
-                        $('#est-senha').html(mens);
-                    }
-                    if (!ok) {
-                        var mens = 'Para fazer login, corrija os erros destacados em vermelho!';
-                        $('#erros').html(mens).fadeIn(2000);
-                        return false;
-                    }
-                });
-        });
-
+                
+            });
         </script>
     </head>
     <body>
         <div id="tudo">
-            <div id="secAdm"><a href="main.do?action=loginAdm">Administra&ccedil;&atilde;o</a></div>
             <div id="header">
                 <h1>iSyzza - Sistema Gerenciador de Tele Entregas</h1>
             </div>
             <div id="conteudo">
-                <div id="erros"></div>
-                <form action="main.do?action=logincli" method="post" id="formlogin">
+                <div id="erros">
+
+                </div>
+                <form id="ad-form" method="post" action="main.do?action=loginAdm">
                     <fieldset>
-                        <%
-                            Integer status = (Integer) request.getAttribute("status");
-                            System.out.println(status);
-                            if (status != null) {
-                                out.print("<span class=\"erro\">Login ou senha errados!</span>");
-                            }
-                        %>
-                        <legend>Login</legend>
+                        <legend>Administra&ccedil;&atilde;o</legend>
                         <div class="campos">
-                            <label for="email">Email:<br /></label>
+                            <label for="email">Login:<br /></label>
                             <input type="text" name="email" id="email" size="15" value="" />
                             <div id="est-email" class="estados"></div>
                         </div>
@@ -69,10 +44,9 @@
                             <div id="est-senha" class="estados"></div>
                         </div>
                         <div class="campos">
-                            <input type="hidden" name="cmd" value="loginclip" id="cmd" />
+                            <input type="hidden" name="cmd" value="loginAdmp" id="cmd" />
                             <input type="submit" id="enviar" name="enviar" value="Enviar" />
                             <input type="reset" id="limpar" name="limpar" value="Limpar" />
-                            <br />Ainda não é cadastrado? <a href="main.do?action=cadcli">Clique aqui.</a>
                         </div>
                     </fieldset>
                 </form>

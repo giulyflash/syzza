@@ -56,12 +56,53 @@ public class PedidoDAO {
         }
     }
 
-    public static ArrayList<Pedido> getPedidosById(Cliente cliente) {
+    public static void setPagamentoPedido(Pedido pedido) {
+        try {
+            Connection conexao = DBConnection.getInstance();
+            String sql = loadSQL("UpdatePagamento.Pedido");
+            PreparedStatement pstmt = conexao.prepareStatement(sql);
+            pstmt.setTimestamp(1, new Timestamp(pedido.getData_pag().getTime()));
+            pstmt.setInt(2, pedido.getId());
+            pstmt.executeUpdate();
+            pstmt.close();
+        } catch (SQLException ex) {
+            System.out.println("Erro no SQL: " + ex.getMessage());
+        } catch (ClassNotFoundException ex) {
+            System.out.println("Classe nao achada: " + ex.getMessage());
+        } catch (IOException ex) {
+            System.out.println("Erro de IO: " + ex.getMessage());
+        }
+    }
+    
+    public static Pedido getPedidoById(int id) {
+        Pedido pedido = null;
+        try {
+            Connection conexao = DBConnection.getInstance();
+            String sql = loadSQL("SelectById.Pedido");
+            PreparedStatement pstmt = conexao.prepareStatement(sql);
+            pstmt.setInt(1, id);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                pedido = recoverData(rs);
+            }
+            pstmt.close();
+        } catch (SQLException ex) {
+            System.out.println("Erro no SQL: " + ex.getMessage());
+        } catch (ClassNotFoundException ex) {
+            System.out.println("Classe nao achada: " + ex.getMessage());
+        } catch (IOException ex) {
+            System.out.println("Erro de IO: " + ex.getMessage());
+        }
+
+        return pedido;
+    }
+    
+    public static ArrayList<Pedido> getPedidosByCliente(Cliente cliente) {
         ArrayList<Pedido> lista = new ArrayList<Pedido>();
         Pedido pedido;
         try {
             Connection conexao = DBConnection.getInstance();
-            String sql = loadSQL("SelectByIdCliente.Pedido");
+            String sql = loadSQL("SelectByCliente.Pedido");
             PreparedStatement pstmt = conexao.prepareStatement(sql);
             pstmt.setInt(1, cliente.getId());
             ResultSet rs = pstmt.executeQuery();

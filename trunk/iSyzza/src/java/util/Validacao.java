@@ -41,6 +41,9 @@ public class Validacao {
         while (m.find()) {
             acpf += m.group();
         }
+        if(acpf.equals("11111111111") || acpf.equals("00000000000")) {
+            return false;
+        }
         for (int t = 9; t < 11; t++) {
             int sum, i;
             for (sum = 0, i = 0; i < t; i++) {
