@@ -9,10 +9,8 @@ import entity.Cliente;
 import entity.Pedido;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpSession;
 
@@ -31,7 +29,6 @@ public class AcompanhaPedidosProcessor extends Processor {
         System.out.println("Id do cliente: "+cliente.getId());
         ArrayList<Pedido> pedidos = new ArrayList<Pedido>();
         pedidos = PedidoDAO.getPedidosById(cliente);
-        System.out.println("chegou aki");
         if (!pedidos.isEmpty()) {
             System.out.println("entrou aki");
             out.print("<table>");
@@ -43,7 +40,7 @@ public class AcompanhaPedidosProcessor extends Processor {
             out.print("</tr>");
         }
         for (Pedido pedido : pedidos) {
-            SimpleDateFormat formato = new SimpleDateFormat("MMM dd/MM/yyyy HH:mm");
+            SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy HH:mm");
             String data;
             out.print("<tr>");
             out.print("<td>"+pedido.getId()+"</td>");
