@@ -17,14 +17,27 @@
         <script src="include/js/jquery-1.7.min.js"> </script>
         <script type="text/javascript">
             $(document).ready(function(){
-                loadAcPedidos();
-            });
-            function loadAcPedidos() {
-                $.post("main.do?action=homec", {cmd: 'pedidosac'}, function(data){
-                    $('#pedidosac').html(data);
+                $('#formlogin').submit(function(){
+                    $('#erros').hide();
+                    var ok = true;
+                    if ($('#email').val() == "") {
+                        ok = false;
+                        var mens = $('<span class=\"erro\">Campo em branco!</span>');
+                        $('#est-email').html(mens);
+                    }
+                    if ($('#senha').val() == "") {
+                        ok = false;
+                        var mens = $('<span class=\"erro\">Campo em branco!</span>');
+                        $('#est-senha').html(mens);
+                    }
+                    if (!ok) {
+                        var mens = 'Para fazer login, corrija os erros destacados em vermelho!';
+                        $('#erros').html(mens).fadeIn(2000);
+                        return false;
+                    }
                 });
-                setTimeOut(loadAcPedidos, 5000);
-            }
+        });
+
         </script>
     </head>
     <body>
@@ -33,8 +46,8 @@
                 <h1>iSyzza - Sistema Gerenciador de Tele Entregas</h1>
             </div>
             <div id="conteudo">
-                <h3>Acompanhamento de pedidos</h3>
-                <div id="pedidosac"></div>
+                <h3>Pagamento efetuado com sucesso!</h3>
+                <p id=""><a href="main.do?action=homec">Clique aqui</a> para voltar para a Home.</p>
             </div>
             <div id="footer">
                 <span>iSyzza @Copyright 2011 - Todos os direitos reservados</span>

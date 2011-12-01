@@ -28,7 +28,7 @@ public class AcompanhaPedidosProcessor extends Processor {
         Cliente cliente = (Cliente) session.getAttribute("cliente");
         System.out.println("Id do cliente: "+cliente.getId());
         ArrayList<Pedido> pedidos = new ArrayList<Pedido>();
-        pedidos = PedidoDAO.getPedidosById(cliente);
+        pedidos = PedidoDAO.getPedidosByCliente(cliente);
         if (!pedidos.isEmpty()) {
             System.out.println("entrou aki");
             out.print("<table>");
@@ -50,6 +50,7 @@ public class AcompanhaPedidosProcessor extends Processor {
                 out.print("<td>"+data+"</td>");
                 out.print("<td>"+"<span class=\"atencao\">"
                         + "<form method=\"post\" action=\"main.do?action=homec\">"
+                        + "<input type=\"hidden\" name=\"id_pedido\" value=\""+pedido.getId()+"\">"
                         + "<input type=\"hidden\" name=\"cmd\" value=\"pagp\" />"
                         + "<input type=\"submit\" value=\"Fazer Pagamento\" />"
                         + "</form></td>");

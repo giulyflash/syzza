@@ -123,3 +123,6 @@ a img {border:none;}
     .acerto {
         color: green;
     }
+    #secAdm {
+        float: right;
+    }
