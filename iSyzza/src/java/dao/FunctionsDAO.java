@@ -19,27 +19,31 @@ import java.util.logging.Logger;
  */
 public class FunctionsDAO {
     
-    public static int f_pedido_adicional_qtd() throws SQLException, ClassNotFoundException, IOException {
+    public static int f_pedido_adicional_qtd(int id_pedido) throws SQLException, ClassNotFoundException, IOException {
         Connection conexao = DBConnection.getInstance();
         CallableStatement clst = conexao.prepareCall("{? = call f_pedido_adicional_qtd(?)}");
         clst.registerOutParameter(1, Types.INTEGER);
-        clst.setInt(2, 3);
-        clst.execute();        
-        return clst.getInt(1);
+        clst.setInt(2, id_pedido);
+        clst.execute();   
+        int total = clst.getInt(1);
+        clst.close();
+        return total;
     }
     
-    public static int f_pedido_adicional_report() throws SQLException, ClassNotFoundException, IOException {
+    public static int f_pedido_adicional_report(int id_adicional) throws SQLException, ClassNotFoundException, IOException {
         Connection conexao = DBConnection.getInstance();
         CallableStatement clst = conexao.prepareCall("{? = call f_pedido_adicional_report(?)}");
         clst.registerOutParameter(1, Types.INTEGER);
-        clst.setInt(2, 1);
-        clst.execute();        
-        return clst.getInt(1);
+        clst.setInt(2, id_adicional);
+        clst.execute();
+        int total = clst.getInt(1);
+        clst.close();
+        return total;
     }
     
     public static void main(String[] args) {
         try {
-            FunctionsDAO.f_pedido_adicional_qtd();
+            System.out.println("Quantidade de adicional no pedido: "+FunctionsDAO.f_pedido_adicional_qtd(6));
         } catch (SQLException ex) {
             Logger.getLogger(FunctionsDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
@@ -48,7 +52,7 @@ public class FunctionsDAO {
             Logger.getLogger(FunctionsDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         try {
-            FunctionsDAO.f_pedido_adicional_report();
+            System.out.println("Quantidade de pedidos que pediram o adicional: "+FunctionsDAO.f_pedido_adicional_report(6));
         } catch (SQLException ex) {
             Logger.getLogger(FunctionsDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
