@@ -42,7 +42,7 @@
     </head>
     <body>
         <div id="tudo">
-            <div id="secAdm"><a href="main.do?action=loginAdm">Administra&ccedil;&atilde;o</a></div>
+            <div class="desc-topo" id="secAdm"><a href="main.do?action=loginAdm">Administra&ccedil;&atilde;o</a></div>
             <div id="header">
                 <h1>iSyzza - Sistema Gerenciador de Tele Entregas</h1>
             </div>
@@ -77,7 +77,12 @@
                     </fieldset>
                 </form>
             </div>
-            <div id="footer">
+            <div class="footer">
+                <span><a href="main.do?action=homec">Home</a></span> | 
+                <span><a href="main.do?action=logincli">Login</a></span> | 
+                <span><a href="main.do?action=profile">Profile</a></span>
+            </div>
+            <div class="footer">
                 <span>iSyzza @Copyright 2011 - Todos os direitos reservados</span>
             </div>
         </div>

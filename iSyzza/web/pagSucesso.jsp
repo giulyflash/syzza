@@ -47,9 +47,14 @@
             </div>
             <div id="conteudo">
                 <h3>Pagamento efetuado com sucesso!</h3>
-                <p id=""><a href="main.do?action=homec">Clique aqui</a> para voltar para a Home.</p>
+                <p><a href="main.do?action=homec">Clique aqui</a> para voltar para a Home.</p>
             </div>
-            <div id="footer">
+            <div class="footer">
+                <span><a href="main.do?action=homec">Home</a></span> | 
+                <span><a href="main.do?action=logincli">Login</a></span> | 
+                <span><a href="main.do?action=profile">Profile</a></span>
+            </div>
+            <div class="footer">
                 <span>iSyzza @Copyright 2011 - Todos os direitos reservados</span>
             </div>
         </div>

@@ -397,24 +397,6 @@
                             </div>
                         </div>
                         <div class="campos">
-                            <label for="num">Nº: <span class="atencao">*</span><br /></label>
-                            <input type="text" id="num" name="num" value="" size="5" />
-                            <div id="est-num" class="estados">
-                                <%
-                                    if (erros.contains(23)) {
-                                        out.print("<span class=\"erro\">Campo em branco!</span>");
-                                    } else if(erros.contains(24)) {
-                                        out.print("<span class=\"erro\">N&uacute;mero inv&aacute;lido!</span>");
-                                    }
-                                %>
-                            </div>
-                        </div>
-                        <div class="campos">
-                            <label for="comp">Complemento:<br /></label>
-                            <input type="text" id="comp" name="comp" value="" size="5" />
-                            <div id="est-comp" class="estados"></div>
-                        </div>
-                        <div class="campos">
                             <label for="bairro">Bairro: <span class="atencao">*</span><br /></label>
                             <input type="text" id="bairro" name="bairro" value="" size="20" />
                             <div id="est-bairro" class="estados">
@@ -436,6 +418,24 @@
                                 %>
                             </div>
                         </div>
+                            <div class="campos">
+                            <label for="num">Nº: <span class="atencao">*</span><br /></label>
+                            <input type="text" id="num" name="num" value="" size="5" />
+                            <div id="est-num" class="estados">
+                                <%
+                                    if (erros.contains(23)) {
+                                        out.print("<span class=\"erro\">Campo em branco!</span>");
+                                    } else if(erros.contains(24)) {
+                                        out.print("<span class=\"erro\">N&uacute;mero inv&aacute;lido!</span>");
+                                    }
+                                %>
+                            </div>
+                        </div>
+                        <div class="campos">
+                            <label for="comp">Complemento:<br /></label>
+                            <input type="text" id="comp" name="comp" value="" size="5" />
+                            <div id="est-comp" class="estados"></div>
+                        </div>
                         <div class="campos">
                             <input type="hidden" name="cmd" value="cadclip" id="action" />
                             <input type="submit" value="Enviar" id="enviar" />
@@ -448,7 +448,12 @@
                     </fieldset>
                 </form>
             </div>
-            <div id="footer">
+            <div class="footer">
+                <span><a href="main.do?action=homec">Home</a></span> | 
+                <span><a href="main.do?action=logincli">Login</a></span> | 
+                <span><a href="main.do?action=profile">Profile</a></span>
+            </div>
+            <div class="footer">
                 <span>iSyzza @Copyright 2011 - Todos os direitos reservados</span>
             </div>
         </div>
