@@ -10,9 +10,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import entity.Cliente;
-import java.sql.CallableStatement;
-import java.sql.Types;
-import java.text.SimpleDateFormat;
 
 /**
  *
@@ -220,8 +217,6 @@ public class ClienteDAO {
         cliente.setCpf(rs.getString("cpf"));
         cliente.setEndereco(rs.getString("endereco"));
         cliente.setData_cadastro(rs.getTimestamp("data_cadastro"));
-        System.out.println("Antes de recuperar: "+rs.getTimestamp("data_cadastro"));
-        System.out.println("Data recuperada: "+cliente.getData_cadastro());
         return cliente;
     }
     

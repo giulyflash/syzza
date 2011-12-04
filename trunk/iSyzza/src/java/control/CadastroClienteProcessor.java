@@ -116,7 +116,6 @@ public class CadastroClienteProcessor extends Processor {
         } else if (!Validacao.checkCpf(cpf)) {
             erros.add(18);
         } else {
-            cpf = cpf.substring(0, 3)+cpf.substring(4, 7)+cpf.substring(8, 11)+cpf.substring(12);
             Cliente cliente = ClienteDAO.getClienteByCpf(cpf);
             if (cliente != null) {
                 erros.add(19);
@@ -178,9 +177,9 @@ public class CadastroClienteProcessor extends Processor {
             cliente.setCpf(cpf);
             String endereco="";
             if (comp == null || comp.equals("")) {
-                endereco = log+"|"+num+"|"+bairro+"|"+cid+"|"+cep;
+                endereco = log+"|"+bairro+"|"+cid+"|"+cep+"|"+num;
             } else {
-                endereco = log+"|"+num+"|"+comp+"|"+bairro+"|"+cid+"|"+cep;
+                endereco = log+"|"+bairro+"|"+cid+"|"+cep+"|"+num+"|"+comp;
             }
             cliente.setEndereco(endereco);
             cliente.setData_cadastro(data);

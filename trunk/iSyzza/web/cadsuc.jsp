@@ -22,7 +22,12 @@
                 <h2>Cadastro Realizado com Sucesso!</h2>
                 <p>Para voltar para o menu principal <a href="main.do?action=logincli">Clique aqui</a></p>
             </div>
-            <div id="footer">
+            <div class="footer">
+                <span><a href="main.do?action=homec">Home</a></span> | 
+                <span><a href="main.do?action=logincli">Login</a></span> | 
+                <span><a href="main.do?action=profile">Profile</a></span>
+            </div>
+            <div class="footer">
                 <span>iSyzza @Copyright 2011 - Todos os direitos reservados</span>
             </div>
         </div>

@@ -50,7 +50,7 @@ fieldset {
     -webkit-border-radius:10px;
     padding-left:10px;
 	}
-#footer {
+.footer {
 	margin-top:10px; 
 	border-top:1px dotted #333;
 	padding-top:5px;
@@ -101,7 +101,7 @@ a img {border:none;}
     #header {
         margin:10px 15px;
     }
-    #footer {
+    .footer {
         margin:10px 15px;
         color: #ff5340;
         font-weight: bold;
@@ -123,6 +123,9 @@ a img {border:none;}
     .acerto {
         color: green;
     }
-    #secAdm {
+    .desc-topo {
         float: right;
+    }
+    label {
+        font-weight: bold;
     }
