@@ -2,6 +2,7 @@
 package entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  *
@@ -13,6 +14,7 @@ public class Pizza implements Serializable{
     private int qtd;
     private Tamanho tamanho;
     private Borda borda;
+    private ArrayList<Sabor> sabores;
     private Pedido pedido;
 
     public Pizza() {
@@ -50,6 +52,14 @@ public class Pizza implements Serializable{
         this.qtd = qtd;
     }
 
+    public ArrayList<Sabor> getSabores() {
+        return sabores;
+    }
+
+    public void setSabores(ArrayList<Sabor> sabores) {
+        this.sabores = sabores;
+    }
+
     public Tamanho getTamanho() {
         return tamanho;
     }
@@ -79,6 +89,9 @@ public class Pizza implements Serializable{
         if (this.borda != other.borda && (this.borda == null || !this.borda.equals(other.borda))) {
             return false;
         }
+        if (this.sabores != other.sabores && (this.sabores == null || !this.sabores.equals(other.sabores))) {
+            return false;
+        }
         if (this.pedido != other.pedido && (this.pedido == null || !this.pedido.equals(other.pedido))) {
             return false;
         }
@@ -88,17 +101,18 @@ public class Pizza implements Serializable{
     @Override
     public int hashCode() {
         int hash = 5;
-        hash = 41 * hash + this.id;
-        hash = 41 * hash + this.qtd;
-        hash = 41 * hash + (this.tamanho != null ? this.tamanho.hashCode() : 0);
-        hash = 41 * hash + (this.borda != null ? this.borda.hashCode() : 0);
-        hash = 41 * hash + (this.pedido != null ? this.pedido.hashCode() : 0);
+        hash = 89 * hash + this.id;
+        hash = 89 * hash + this.qtd;
+        hash = 89 * hash + (this.tamanho != null ? this.tamanho.hashCode() : 0);
+        hash = 89 * hash + (this.borda != null ? this.borda.hashCode() : 0);
+        hash = 89 * hash + (this.sabores != null ? this.sabores.hashCode() : 0);
+        hash = 89 * hash + (this.pedido != null ? this.pedido.hashCode() : 0);
         return hash;
     }
 
     @Override
     public String toString() {
-        return "Pizza{" + "id=" + id + ", qtd=" + qtd + ", tamanho=" + tamanho + ", borda=" + borda + ", pedido=" + pedido + '}';
+        return "Pizza{" + "id=" + id + ", qtd=" + qtd + ", tamanho=" + tamanho + ", borda=" + borda + ", sabores=" + sabores + ", pedido=" + pedido + '}';
     }
     
 }

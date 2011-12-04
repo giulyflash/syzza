@@ -37,6 +37,7 @@
             <div id="conteudo">
                 <h3>Acompanhamento de pedidos</h3>
                 <div id="pedidosac"></div>
+                <p>Para fazer um novo pedido, <a href="main.do?action=newpedido">clique aqui</a>.</p>
             </div>
             <div class="footer">
                 <span><a href="main.do?action=homec">Home</a></span> | 
