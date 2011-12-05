@@ -22,22 +22,23 @@ public class CarregaPizzasProcessor extends Processor{
     public void execute() throws ServletException, IOException {
         PrintWriter out = getResponse().getWriter();
         HttpSession session = getRequest().getSession();
-        Pedido pedido = (Pedido)session.getAttribute("pedido");
-        if ((ArrayList<Pizza>)session.getAttribute("pizzas") != null) {
-            ArrayList<Pizza> pizzas = (ArrayList<Pizza>)session.getAttribute("pizzas");
-        }
-        ArrayList<Pizza> pizzas = new ArrayList<Pizza>();
+        ArrayList<Pizza> pizzas = (ArrayList<Pizza>)session.getAttribute("pizzas");
+        if (pizzas == null) {
+            pizzas = new ArrayList<Pizza>();
+        } else {
+            System.out.println("Numeo de elem na lista: "+pizzas.size());
+        }    
         int i=0;
         for (Pizza pizza : pizzas) {
             i++;
-            out.print("<b>Pizza"+ i+"</b><br />");
-            out.print("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tamanho: "+pizza.getTamanho()+"<br />");
+            out.print("<b>Pizza "+ i+"</b><br />");
+            out.print("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tamanho: "+pizza.getTamanho().getNome()+"<br />");
             out.print("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sabores: ");
             out.print(pizza.getSabores().get(0).getNome()+", "+
                     pizza.getSabores().get(1).getNome()+", "+
                     pizza.getSabores().get(2).getNome()+", "+
                     pizza.getSabores().get(3).getNome()+"<br />");
-            out.print("Borda: "+pizza.getBorda().getNome()+"<br /><br />");
+            out.print("&nbsp;&nbsp;&nbsp;&nbsp;&nbspBorda: "+pizza.getBorda().getNome()+"<br /><br />");
         }
         if (pizzas.isEmpty()) {
             out.print("<p>Nenhuma pizza.</p>");

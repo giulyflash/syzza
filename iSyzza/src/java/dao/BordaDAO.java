@@ -53,6 +53,28 @@ public class BordaDAO {
         return lista;
     }
     
+    public static Borda getBordaById(int id) {
+        Borda borda = new Borda();
+        try {
+            Connection conexao = DBConnection.getInstance();
+            String sql = loadSQL("SelectById.Borda");
+            PreparedStatement pstmt = conexao.prepareStatement(sql);
+            pstmt.setInt(1, id);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                borda = recoverData(rs);
+            }
+            pstmt.close();
+        } catch (SQLException ex) {
+            System.out.println("Erro no SQL: " + ex.getMessage());
+        } catch (ClassNotFoundException ex) {
+            System.out.println("Classe nao achada: " + ex.getMessage());
+        } catch (IOException ex) {
+            System.out.println("Erro de IO: " + ex.getMessage());
+        }
+        return borda;
+    }
+    
     private static Borda recoverData(ResultSet rs) throws SQLException {
         Borda borda = new Borda();
         borda.setId(rs.getInt("id_borda"));

@@ -36,7 +36,16 @@
                     $.post("main.do?action=newpedido", {cmd: "addPizzas", 
                         tamanho: $('#tamanho').val(),
                         borda: $('#borda').val(), 
-                        sabor1; });
+                        sabor1: $('#sabor1').val(), 
+                        sabor2: $('#sabor2').val(), 
+                        sabor3: $('#sabor3').val(), 
+                        sabor4: $('#sabor4').val()
+                    }, function(){
+                        loadPizzas();
+                    });
+                    $('#novaPizza').hide();
+                    $('#addPizza').show();
+                    
                 });
             });
             function loadPizzas() {

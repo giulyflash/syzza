@@ -37,12 +37,9 @@ public class SaborDAO {
         try {
             Connection conexao = DBConnection.getInstance();
             String sql = loadSQL("SelectAll.Sabor");
-            System.out.println("chegou aki");
             PreparedStatement pstmt = conexao.prepareStatement(sql);
             ResultSet rs = pstmt.executeQuery();
-            System.out.println("12345");
             while (rs.next()) {
-                System.out.println("eiiii");
                 sabor = recoverData(rs);
                 lista.add(sabor);
             }
@@ -57,12 +54,32 @@ public class SaborDAO {
         return lista;
     }
     
+    public static Sabor getSaborById(int id) {
+        Sabor sabor = new Sabor();
+        try {
+            Connection conexao = DBConnection.getInstance();
+            String sql = loadSQL("SelectById.Sabor");
+            PreparedStatement pstmt = conexao.prepareStatement(sql);
+            pstmt.setInt(1, id);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                sabor = recoverData(rs);
+            }
+            pstmt.close();
+        } catch (SQLException ex) {
+            System.out.println("Erro no SQL: " + ex.getMessage());
+        } catch (ClassNotFoundException ex) {
+            System.out.println("Classe nao achada: " + ex.getMessage());
+        } catch (IOException ex) {
+            System.out.println("Erro de IO: " + ex.getMessage());
+        }
+        return sabor;
+    }
+    
     private static Sabor recoverData(ResultSet rs) throws SQLException {
-        System.out.println("akiiiii");
         Sabor sabor = new Sabor();
         sabor.setId(rs.getInt("id_sabor"));
         sabor.setNome(rs.getString("nome"));
-        System.out.println(sabor.toString());
         return sabor;
     }
 
