@@ -23,7 +23,10 @@ public class CarregaPizzasProcessor extends Processor{
         PrintWriter out = getResponse().getWriter();
         HttpSession session = getRequest().getSession();
         Pedido pedido = (Pedido)session.getAttribute("pedido");
-        ArrayList<Pizza> pizzas = (ArrayList<Pizza>)session.getAttribute("pizzas");
+        if ((ArrayList<Pizza>)session.getAttribute("pizzas") != null) {
+            ArrayList<Pizza> pizzas = (ArrayList<Pizza>)session.getAttribute("pizzas");
+        }
+        ArrayList<Pizza> pizzas = new ArrayList<Pizza>();
         int i=0;
         for (Pizza pizza : pizzas) {
             i++;

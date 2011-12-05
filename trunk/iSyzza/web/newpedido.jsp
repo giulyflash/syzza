@@ -11,13 +11,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@include file="autentica.jsp" %>
 
-<%
-    session = request.getSession();
-    if ((Pedido) session.getAttribute("pedido") == null) {
-        RequestDispatcher rd = request.getRequestDispatcher("");
-    }
-%>
-
 <!DOCTYPE html>
 <html>
     <head>
@@ -28,11 +21,22 @@
         <script src="include/js/jquery-1.7.min.js"> </script>
         <script type="text/javascript">
             $(document).ready(function(){
-                $('#pizzas').hide();
+                $('#novaPizza').hide();
                 loadPizzas();
                 $('#addPizza').click(function(){
                     $(this).hide();
-                    $('#pizzas').show();
+                    $('#novaPizza').show();
+                });
+                $('#cancPizza').click(function(){
+                    $('#addPizza').show();
+                    $('#novaPizza').hide();
+                });
+                
+                $('#envPizza').click(function(){
+                    $.post("main.do?action=newpedido", {cmd: "addPizzas", 
+                        tamanho: $('#tamanho').val(),
+                        borda: $('#borda').val(), 
+                        sabor1; });
                 });
             });
             function loadPizzas() {
@@ -52,21 +56,22 @@
                 <h1>iSyzza - Sistema Gerenciador de Tele Entregas</h1>
             </div>
             <div id="conteudo">
-                <h3>Novo Pedido</h3>
+                <h2>Novo Pedido</h2>
                 <form id="formped" action="main.do?action=pedidop" method="post">
                     <fieldset>
-                        <h4>Pizzas</h4>
+                        <h3>Pizzas Adicionadas</h3>
                         <div id="pizzas"></div>
-                        <input type="button" value="Adicionar" id="addPizza" /><br /><br />
+                        <input type="button" value="Adicionar" id="addPizza" />
                         <div id="novaPizza">
                             <fieldset>
-                                <h5>Tamanho</h5>
+                                <h3>Nova Pizza</h3>
+                                <h4>Tamanho</h4>
                                 <select name="tamanho" id="tamanho">
                                     <c:forEach items="${tamanhos}" var="tamanho">
                                         <option value="<c:out value="${tamanho.id}" />"><c:out value="${tamanho.nome}" /><c:out value=" = R$ ${tamanho.preco}" /></option>
                                     </c:forEach>
                                 </select>
-                                <h5>Sabores</h5>
+                                <h4>Sabores</h4>
                                 <label for="sabor1">1/4: </label>
                                 <select name="sabor1" id="sabor1">
                                     <c:forEach items="${sabores}" var="sabor">
@@ -91,7 +96,7 @@
                                         <option value="<c:out value="${sabor.id}" />"><c:out value="${sabor.nome}" /></option>
                                     </c:forEach>
                                 </select>
-                                <h5>Borda</h5>
+                                <h4>Borda</h4>
                                 <select name="borda" id="borda">
                                     <c:forEach items="${bordas}" var="borda">
                                         <option value="<c:out value="${borda.id}" />"><c:out value="${borda.nome}" /><c:out value=" = R$ ${borda.preco}" /></option>
