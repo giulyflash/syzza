@@ -54,6 +54,28 @@ public class TamanhoDAO {
         return lista;
     }
     
+    public static Tamanho getTamanhoById(int id) {
+        Tamanho tamanho = new Tamanho();
+        try {
+            Connection conexao = DBConnection.getInstance();
+            String sql = loadSQL("SelectById.Tamanho");
+            PreparedStatement pstmt = conexao.prepareStatement(sql);
+            pstmt.setInt(1, id);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                tamanho = recoverData(rs);
+            }
+            pstmt.close();
+        } catch (SQLException ex) {
+            System.out.println("Erro no SQL: " + ex.getMessage());
+        } catch (ClassNotFoundException ex) {
+            System.out.println("Classe nao achada: " + ex.getMessage());
+        } catch (IOException ex) {
+            System.out.println("Erro de IO: " + ex.getMessage());
+        }
+        return tamanho;
+    }
+    
     private static Tamanho recoverData(ResultSet rs) throws SQLException {
         Tamanho tamanho = new Tamanho();
         tamanho.setId(rs.getInt("id_tamanho"));

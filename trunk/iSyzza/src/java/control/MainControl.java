@@ -55,7 +55,7 @@ public class MainControl extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         String cmd = request.getParameter("cmd");
         String action = request.getParameter("action");
-        System.out.println("Action" + action);
+        System.out.println("Action: " + action);
         System.out.println("Cmd: " + cmd);
         String actionClass = (String)actions.get(cmd);
         try {
