@@ -34,7 +34,7 @@ public class CarregaPetiscoProcessor extends Processor {
             out.print("<b>Petisco "+i+": </b><br />");
             out.print("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Nome: "+petisco.getAdicional().getNome()+"<br />");
             out.print("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Pre&ccedil;o: "+petisco.getAdicional().getPreco()+"<br />");
-            out.print("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Quantidade: "+petisco.getQtd());
+            out.print("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Quantidade: "+petisco.getQtd()+"<br /><br />");
         }
         if (petiscos.isEmpty()) {
             out.print("<p>Nenhum petisco.</p>");
