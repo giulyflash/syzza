@@ -24,10 +24,13 @@
                 var iconCarregando = $('<img src="include/image/ajax-loader.gif" class="icon" />');
                 $('#pizzas').html(iconCarregando);
                 $('#petiscos').html(iconCarregando);
+                $('#sobremesas').html(iconCarregando);
                 $('#novaPizza').hide();
                 $('#novaPetisco').hide();
+                $('#novaSobremesa').hide();                
                 loadPizzas();
-                loadPetiscos()
+                loadPetiscos();
+                loadSobremesas();
                 $('#addPizza').click(function(){
                     $(this).hide();
                     $('#novaPizza').show();
@@ -62,13 +65,32 @@
                 });
                 $('#envPetisco').click(function(){
                     $.post("main.do?action=newpedido", {cmd: "addPetiscos", 
-                        petisco: $('#petisco').val()                        
+                        petisco: $('#petisco').val(), 
+                        qtd: $('#qtdPetisco').val()
                     }, function(){
                         loadPetiscos();
                     });
                     $('#novaPetisco').hide();
                     $('#addPetisco').show();
                     
+                });
+                $('#addSobremesa').click(function(){
+                    $(this).hide();
+                    $('#novaSobremesa').show();
+                });
+                $('#cancSobremesa').click(function(){
+                    $('#addSobremesa').show();
+                    $('#novaSobremesa').hide();
+                });
+                $('#envSobremesa').click(function(){
+                    $.post("main.do?action=newpedido", {cmd: "addSobrem", 
+                        sobremesa: $('#sobremesa').val(), 
+                        qtdSobremesa: $('#qtdSobremesa').val()
+                    }, function(){
+                        loadSobremesas();
+                    });
+                    $('#novaSobremesa').hide();
+                    $('#addSobremesa').show();
                 });
             });
             function loadPizzas() {
@@ -79,6 +101,11 @@
             function loadPetiscos() {
                 $.post("main.do?action=newpedido", {cmd: "loadPetiscos"}, function(data) {
                     $('#petiscos').html(data);
+                });
+            }
+            function loadSobremesas() {
+                $.post("main.do?action=newpedido", {cmd: "loadSobrem"}, function(data) {
+                    $('#sobremesas').html(data);
                 });
             }
         </script>
@@ -153,12 +180,53 @@
                                 <label for="petisco">Petisco: </label>
                                 <select name="petisco" id="petisco">
                                     <c:forEach items="${petiscos}" var="petisco">
-                                        <option value="<c:out value="${petisco.id}" />"><c:out value="${petisco.nome}" /><c:out value=" = R$ ${petisco.preco}" /></option>
+                                        <option value="<c:out value="${petisco.id}" />">
+                                            <c:out value="${petisco.nome}" />
+                                            <c:out value=" = R$ ${petisco.preco}" />
+                                        </option>
                                     </c:forEach>
+                                </select>
+                                <label for="qtdPetisco">Qtd: </label>
+                                <select id="qtdPetisco" name="qtdPetisco">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
                                 </select>
                                 <br /><br />
                                 <input type="button" id="envPetisco" value="Adicionar" />
                                 <input type="button" id="cancPetisco" value="Cancelar" />
+                            </fieldset>
+                        </div>
+                    </fieldset>
+                    <fieldset>
+                        <h3>Sobremesas</h3>
+                        <div id="sobremesas"></div>
+                        <input type="button" value="Adicionar" id="addSobremesa" />
+                        <div id="novaSobremesa">
+                            <fieldset>
+                                <h3>Nova Sobremesa</h3>
+                                <label for="sobremesa">Sobremesa: </label>
+                                <select name="sobremesa" id="sobremesa">
+                                    <c:forEach items="${sobremesas}" var="sobremesa">
+                                        <option value="<c:out value="${sobremesa.id}" />">
+                                            <c:out value="${sobremesa.nome}" />
+                                            <c:out value=" = R$ ${sobremesa.preco}" />
+                                        </option>
+                                    </c:forEach>
+                                </select>
+                                <label for="qtdSobremesa">Qtd: </label>
+                                <select id="qtdSobremesa" name="qtdSobremesa">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                </select>
+                                <br /><br />
+                                <input type="button" id="envSobremesa" value="Adicionar" />
+                                <input type="button" id="cancSobremesa" value="Cancelar" />
                             </fieldset>
                         </div>
                     </fieldset>
