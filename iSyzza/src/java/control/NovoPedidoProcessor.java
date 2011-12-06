@@ -4,9 +4,11 @@
  */
 package control;
 
+import dao.AdicionalDAO;
 import dao.BordaDAO;
 import dao.SaborDAO;
 import dao.TamanhoDAO;
+import entity.Adicional;
 import entity.Borda;
 import entity.Pedido;
 import entity.Sabor;
@@ -38,6 +40,9 @@ public class NovoPedidoProcessor extends Processor{
         
         ArrayList<Borda> bordas = BordaDAO.getBordas();
         getRequest().setAttribute("bordas", bordas);
+        
+        ArrayList<Adicional> petiscos = AdicionalDAO.getAdicionaisByTipo(2);
+        getRequest().setAttribute("petiscos", petiscos);
         
         forward("newpedido.jsp");
     }

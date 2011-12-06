@@ -12,6 +12,7 @@ public class Adicional implements Serializable{
     private int id;
     private String nome;
     private float preco;
+    private int tipo;
 
     public Adicional() {
     }
@@ -40,6 +41,14 @@ public class Adicional implements Serializable{
         this.preco = preco;
     }
 
+    public int getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(int tipo) {
+        this.tipo = tipo;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {
@@ -58,21 +67,25 @@ public class Adicional implements Serializable{
         if (Float.floatToIntBits(this.preco) != Float.floatToIntBits(other.preco)) {
             return false;
         }
+        if (this.tipo != other.tipo) {
+            return false;
+        }
         return true;
     }
 
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 29 * hash + this.id;
-        hash = 29 * hash + (this.nome != null ? this.nome.hashCode() : 0);
-        hash = 29 * hash + Float.floatToIntBits(this.preco);
+        int hash = 7;
+        hash = 59 * hash + this.id;
+        hash = 59 * hash + (this.nome != null ? this.nome.hashCode() : 0);
+        hash = 59 * hash + Float.floatToIntBits(this.preco);
+        hash = 59 * hash + this.tipo;
         return hash;
     }
 
     @Override
     public String toString() {
-        return "Adicional{" + "id=" + id + ", nome=" + nome + ", preco=" + preco + '}';
+        return "Adicional{" + "id=" + id + ", nome=" + nome + ", preco=" + preco + ", tipo=" + tipo + '}';
     }
     
 }
