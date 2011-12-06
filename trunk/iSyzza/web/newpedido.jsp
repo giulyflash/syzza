@@ -21,8 +21,13 @@
         <script src="include/js/jquery-1.7.min.js"> </script>
         <script type="text/javascript">
             $(document).ready(function(){
+                var iconCarregando = $('<img src="include/image/ajax-loader.gif" class="icon" />');
+                $('#pizzas').html(iconCarregando);
+                $('#petiscos').html(iconCarregando);
                 $('#novaPizza').hide();
+                $('#novaPetisco').hide();
                 loadPizzas();
+                loadPetiscos()
                 $('#addPizza').click(function(){
                     $(this).hide();
                     $('#novaPizza').show();
@@ -47,12 +52,33 @@
                     $('#addPizza').show();
                     
                 });
+                $('#addPetisco').click(function(){
+                    $(this).hide();
+                    $('#novaPetisco').show();
+                });
+                $('#cancPetisco').click(function(){
+                    $('#addPetisco').show();
+                    $('#novaPetisco').hide();
+                });
+                $('#envPetisco').click(function(){
+                    $.post("main.do?action=newpedido", {cmd: "addPetiscos", 
+                        petisco: $('#petisco').val()                        
+                    }, function(){
+                        loadPetiscos();
+                    });
+                    $('#novaPetisco').hide();
+                    $('#addPetisco').show();
+                    
+                });
             });
             function loadPizzas() {
-                var iconCarregando = $('<img src="include/image/ajax-loader.gif" class="icon" />');
-                $('#pizzas').html(iconCarregando);
                 $.post("main.do?action=newpedido", {cmd: "loadPizzas"}, function(data) {
                     $('#pizzas').html(data);
+                });
+            }
+            function loadPetiscos() {
+                $.post("main.do?action=newpedido", {cmd: "loadPetiscos"}, function(data) {
+                    $('#petiscos').html(data);
                 });
             }
         </script>
@@ -68,9 +94,9 @@
                 <h2>Novo Pedido</h2>
                 <form id="formped" action="main.do?action=pedidop" method="post">
                     <fieldset>
-                        <h3>Pizzas Adicionadas</h3>
+                        <h3>Pizzas no Pedido</h3>
                         <div id="pizzas"></div>
-                        <input type="button" value="Adicionar" id="addPizza" />
+                        <input type="button" value="Adicionar Pizza" id="addPizza" />
                         <div id="novaPizza">
                             <fieldset>
                                 <h3>Nova Pizza</h3>
@@ -114,6 +140,25 @@
                                 <br /><br />
                                 <input type="button" id="envPizza" value="Adicionar" />
                                 <input type="button" id="cancPizza" value="Cancelar" />
+                            </fieldset>
+                        </div>
+                    </fieldset>
+                    <fieldset>
+                        <h3>Petiscos</h3>
+                        <div id="petiscos"></div>
+                        <input type="button" value="Adicionar" id="addPetisco" />
+                        <div id="novaPetisco">
+                            <fieldset>
+                                <h3>Novo Petisco</h3>
+                                <label for="petisco">Petisco: </label>
+                                <select name="petisco" id="petisco">
+                                    <c:forEach items="${petiscos}" var="petisco">
+                                        <option value="<c:out value="${petisco.id}" />"><c:out value="${petisco.nome}" /><c:out value=" = R$ ${petisco.preco}" /></option>
+                                    </c:forEach>
+                                </select>
+                                <br /><br />
+                                <input type="button" id="envPetisco" value="Adicionar" />
+                                <input type="button" id="cancPetisco" value="Cancelar" />
                             </fieldset>
                         </div>
                     </fieldset>
