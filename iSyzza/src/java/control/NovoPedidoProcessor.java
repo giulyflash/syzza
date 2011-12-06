@@ -44,6 +44,9 @@ public class NovoPedidoProcessor extends Processor{
         ArrayList<Adicional> petiscos = AdicionalDAO.getAdicionaisByTipo(2);
         getRequest().setAttribute("petiscos", petiscos);
         
+        ArrayList<Adicional> sobremesas = AdicionalDAO.getAdicionaisByTipo(3);
+        getRequest().setAttribute("sobremesas", sobremesas);
+        
         forward("newpedido.jsp");
     }
     

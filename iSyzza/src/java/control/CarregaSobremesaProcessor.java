@@ -13,15 +13,15 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author Jonathan
+ * @author 0669105
  */
-public class CarregaPetiscoProcessor extends Processor {
-
-    @Override
+public class CarregaSobremesaProcessor extends Processor{
+    
+        @Override
     public void execute() throws ServletException, IOException {
         PrintWriter out = getResponse().getWriter();
         HttpSession session = getRequest().getSession();
-        ArrayList<PedidoAdicional> petiscos = (ArrayList<PedidoAdicional>)session.getAttribute("petiscosPed");
+        ArrayList<PedidoAdicional> petiscos = (ArrayList<PedidoAdicional>)session.getAttribute("sobremesasPed");
         if (petiscos == null) {
             petiscos = new ArrayList<PedidoAdicional>();
         } else {
@@ -31,13 +31,13 @@ public class CarregaPetiscoProcessor extends Processor {
         for (PedidoAdicional petisco : petiscos) {
             i++;
             System.out.println(i);
-            out.print("<b>Petisco "+i+": </b><br />");
+            out.print("<b>Sobremesa "+i+": </b><br />");
             out.print("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Nome: "+petisco.getAdicional().getNome()+"<br />");
             out.print("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Pre&ccedil;o: "+petisco.getAdicional().getPreco()+"<br />");
-            out.print("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Quantidade: "+petisco.getQtd());
+            out.print("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Quantidade: "+petisco.getQtd()+"<br />");
         }
         if (petiscos.isEmpty()) {
-            out.print("<p>Nenhum petisco.</p>");
+            out.print("<p>Nenhuma sobremesa.</p>");
         }
     }
     

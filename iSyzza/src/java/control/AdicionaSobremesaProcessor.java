@@ -15,26 +15,28 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author Jonathan
+ * @author 0669105
  */
-public class AdicionaPetiscoProcessor extends Processor{
-
+public class AdicionaSobremesaProcessor extends Processor{
+    
     @Override
     public void execute() throws ServletException, IOException {
         HttpSession session = getRequest().getSession();
-        ArrayList<PedidoAdicional> petiscos = (ArrayList<PedidoAdicional>)session.getAttribute("petiscosPed");
+        ArrayList<PedidoAdicional> petiscos = (ArrayList<PedidoAdicional>)session.getAttribute("sobremesasPed");
         Pedido pedido = (Pedido)session.getAttribute("pedido");
         if (petiscos == null) {
             petiscos = new ArrayList<PedidoAdicional>();
         }
-        Adicional adicional = AdicionalDAO.getAdicionalById(Integer.parseInt(getRequest().getParameter("petisco")));
-        int qtd = Integer.parseInt(getRequest().getParameter("qtd"));
+        System.out.println(getRequest().getParameter("sobremesa"));
+        System.out.println(getRequest().getParameter("qtdSobremesa"));
+        Adicional adicional = AdicionalDAO.getAdicionalById(Integer.parseInt(getRequest().getParameter("sobremesa")));
+        int qtd = Integer.parseInt(getRequest().getParameter("qtdSobremesa"));
         PedidoAdicional pedidoAdicional = new PedidoAdicional();
         pedidoAdicional.setAdicional(adicional);
         pedidoAdicional.setPedido(pedido);
         pedidoAdicional.setQtd(qtd);
         petiscos.add(pedidoAdicional);
-        session.setAttribute("petiscosPed", petiscos);
+        session.setAttribute("sobremesasPed", petiscos);
     }
     
 }
