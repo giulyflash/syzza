@@ -10,6 +10,7 @@ import dao.SaborDAO;
 import dao.TamanhoDAO;
 import entity.Adicional;
 import entity.Borda;
+import entity.Cliente;
 import entity.Pedido;
 import entity.Sabor;
 import entity.Tamanho;
@@ -27,8 +28,10 @@ public class NovoPedidoProcessor extends Processor{
     @Override
     public void execute() throws ServletException, IOException {
         HttpSession session = getRequest().getSession();
+        Cliente cliente = (Cliente)session.getAttribute("cliente");
         getRequest().setCharacterEncoding("utf-8");
         Pedido pedido = new Pedido();
+        pedido.setCliente(cliente);
         pedido.setId(1);
         session.setAttribute("pedido", pedido);
         
@@ -46,6 +49,9 @@ public class NovoPedidoProcessor extends Processor{
         
         ArrayList<Adicional> sobremesas = AdicionalDAO.getAdicionaisByTipo(3);
         getRequest().setAttribute("sobremesas", sobremesas);
+        
+        ArrayList<Adicional> bebidas = AdicionalDAO.getAdicionaisByTipo(1);
+        getRequest().setAttribute("bebidas", bebidas);
         
         forward("newpedido.jsp");
     }

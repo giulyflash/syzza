@@ -25,12 +25,15 @@
                 $('#pizzas').html(iconCarregando);
                 $('#petiscos').html(iconCarregando);
                 $('#sobremesas').html(iconCarregando);
+                $('#bebidas').html(iconCarregando);
                 $('#novaPizza').hide();
                 $('#novaPetisco').hide();
-                $('#novaSobremesa').hide();                
+                $('#novaSobremesa').hide(); 
+                $('#novaBebida').hide(); 
                 loadPizzas();
                 loadPetiscos();
                 loadSobremesas();
+                loadBebidas();
                 $('#addPizza').click(function(){
                     $(this).hide();
                     $('#novaPizza').show();
@@ -92,6 +95,24 @@
                     $('#novaSobremesa').hide();
                     $('#addSobremesa').show();
                 });
+                $('#addBebida').click(function(){
+                    $(this).hide();
+                    $('#novaBebida').show();
+                });
+                $('#cancBebida').click(function(){
+                    $('#addBebida').show();
+                    $('#novaBebida').hide();
+                });
+                $('#envBebida').click(function(){
+                    $.post("main.do?action=newpedido", {cmd: "addBebidas", 
+                        bebida: $('#bebida').val(), 
+                        qtdBebida: $('#qtdBebida').val()
+                    }, function(){
+                        loadBebidas();
+                    });
+                    $('#novaBebida').hide();
+                    $('#addBebida').show();
+                });
             });
             function loadPizzas() {
                 $.post("main.do?action=newpedido", {cmd: "loadPizzas"}, function(data) {
@@ -108,6 +129,11 @@
                     $('#sobremesas').html(data);
                 });
             }
+            function loadBebidas() {
+                $.post("main.do?action=newpedido", {cmd: "loadBebidas"}, function(data) {
+                    $('#bebidas').html(data);
+                });
+            }
         </script>
     </head>
     <body>
@@ -119,9 +145,9 @@
             </div>
             <div id="conteudo">
                 <h2>Novo Pedido</h2>
-                <form id="formped" action="main.do?action=pedidop" method="post">
+                <form id="formped" action="main.do?action=newpedido" method="post">
                     <fieldset>
-                        <h3>Pizzas no Pedido</h3>
+                        <h3>Pizzas</h3>
                         <div id="pizzas"></div>
                         <input type="button" value="Adicionar Pizza" id="addPizza" />
                         <div id="novaPizza">
@@ -130,38 +156,52 @@
                                 <h4>Tamanho</h4>
                                 <select name="tamanho" id="tamanho">
                                     <c:forEach items="${tamanhos}" var="tamanho">
-                                        <option value="<c:out value="${tamanho.id}" />"><c:out value="${tamanho.nome}" /><c:out value=" = R$ ${tamanho.preco}" /></option>
+                                        <option value="<c:out value="${tamanho.id}" />">
+                                            <c:out value="${tamanho.nome}" />
+                                            <c:out value=" = R$ ${tamanho.preco}" />
+                                        </option>
                                     </c:forEach>
                                 </select>
                                 <h4>Sabores</h4>
                                 <label for="sabor1">1/4: </label>
                                 <select name="sabor1" id="sabor1">
                                     <c:forEach items="${sabores}" var="sabor">
-                                        <option value="<c:out value="${sabor.id}" />"><c:out value="${sabor.nome}" /></option>
+                                        <option value="<c:out value="${sabor.id}" />">
+                                            <c:out value="${sabor.nome}" />
+                                        </option>
                                     </c:forEach>
                                 </select>
                                 <label for="sabor2">1/4: </label>
                                 <select name="sabor2" id="sabor2">
                                     <c:forEach items="${sabores}" var="sabor">
-                                        <option value="<c:out value="${sabor.id}" />"><c:out value="${sabor.nome}" /></option>
+                                        <option value="<c:out value="${sabor.id}" />">
+                                            <c:out value="${sabor.nome}" />
+                                        </option>
                                     </c:forEach>
                                 </select>
                                 <label for="sabor3">1/4: </label>
                                 <select name="sabor3" id="sabor3">
                                     <c:forEach items="${sabores}" var="sabor">
-                                        <option value="<c:out value="${sabor.id}" />"><c:out value="${sabor.nome}" /></option>
+                                        <option value="<c:out value="${sabor.id}" />">
+                                            <c:out value="${sabor.nome}" />
+                                        </option>
                                     </c:forEach>
                                 </select>
                                 <label for="sabor4">1/4: </label>
                                 <select name="sabor4" id="sabor4">
                                     <c:forEach items="${sabores}" var="sabor">
-                                        <option value="<c:out value="${sabor.id}" />"><c:out value="${sabor.nome}" /></option>
+                                        <option value="<c:out value="${sabor.id}" />">
+                                            <c:out value="${sabor.nome}" />
+                                        </option>
                                     </c:forEach>
                                 </select>
                                 <h4>Borda</h4>
                                 <select name="borda" id="borda">
                                     <c:forEach items="${bordas}" var="borda">
-                                        <option value="<c:out value="${borda.id}" />"><c:out value="${borda.nome}" /><c:out value=" = R$ ${borda.preco}" /></option>
+                                        <option value="<c:out value="${borda.id}" />">
+                                            <c:out value="${borda.nome}" />
+                                            <c:out value=" = R$ ${borda.preco}" />
+                                        </option>
                                     </c:forEach>
                                 </select>
                                 <br /><br />
@@ -230,6 +270,38 @@
                             </fieldset>
                         </div>
                     </fieldset>
+                    <fieldset>
+                        <h3>Bebidas</h3>
+                        <div id="bebidas"></div>
+                        <input type="button" value="Adicionar" id="addBebida" />
+                        <div id="novaBebida">
+                            <fieldset>
+                                <h3>Nova Sobremesa</h3>
+                                <label for="bebida">Sobremesa: </label>
+                                <select name="bebida" id="bebida">
+                                    <c:forEach items="${bebidas}" var="bebida">
+                                        <option value="<c:out value="${bebida.id}" />">
+                                            <c:out value="${bebida.nome}" />
+                                            <c:out value=" = R$ ${bebida.preco}" />
+                                        </option>
+                                    </c:forEach>
+                                </select>
+                                <label for="qtdBebida">Qtd: </label>
+                                <select id="qtdBebida" name="qtdBebida">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                </select>
+                                <br /><br />
+                                <input type="button" id="envBebida" value="Adicionar" />
+                                <input type="button" id="cancBebida" value="Cancelar" />
+                            </fieldset>
+                        </div>
+                    </fieldset>
+                    <input type="hidden" name="cmd" value="envPedidop" /><br />
+                    <input type="submit" value="Avan&ccedil;ar" id="envPedido" />
                 </form>
             </div>
             <div class="footer">
