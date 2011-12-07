@@ -15,6 +15,12 @@
     </head>
     <body>
         <div id="tudo">
+            <div class="desc-topo" id="secCliente">Voc&ecirc; est&aacute; logado como <a href="main.do?action=profile">${cliente.nome}</a>.&nbsp;&nbsp;
+                <form id="flogout" method="post" action="main.do?action=homec" name="flogout" style="float: right;">
+                    <input type="hidden" name="cmd" value="logoutp" /> 
+                    <a href="javascript:document.flogout.submit()">&nbsp;Sair&nbsp;</a>
+                </form>
+            </div>
             <div id="header">
                 <h1>iSyzza - Sistema Gerenciador de Tele Entregas</h1>
             </div>

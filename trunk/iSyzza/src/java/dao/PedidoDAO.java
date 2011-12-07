@@ -37,6 +37,7 @@ public class PedidoDAO {
 
     public static void addPedido(Pedido pedido) {
         try {
+            
             Connection conexao = DBConnection.getInstance();
             String sql = loadSQL("Insert.Pedido");
             PreparedStatement pstmt = conexao.prepareStatement(sql);
@@ -64,6 +65,59 @@ public class PedidoDAO {
             String sql = loadSQL("UpdatePagamento.Pedido");
             PreparedStatement pstmt = conexao.prepareStatement(sql);
             pstmt.setTimestamp(1, new Timestamp(pedido.getData_pag().getTime()));
+            pstmt.setInt(2, pedido.getId());
+            pstmt.executeUpdate();
+            pstmt.close();
+        } catch (SQLException ex) {
+            System.out.println("Erro no SQL: " + ex.getMessage());
+        } catch (ClassNotFoundException ex) {
+            System.out.println("Classe nao achada: " + ex.getMessage());
+        } catch (IOException ex) {
+            System.out.println("Erro de IO: " + ex.getMessage());
+        }
+    }
+    
+    public static void setNovaPedido(Pedido pedido) {
+        try {
+            Connection conexao = DBConnection.getInstance();
+            String sql = loadSQL("UpdateNova.Pedido");
+            PreparedStatement pstmt = conexao.prepareStatement(sql);
+            pstmt.setInt(1, pedido.getId());
+            pstmt.executeUpdate();
+            pstmt.close();
+        } catch (SQLException ex) {
+            System.out.println("Erro no SQL: " + ex.getMessage());
+        } catch (ClassNotFoundException ex) {
+            System.out.println("Classe nao achada: " + ex.getMessage());
+        } catch (IOException ex) {
+            System.out.println("Erro de IO: " + ex.getMessage());
+        }
+    }
+    
+    public static void setProntoPedido(Pedido pedido) {
+        try {
+            Connection conexao = DBConnection.getInstance();
+            String sql = loadSQL("UpdatePronto.Pedido");
+            PreparedStatement pstmt = conexao.prepareStatement(sql);
+            pstmt.setTimestamp(1, new Timestamp(pedido.getData_pronta().getTime()));
+            pstmt.setInt(2, pedido.getId());
+            pstmt.executeUpdate();
+            pstmt.close();
+        } catch (SQLException ex) {
+            System.out.println("Erro no SQL: " + ex.getMessage());
+        } catch (ClassNotFoundException ex) {
+            System.out.println("Classe nao achada: " + ex.getMessage());
+        } catch (IOException ex) {
+            System.out.println("Erro de IO: " + ex.getMessage());
+        }
+    }
+    
+    public static void setEntreguePedido(Pedido pedido) {
+        try {
+            Connection conexao = DBConnection.getInstance();
+            String sql = loadSQL("UpdateEntregue.Pedido");
+            PreparedStatement pstmt = conexao.prepareStatement(sql);
+            pstmt.setTimestamp(1, new Timestamp(pedido.getData_pronta().getTime()));
             pstmt.setInt(2, pedido.getId());
             pstmt.executeUpdate();
             pstmt.close();
@@ -123,7 +177,55 @@ public class PedidoDAO {
 
         return lista;
     }
+    
+    public static ArrayList<Pedido> getPedidosByAberto() {
+        ArrayList<Pedido> lista = new ArrayList<Pedido>();
+        Pedido pedido;
+        try {
+            Connection conexao = DBConnection.getInstance();
+            String sql = loadSQL("SelectByAberto.Pedido");
+            PreparedStatement pstmt = conexao.prepareStatement(sql);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                pedido = recoverData(rs);
+                lista.add(pedido);
+            }
+            pstmt.close();
+        } catch (SQLException ex) {
+            System.out.println("Erro no SQL: " + ex.getMessage());
+        } catch (ClassNotFoundException ex) {
+            System.out.println("Classe nao achada: " + ex.getMessage());
+        } catch (IOException ex) {
+            System.out.println("Erro de IO: " + ex.getMessage());
+        }
 
+        return lista;
+    }
+
+    public static ArrayList<Pedido> getPedidosByEntrega() {
+        ArrayList<Pedido> lista = new ArrayList<Pedido>();
+        Pedido pedido;
+        try {
+            Connection conexao = DBConnection.getInstance();
+            String sql = loadSQL("SelectByEntrega.Pedido");
+            PreparedStatement pstmt = conexao.prepareStatement(sql);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                pedido = recoverData(rs);
+                lista.add(pedido);
+            }
+            pstmt.close();
+        } catch (SQLException ex) {
+            System.out.println("Erro no SQL: " + ex.getMessage());
+        } catch (ClassNotFoundException ex) {
+            System.out.println("Classe nao achada: " + ex.getMessage());
+        } catch (IOException ex) {
+            System.out.println("Erro de IO: " + ex.getMessage());
+        }
+
+        return lista;
+    }
+    
     public static ArrayList<Pedido> getPedidos() {
         ArrayList<Pedido> lista = new ArrayList<Pedido>();
         Pedido pedido;
