@@ -5,7 +5,7 @@
 --%>
 
 <%@page import="java.util.List"%>
-<%@page contentType="text/html" pageEncoding="utf-8"%>
+<%@page contentType="text/html" pageEncoding="iso-8859-1"%>
 
 <!DOCTYPE html>
 <html>
@@ -16,10 +16,6 @@
         <link rel="stylesheet" href="include/css/principal.css" type="text/css" />
         <script src="include/js/jquery-1.7.min.js"> </script>
         <script type="text/javascript">
-            $(document).ready(function(){
-
-        });
-
         </script>
     </head>
     <body>
@@ -29,24 +25,8 @@
                 <h1>iSyzza - Sistema Gerenciador de Tele Entregas</h1>
             </div>
             <div id="conteudo">
-                <div id="erros"></div>
-                <h3>Recuperacao de Senha</h3>
-                <form action="main.do?action=recuSenha" method="post" id="formlogin">
-                    <fieldset>
-                       
-                        
-                        <div class="campos">
-                            <label for="email">Informe o seu email: <br /></label>
-                            <input type="text" name="email" id="email" size="15" value="" />
-                            <div id="est-email" class="estados"></div>
-                        </div>
-                        <div class="campos">
-                            <input type="hidden" name="cmd" value="recuSenhap" id="cmd" />
-                            <input type="submit" id="enviar" name="enviar" value="Enviar" />
-                            <input type="reset" id="limpar" name="limpar" value="Limpar" />
-                        </div>
-                    </fieldset>
-                </form>
+                <h4>Email Enviado com Sucesso!!</h4>
+                <p>Para voltar ao login <a href='main.do?action=logincli'>Clique aqui.</a></p>
             </div>
             <div class="footer">
                 <span><a href="main.do?action=homec">Home</a></span> | 
