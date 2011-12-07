@@ -19,10 +19,10 @@
         <script type="text/javascript">
             $(document).ready(function(){
                 $('#telefone').setMask({mask: '(99) 9999-9999', autoTab: false});
-                //$('#data').setMask({mask: '99/99/9999', autoTab: false});
-                //$('#cpf').setMask({mask: '999.999.999-99', autoTab: false});
                 $('#cep').setMask({mask: '99999-999', autoTab: false});
                 $('.inputs').hide();
+                $('#final').hide();
+                $('#canc').hide();
                 loadItens("Pizzas", "pizzas");
                 loadItens("Petiscos", "petiscos");
                 loadItens("Sobrem", "sobremesas");
@@ -30,7 +30,6 @@
                 $('#voltar').click(function(){
                     location.href = "main.do?action=newpedido";
                 });
-                
                 $('#editar').click(function(){
                     changeState('cep');
                     changeState('log');
@@ -39,6 +38,39 @@
                     changeState('num');
                     changeState('comp');
                     changeState('telefone');
+                    $('#editar').hide();
+                    $('#final').show();
+                    $('#canc').show();
+                });
+                $('#canc').click(function(){
+                    $('.inputs').hide();
+                    $('#final').hide();
+                    $('#canc').hide();
+                    $('#editar').show();
+                    $('.spans').show();
+                });
+                $('#final').click(function(){
+                    $.post('main.do?action=confirmped', {cmd: 'upDestino',
+                        cep: $('#cep').val(), 
+                        log: $('#log').val(),
+                        bairro: $('#bairro').val(),
+                        cid: $('#cid').val(),
+                        num: $('#num').val(),
+                        comp: $('#comp').val(),
+                        telefone: $('#telefone').val()
+                    });
+                    $('#span-cep').html($('#cep').val());
+                    $('#span-log').html($('#log').val());
+                    $('#span-bairro').html($('#bairro').val());
+                    $('#span-cid').html($('#cid').val());
+                    $('#span-num').html($('#num').val());
+                    $('#span-comp').html($('#comp').val());
+                    $('#span-telefone').html($('#telefone').val());
+                    $('.inputs').hide();
+                    $('#final').hide();
+                    $('#canc').hide();
+                    $('#editar').show();
+                    $('.spans').show();
                 });
             });
             function changeState(id) {
@@ -74,50 +106,52 @@
                 <h3>Bebidas</h3>
                 <div id="bebidas"></div>
                 <hr />
-                <form action="main.do?action=newpedido" method="post">
+                <form action="main.do?action=confirmped" method="post">
                     <%
                         Cliente cliente = (Cliente) session.getAttribute("cliente");
                         String[] pedacos = cliente.getEndereco().split("\\|");
                     %>
                     <h3>Dados para Entrega</h3>
-                    <a href="#" id="editar">editar</a>
+                    <input type="button" value="Editar" id="editar" />
+                    <input type="button" value="Finalizar" id="final" />
+                    <input type="button" value="Cancelar" id="canc" />
                     <div class="campos">
-                        <label for="cep">Cep: </label><span id="span-cep"><%=pedacos[0]%></span><br />
+                        <label for="cep">Cep: </label><span id="span-cep" class="spans"><%=pedacos[3]%></span><br />
                         <input type="text" id="cep" name="cep" value="" size="15" class="inputs" />
                         <div id="est-cep" class="estados"></div>
                     </div>
                     <div class="campos">
-                        <label for="log">Logradouro: </label><span id="span-log"><%=pedacos[1]%></span><br />
+                        <label for="log">Logradouro: </label><span id="span-log" class="spans"><%=pedacos[0]%></span><br />
                         <input type="text" id="log" name="log" value="" size="30" class="inputs" />
                         <div id="est-log" class="estados"> </div>
                     </div>
                     <div class="campos">
-                        <label for="bairro">Bairro: </label><span id="span-bairro"><%=pedacos[2]%></span><br />
+                        <label for="bairro">Bairro: </label><span id="span-bairro" class="spans"><%=pedacos[1]%></span><br />
                         <input type="text" id="bairro" name="bairro" value="" size="20" class="inputs" />
                         <div id="est-bairro" class="estados"></div>
                     </div>
                     <div class="campos">
-                        <label for="cid">Cidade: </label><span id="span-cid"><%=pedacos[3]%></span><br />
+                        <label for="cid">Cidade: </label><span id="span-cid" class="spans"><%=pedacos[2]%></span><br />
                         <input type="text" id="cid" name="cid" value="" size="20" class="inputs" />
                         <div id="est-cid" class="estados"></div>
                     </div>
                     <div class="campos">
-                        <label for="num">Nº: </label><span id="span-num"><%=pedacos[4]%></span><br />
+                        <label for="num">Nº: </label><span id="span-num" class="spans"><%=pedacos[4]%></span><br />
                         <input type="text" id="num" name="num" value="" size="5" class="inputs" />
                         <div id="est-num" class="estados"></div>
                     </div>
                     <div class="campos">
-                        <label for="comp">Complemento: </label><span id="span-comp"><%= (pedacos.length == 6) ? pedacos[5] : "---"%></span><br />
+                        <label for="comp">Complemento: </label><span id="span-comp" class="spans"><%= (pedacos.length == 6) ? pedacos[5] : "---"%></span><br />
                         <input type="text" id="comp" name="comp" value="" size="5" class="inputs" />
                         <div id="est-comp" class="estados"></div>
                     </div>
                     <div class="campos">
-                        <label for="telefone">Telefone: </label><span id="span-telefone"><%=cliente.getTelefone()%></span><br />
+                        <label for="telefone">Telefone: </label><span id="span-telefone" class="spans"><%=cliente.getTelefone()%></span><br />
                         <input type="text" id="telefone" name="telefone" value="" class="inputs" />
                         <div id="est-telefone" class="estados"></div>
                     </div>
-                    <input type="hidden" name="cmd" value="confirmped" />
-                    <input type="submit" value="Confirmar" />
+                    <input type="hidden" name="cmd" value="confirmpedp" />
+                    <input type="submit" value="Confirmar Pedido" />
                     <input type="button" value="Voltar" id="voltar" />
                 </form>
             </div>

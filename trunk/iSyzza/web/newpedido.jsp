@@ -145,7 +145,7 @@
             </div>
             <div id="conteudo">
                 <h2>Novo Pedido</h2>
-                <form id="formped" action="main.do?action=newpedido" method="post">
+                <form id="formped" action="main.do?action=confirmped" method="post">
                     <fieldset>
                         <h3>Pizzas</h3>
                         <div id="pizzas"></div>
