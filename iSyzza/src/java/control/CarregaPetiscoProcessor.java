@@ -39,6 +39,7 @@ public class CarregaPetiscoProcessor extends Processor {
         if (petiscos.isEmpty()) {
             out.print("<p>Nenhum petisco.</p>");
         }
+        session.setAttribute("petiscosPed", petiscos);
     }
     
 }

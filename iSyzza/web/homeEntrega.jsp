@@ -6,7 +6,7 @@
 
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="utf-8"%>
-<%@include file="autentica.jsp" %>
+<%@include file="autenticaAdm.jsp" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -17,19 +17,18 @@
         <script src="include/js/jquery-1.7.min.js"> </script>
         <script type="text/javascript">
             $(document).ready(function(){
-                loadAcPedidos();
+                loadPedidos();
             });
-            function loadAcPedidos() {
-                $.post("main.do?action=homec", {cmd: 'pedidosac'}, function(data){
-                    $('#pedidosac').html(data);
+            function loadPedidos() {
+                $.post('main.do?action=homeEntrega', {cmd: 'pedEntrega'}, function(data){
+                    $('#pedidos').html(data)
                 });
-                setTimeOut(loadAcPedidos, 5000);
             }
         </script>
     </head>
     <body>
         <div id="tudo">
-            <div class="desc-topo" id="secCliente">Voc&ecirc; est&aacute; logado como <a href="main.do?action=profile">${cliente.nome}</a>.&nbsp;&nbsp;
+            <div class="desc-topo" id="secCliente">Voc&ecirc; est&aacute; logado como <a href="main.do?action=profile">${admin.nome}</a>.&nbsp;&nbsp;
                 <form id="flogout" method="post" action="main.do?action=homec" name="flogout" style="float: right;">
                     <input type="hidden" name="cmd" value="logoutp" /> 
                     <a href="javascript:document.flogout.submit()">&nbsp;Sair&nbsp;</a>
@@ -39,9 +38,8 @@
                 <h1>iSyzza - Sistema Gerenciador de Tele Entregas</h1>
             </div>
             <div id="conteudo">
-                <h3>Acompanhamento de pedidos</h3>
-                <div id="pedidosac"></div>
-                <p>Para fazer um novo pedido, <a href="main.do?action=newpedido">clique aqui</a>.</p>
+                <h3>Pedidos para Entrega</h3>
+                <div id="pedidos"></div>
             </div>
             <div class="footer">
                 <span><a href="main.do?action=homec">Home</a></span> | 

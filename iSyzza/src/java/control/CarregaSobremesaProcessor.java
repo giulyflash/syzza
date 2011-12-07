@@ -39,6 +39,7 @@ public class CarregaSobremesaProcessor extends Processor{
         if (sobremesas.isEmpty()) {
             out.print("<p>Nenhuma sobremesa.</p>");
         }
+        session.setAttribute("sobremesasPed", sobremesas);
     }
     
 }

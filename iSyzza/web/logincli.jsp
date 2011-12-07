@@ -73,6 +73,7 @@
                             <input type="submit" id="enviar" name="enviar" value="Enviar" />
                             <input type="reset" id="limpar" name="limpar" value="Limpar" />
                             <br />Ainda não é cadastrado? <a href="main.do?action=cadcli">Clique aqui.</a>
+                            <br /><a href="main.do?action=recuSenha">Esqueci minha senha.</a>
                         </div>
                     </fieldset>
                 </form>

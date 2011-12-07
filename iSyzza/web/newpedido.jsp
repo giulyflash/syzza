@@ -47,6 +47,7 @@
                     $.post("main.do?action=newpedido", {cmd: "addPizzas", 
                         tamanho: $('#tamanho').val(),
                         borda: $('#borda').val(), 
+                        qtdPizza: $('#qtdPizza').val(),
                         sabor1: $('#sabor1').val(), 
                         sabor2: $('#sabor2').val(), 
                         sabor3: $('#sabor3').val(), 
@@ -204,6 +205,15 @@
                                         </option>
                                     </c:forEach>
                                 </select>
+                                <br />
+                                <label for="qtdPetisco">Qtd: </label>
+                                <select id="qtdPizza" name="qtdPizza">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                </select>
                                 <br /><br />
                                 <input type="button" id="envPizza" value="Adicionar" />
                                 <input type="button" id="cancPizza" value="Cancelar" />
@@ -276,8 +286,8 @@
                         <input type="button" value="Adicionar" id="addBebida" />
                         <div id="novaBebida">
                             <fieldset>
-                                <h3>Nova Sobremesa</h3>
-                                <label for="bebida">Sobremesa: </label>
+                                <h3>Nova Bebida</h3>
+                                <label for="bebida">Bebida: </label>
                                 <select name="bebida" id="bebida">
                                     <c:forEach items="${bebidas}" var="bebida">
                                         <option value="<c:out value="${bebida.id}" />">

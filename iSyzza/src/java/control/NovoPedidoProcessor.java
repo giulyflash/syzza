@@ -33,6 +33,8 @@ public class NovoPedidoProcessor extends Processor{
         Pedido pedido = new Pedido();
         pedido.setCliente(cliente);
         pedido.setId(1);
+        pedido.setEndereco(cliente.getEndereco());
+        pedido.setTelefone(cliente.getTelefone());
         session.setAttribute("pedido", pedido);
         
         ArrayList<Sabor> sabores = SaborDAO.getSabores();

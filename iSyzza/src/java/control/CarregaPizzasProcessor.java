@@ -38,11 +38,13 @@ public class CarregaPizzasProcessor extends Processor{
                     pizza.getSabores().get(1).getNome()+", "+
                     pizza.getSabores().get(2).getNome()+", "+
                     pizza.getSabores().get(3).getNome()+"<br />");
-            out.print("&nbsp;&nbsp;&nbsp;&nbsp;&nbspBorda: "+pizza.getBorda().getNome()+"<br /><br />");
+            out.print("&nbsp;&nbsp;&nbsp;&nbsp;&nbspBorda: "+pizza.getBorda().getNome()+"<br />");
+            out.print("&nbsp;&nbsp;&nbsp;&nbsp;&nbspQtd: "+pizza.getQtd()+"<br /><br />");
         }
         if (pizzas.isEmpty()) {
             out.print("<p>Nenhuma pizza.</p>");
         }
+        session.setAttribute("pizzas", pizzas);
     }
     
 }

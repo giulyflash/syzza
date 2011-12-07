@@ -39,6 +39,7 @@ public class CarregaBebidaProcessor extends Processor{
         if (bebidas.isEmpty()) {
             out.print("<p>Nenhuma bebida.</p>");
         }
+        session.setAttribute("bebidasPed", bebidas);
     }
     
 }

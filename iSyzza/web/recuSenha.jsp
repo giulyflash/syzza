@@ -17,42 +17,37 @@
         <script src="include/js/jquery-1.7.min.js"> </script>
         <script type="text/javascript">
             $(document).ready(function(){
-                
-            });
+
+        });
+
         </script>
     </head>
     <body>
         <div id="tudo">
+            <div class="desc-topo" id="secAdm"><a href="main.do?action=loginAdm">Administra&ccedil;&atilde;o</a></div>
             <div id="header">
                 <h1>iSyzza - Sistema Gerenciador de Tele Entregas</h1>
             </div>
             <div id="conteudo">
-
-                <div id="erros">
-
-                </div>
-                <%
-                    Integer status = (Integer) request.getAttribute("status");
-                    System.out.println(status);
-                    if (status != null) {
-                        out.print("<span class=\"erro\">Login ou senha errados!</span>");
-                    }
-                %>
-                <form id="ad-form" method="post" action="main.do?action=loginAdm">
+                <div id="erros"></div>
+                <h3>Recuperacao de Senha</h3>
+                <form action="main.do?action=recuSenha" method="post" id="formlogin">
                     <fieldset>
-                        <legend>Administra&ccedil;&atilde;o</legend>
+                        <%
+                            Integer status = (Integer) request.getAttribute("status");
+                            System.out.println(status);
+                            if (status != null) {
+                                out.print("<span class=\"erro\">Login ou senha errados!</span>");
+                            }
+                        %>
+                        
                         <div class="campos">
-                            <label for="email">Email:<br /></label>
+                            <label for="email">Informe o seu email: <br /></label>
                             <input type="text" name="email" id="email" size="15" value="" />
                             <div id="est-email" class="estados"></div>
                         </div>
                         <div class="campos">
-                            <label for="senha">Senha:<br /></label>
-                            <input type="password" name="senha" id="senha" size="15" value="" />
-                            <div id="est-senha" class="estados"></div>
-                        </div>
-                        <div class="campos">
-                            <input type="hidden" name="cmd" value="loginAdmp" id="cmd" />
+                            <input type="hidden" name="cmd" value="recuSenhap" id="cmd" />
                             <input type="submit" id="enviar" name="enviar" value="Enviar" />
                             <input type="reset" id="limpar" name="limpar" value="Limpar" />
                         </div>

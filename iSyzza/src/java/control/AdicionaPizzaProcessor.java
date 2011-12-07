@@ -36,6 +36,7 @@ public class AdicionaPizzaProcessor extends Processor {
         pizza.setTamanho(tamanho);
         Borda borda = BordaDAO.getBordaById(Integer.parseInt(getRequest().getParameter("borda")));
         pizza.setBorda(borda);
+        pizza.setQtd(Integer.parseInt(getRequest().getParameter("qtdPizza")));
         for (int i=1;i<=4;i++) {
             Sabor sabor = SaborDAO.getSaborById(Integer.parseInt(getRequest().getParameter("sabor"+i)));
             pizza.getSabores().add(sabor);
