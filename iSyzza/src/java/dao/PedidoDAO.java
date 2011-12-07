@@ -45,6 +45,8 @@ public class PedidoDAO {
             pstmt.setNull(3, java.sql.Types.TIMESTAMP);
             pstmt.setNull(4, java.sql.Types.TIMESTAMP);
             pstmt.setInt(5, pedido.getCliente().getId());
+            pstmt.setString(6, pedido.getEndereco());
+            pstmt.setString(7, pedido.getTelefone());
             pstmt.executeUpdate();
             pstmt.close();
         } catch (SQLException ex) {
@@ -55,7 +57,7 @@ public class PedidoDAO {
             System.out.println("Erro de IO: " + ex.getMessage());
         }
     }
-
+    
     public static void setPagamentoPedido(Pedido pedido) {
         try {
             Connection conexao = DBConnection.getInstance();
@@ -145,6 +147,28 @@ public class PedidoDAO {
         return lista;
     }
 
+    public static Pedido getPedidoByNova() {
+        Pedido pedido = null;
+        try {
+            Connection conexao = DBConnection.getInstance();
+            String sql = loadSQL("SelectByNova.Pedido");
+            PreparedStatement pstmt = conexao.prepareStatement(sql);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                pedido = recoverData(rs);
+            }
+            pstmt.close();
+        } catch (SQLException ex) {
+            System.out.println("Erro no SQL: " + ex.getMessage());
+        } catch (ClassNotFoundException ex) {
+            System.out.println("Classe nao achada: " + ex.getMessage());
+        } catch (IOException ex) {
+            System.out.println("Erro de IO: " + ex.getMessage());
+        }
+
+        return pedido;
+    }
+    
     private static Pedido recoverData(ResultSet rs) throws SQLException {
         Pedido pedido = new Pedido();
         pedido.setId(rs.getInt("id_pedido"));
@@ -154,8 +178,8 @@ public class PedidoDAO {
         pedido.setData_entrega(rs.getTimestamp("data_entrega"));
         pedido.setCliente(ClienteDAO.getClienteById(rs.getInt("id_cliente")));
         pedido.setPago(rs.getInt("pago"));
-        System.out.println(rs.getTimestamp("data_pedido"));
-        System.out.println(pedido.getData_pedido() + "funouuuu");
+        pedido.setEndereco(rs.getString("endereco"));
+        pedido.setTelefone(rs.getString("telefone"));
         return pedido;
     }
 
